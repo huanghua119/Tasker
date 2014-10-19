@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.chuanshida.tasker.CustomApplcation;
 import com.chuanshida.tasker.R;
+import com.chuanshida.tasker.manager.UserManager;
 import com.chuanshida.tasker.util.CommonUtils;
 
 public class BaseActivity extends Activity {
@@ -39,6 +39,7 @@ public class BaseActivity extends Activity {
         mScreenWidth = metric.widthPixels;
         mScreenHeight = metric.heightPixels;
         mInFlater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        userManager = UserManager.getInstance(this);
         mSwitchTheme = false;
     }
 

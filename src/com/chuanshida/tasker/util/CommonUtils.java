@@ -82,7 +82,7 @@ public class CommonUtils {
         tipTextView.setText(msg);
         Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);
 
-        loadingDialog.setCancelable(false);
+        //loadingDialog.setCancelable(false);
         loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));

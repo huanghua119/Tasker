@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        mHandler.sendEmptyMessageDelayed(GO_HOME, 2000);
+        mHandler.sendEmptyMessageDelayed(GO_LOGIN, 2000);
         mRunFinishAnim = false;
     }
 
@@ -35,7 +35,8 @@ public class SplashActivity extends BaseActivity {
                 finish();
                 break;
             case GO_LOGIN:
-                //startAnimActivity(LoginActivity.class);
+                startActivity(new Intent(SplashActivity.this, LoginChooseActivity.class));
+                overridePendingTransition(0, R.anim.push_up_out);
                 finish();
                 break;
             }
