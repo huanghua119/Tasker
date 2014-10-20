@@ -64,7 +64,7 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="@string/login_text"
-                android:textColor="@android:color/white"
+                android:textColor="@color/logo_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dip"
         android:layout_marginRight="30dip"
-        android:layout_marginTop="40dip"
+        android:layout_marginTop="30dip"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
@@ -84,14 +84,17 @@
             android:id="@+id/phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/textfield_bg"
             android:hint="@string/input_phone_nubmer"
             android:inputType="phone"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dip"
+            android:layout_marginTop="8dip"
             android:orientation="horizontal" >
 
             <EditText
@@ -99,26 +102,31 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/textfield_bg"
                 android:hint="@string/input_phone_verify"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textSize="14sp" />
+                android:textSize="17sp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/verify_btn__bg"
                 android:text="@string/send_verify"
-                android:textSize="17sp" />
+                android:textColor="@color/send_verify_color"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/pass_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/textfield_bg"
             android:hint="@string/input_password"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/commit_register"

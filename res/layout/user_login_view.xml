@@ -63,7 +63,7 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="@string/login_text"
-                android:textColor="@android:color/white"
+                android:textColor="@color/logo_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -73,6 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
         android:layout_marginTop="30dip"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -80,23 +82,30 @@
 
         <EditText
             android:id="@+id/user_phone"
-            android:layout_width="280dip"
-            android:layout_height="60dip"
-            android:background="@drawable/edit_box_login_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfield_bg"
+            android:drawableLeft="@drawable/edit_user"
+            android:drawablePadding="10dip"
             android:hint="@string/input_phone_nubmer"
             android:inputType="phone"
-            android:paddingLeft="15dip"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
             android:singleLine="true"
             android:textSize="17sp" />
 
         <EditText
             android:id="@+id/user_pass"
-            android:layout_width="280dip"
-            android:layout_height="60dip"
-            android:background="@drawable/edit_box_login_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dip"
+            android:background="@drawable/textfield_bg"
+            android:drawableLeft="@drawable/edit_pass"
+            android:drawablePadding="10dip"
             android:hint="@string/input_password"
             android:inputType="textPassword"
-            android:paddingLeft="15dip"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
             android:singleLine="true"
             android:textSize="17sp" />
     </LinearLayout>
@@ -127,7 +136,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dip"
+            android:clickable="true"
             android:text="@string/now_register"
+            android:textColor="@color/login_bottom_text_color"
             android:textSize="18sp" />
 
         <TextView
@@ -135,7 +146,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dip"
+            android:clickable="true"
             android:text="@string/forgot_pass"
+            android:textColor="@color/login_bottom_text_color"
             android:textSize="18sp" />
     </LinearLayout>
 

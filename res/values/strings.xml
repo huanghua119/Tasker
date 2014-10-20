@@ -15,13 +15,13 @@
     <string name="sex_man">男</string>
     <string name="sex_woman">女</string>
     <string name="commit">提交</string>
-    <string name="notid">请输入帐号</string>
+    <string name="notid">请输手机号</string>
     <string name="notpass">请输入密码</string>
     <string name="passerror">你输入的密码不正确</string>
-    <string name="usernotfind">你输入的帐号不存在</string>
+    <string name="usernotfind">你输入的手机号不存在</string>
     <string name="login_now">正在登陆....</string>
     <string name="logout">退出登陆</string>
-    <string name="namenotnull">请输入用户昵称!</string>
+    <string name="namenotnull">请输入手机号!</string>
     <string name="passnotnull">请输入登陆密码!</string>
     <string name="twopassnotpass">确认密码和登陆密码不一置!</string>
     <string name="pass_so_easy">密码至少6位!</string>

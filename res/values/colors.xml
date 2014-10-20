@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="send_verify_color">#faa084</color>
+    <color name="login_bottom_text_color">#ec6941</color>
+    <color name="logo_color">#fff5f1</color>
+
+</resources>
