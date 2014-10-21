@@ -127,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dip"
+        android:layout_marginTop="15dip"
         android:gravity="center_horizontal"
         android:orientation="horizontal" >
 
@@ -135,7 +135,8 @@
             android:id="@+id/now_regiser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dip"
+            android:layout_marginRight="10dip"
+            android:padding="15dip"
             android:clickable="true"
             android:text="@string/now_register"
             android:textColor="@color/login_bottom_text_color"
@@ -145,7 +146,8 @@
             android:id="@+id/forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"
+            android:layout_marginLeft="10dip"
+            android:padding="15dip"
             android:clickable="true"
             android:text="@string/forgot_pass"
             android:textColor="@color/login_bottom_text_color"

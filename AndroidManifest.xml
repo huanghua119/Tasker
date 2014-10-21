@@ -40,19 +40,23 @@
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" >
         </activity>
         <activity
             android:name=".ui.LoginChooseActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".ui.UserLoginActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".ui.UserRegisterActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize" >
         </activity>
         <!-- tencent login start -->
