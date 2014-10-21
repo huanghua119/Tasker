@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="view_margin">30dip</dimen>
+    <dimen name="register_commit_margin_top">50dip</dimen>
+
+</resources>
