@@ -43,5 +43,12 @@
     <string name="send_verify">发送验证码</string>
     <string name="reset_password">重置密码 </string>
     <string name="ok">确定</string>
+    <string name="tab_calendar">任务日历</string>
+    <string name="tab_me">我</string>
+    <string name="tab_friends">好友列表</string>
+    <string name="tab_find">发现</string>
+    <string name="pass_exit">再按一次退出应用！</string>
+    <string name="calendar">日历</string>
+    <string name="lists">列表</string>
 
 </resources>

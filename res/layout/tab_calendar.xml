@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/tab_calendar"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/remind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:src="@drawable/title_remind_bg" />
+
+        <TextView
+            android:id="@+id/remind_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/remind"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/new_notice"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="11sp"
+            android:textColor="@android:color/white" />
+
+        <RadioGroup
+            android:id="@+id/calendar_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_radio_left_bg"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/calendar"
+                android:textColor="@color/title_radio_text_color"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/radio_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_radio_right_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/lists"
+                android:textColor="@color/title_radio_text_color"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+        <ImageButton
+            android:id="@+id/add_task"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:src="@drawable/title_add_bg" />
+    </RelativeLayout>
+
+</LinearLayout>

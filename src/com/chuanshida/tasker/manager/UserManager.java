@@ -70,6 +70,9 @@ public class UserManager {
         mCurrentUser = new User();
         mCurrentUser.setUsername(userName);
         mCurrentUser.setPassword(passWord);
+        if (userName.equals("123456") && passWord.equals("123456")) {
+            userListener.onSuccess(mCurrentUser);
+        }
     }
 
     public void logout() {

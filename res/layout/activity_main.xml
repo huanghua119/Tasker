@@ -1,11 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        android:id="@+id/main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btn_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/home_calendar_bg"
+                android:onClick="onTabSelect"
+                android:paddingTop="8dip"
+                android:layout_centerInParent="true"
+                android:scaleType="matrix"
+                android:text="@string/tab_calendar"
+                android:textColor="@color/home_text_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_calendar_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/new_notice"
+                android:contentDescription="@string/action_settings"
+                android:gravity="center"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btn_friends"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/home_friends_bg"
+                android:onClick="onTabSelect"
+                android:paddingTop="8dip"
+                android:layout_centerInParent="true"
+                android:scaleType="matrix"
+                android:text="@string/tab_friends"
+                android:textColor="@color/home_text_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_friends_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/new_notice"
+                android:contentDescription="@string/action_settings"
+                android:gravity="center"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btn_find"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/home_find_bg"
+                android:onClick="onTabSelect"
+                android:paddingTop="8dip"
+                android:layout_centerInParent="true"
+                android:scaleType="matrix"
+                android:text="@string/tab_find"
+                android:textColor="@color/home_text_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_nearby_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/new_notice"
+                android:contentDescription="@string/action_settings"
+                android:gravity="center"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btn_me"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/home_me_bg"
+                android:onClick="onTabSelect"
+                android:paddingTop="8dip"
+                android:scaleType="matrix"
+                android:text="@string/tab_me"
+                android:textColor="@color/home_text_color"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_moreby_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/new_notice"
+                android:contentDescription="@string/action_settings"
+                android:gravity="center"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_bottom" />
 
 </RelativeLayout>

@@ -4,5 +4,6 @@
     <color name="send_verify_color">#faa084</color>
     <color name="login_bottom_text_color">#ec6941</color>
     <color name="logo_color">#fff5f1</color>
+    <color name="orange_color">#c96a4e</color>
 
 </resources>

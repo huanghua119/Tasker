@@ -110,6 +110,8 @@ public class UserLoginActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onSuccess(User u) {
                 removeDialog(DIALOG_NEW_REGISTER);
+                startAnimActivity(new Intent(UserLoginActivity.this,
+                        MainActivity.class));
                 finish();
             }
 
