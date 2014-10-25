@@ -19,7 +19,6 @@ public class UserRegisterActivity extends BaseActivity implements
     private Button mCommit;
     private EditText mPhoneNumber;
     private EditText mPass;
-    private EditText mPassTwo;
     private TextView mTitle;
     private boolean mResetPass = false;
 
@@ -60,10 +59,10 @@ public class UserRegisterActivity extends BaseActivity implements
     }
 
     private void startRegister() {
-        String name = mPhoneNumber.getText().toString();
+        String phoneNumber = mPhoneNumber.getText().toString();
         String password = mPass.getText().toString();
 
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(phoneNumber)) {
             ShowToast(R.string.namenotnull);
             return;
         }
@@ -87,7 +86,7 @@ public class UserRegisterActivity extends BaseActivity implements
         progress.setCanceledOnTouchOutside(false);
         progress.show();
         User bu = new User();
-        bu.setUsername(name);
+        bu.setPhoneNumber(phoneNumber);
         bu.setPassword(password);
     }
 }

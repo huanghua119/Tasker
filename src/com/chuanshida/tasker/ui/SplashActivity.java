@@ -21,7 +21,11 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        mHandler.sendEmptyMessageDelayed(GO_LOGIN, 2000);
+        if (userManager.getCurrentUser() == null) {
+            mHandler.sendEmptyMessageDelayed(GO_LOGIN, 2000);
+        } else {
+            mHandler.sendEmptyMessageDelayed(GO_HOME, 2000);
+        }
         mRunFinishAnim = false;
     }
 

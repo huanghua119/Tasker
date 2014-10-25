@@ -65,12 +65,12 @@ public class UserManager {
         mCurrentUser.setPassword(Config.applicationId);
     }
 
-    public void login(String userName, String passWord,
+    public void login(String phoneNumber, String passWord,
             final UserManagerListener userListener) {
         mCurrentUser = new User();
-        mCurrentUser.setUsername(userName);
+        mCurrentUser.setPhoneNumber(phoneNumber);
         mCurrentUser.setPassword(passWord);
-        if (userName.equals("123456") && passWord.equals("123456")) {
+        if (phoneNumber.equals("123456") && passWord.equals("123456")) {
             userListener.onSuccess(mCurrentUser);
         }
     }
@@ -228,4 +228,5 @@ public class UserManager {
             userListener.onError(0, "");
         }
     }
+
 }

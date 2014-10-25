@@ -73,6 +73,15 @@ public class UserLoginActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        mCurrentUser = getUserInfo();
+        String phoneNumber = mCurrentUser.getPhoneNumber();
+        String password = mCurrentUser.getPassword();
+        if (phoneNumber != null && !"".equals(phoneNumber)) {
+            mUserPhone.setText(phoneNumber);
+        }
+        if (password != null && !"".equals(password)) {
+            mUserPass.setText(password);
+        }
     }
 
     @Override
@@ -93,10 +102,10 @@ public class UserLoginActivity extends BaseActivity implements OnClickListener {
 
     @SuppressWarnings("deprecation")
     private void login() {
-        String name = mUserPhone.getText().toString();
+        String phoneNumber = mUserPhone.getText().toString();
         String password = mUserPass.getText().toString();
 
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(phoneNumber)) {
             ShowToast(R.string.notid);
             return;
         }
@@ -105,8 +114,8 @@ public class UserLoginActivity extends BaseActivity implements OnClickListener {
             ShowToast(R.string.notpass);
             return;
         }
-        setUserName(name);
-        userManager.login(name, password, new UserManagerListener() {
+        saveUserInfo(phoneNumber, password);
+        userManager.login(phoneNumber, password, new UserManagerListener() {
             @Override
             public void onSuccess(User u) {
                 removeDialog(DIALOG_NEW_REGISTER);
@@ -142,19 +151,23 @@ public class UserLoginActivity extends BaseActivity implements OnClickListener {
         return dialog;
     }
 
-    private String getUserName() {
+    private User getUserInfo() {
         SharedPreferences mSharedPreferences = getSharedPreferences("tasker",
                 Context.MODE_PRIVATE);
-        String name = mSharedPreferences.getString("user_name", "");
-        return name;
+        String phoneNumber = mSharedPreferences.getString("phone_number", "");
+        String password = mSharedPreferences.getString("pass_word", "");
+        User user = new User();
+        user.setPhoneNumber(phoneNumber);
+        user.setPassword(password);
+        return user;
     }
 
-    private void setUserName(String username) {
+    private void saveUserInfo(String phoneNumber, String password) {
         SharedPreferences mSharedPreferences = getSharedPreferences("tasker",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString("user_name", username);
+        editor.putString("phone_number", phoneNumber);
+        editor.putString("pass_word", password);
         editor.commit();
     }
-
 }

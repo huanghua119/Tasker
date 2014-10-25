@@ -7,6 +7,8 @@ public class User {
 
     private String objectId;
 
+    private String phoneNumber;
+
     private String userName;
 
     private String passWord;
@@ -77,7 +79,7 @@ public class User {
         this.objectId = objectId;
     }
 
-    public String setUsername() {
+    public String getUsername() {
         if (logintype != null
                 && (logintype == LOGIN_TYPE_WEIBO || logintype == LOGIN_TYPE_TENCENT_QQ)) {
             return this.othername;
@@ -86,8 +88,16 @@ public class User {
         }
     }
 
-    public void setUsername(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.userName = username;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
     }
 
     public String getPassword() {

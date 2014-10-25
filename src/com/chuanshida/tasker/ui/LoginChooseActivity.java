@@ -98,6 +98,9 @@ public class LoginChooseActivity extends BaseActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        if (userManager.getCurrentUser() != null) {
+            finish();
+        }
     }
 
     @Override
