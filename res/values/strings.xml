@@ -50,5 +50,22 @@
     <string name="pass_exit">再按一次退出应用！</string>
     <string name="calendar">日历</string>
     <string name="lists">列表</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="loading">正在玩命加载....</string>
+    <string name="status_finish">已完成</string>
+    <string name="status_progress">进行中</string>
+    <string name="task_public">任务公开</string>
+    <string name="task_only_friend">仅好友可见</string>
+    <string name="task_only_self">仅自己可见</string>
+    <string name="search">搜索</string>
+    <string name="your_friend">你的好友</string>
+    <string name="no_add_friend">以下好友待添加</string>
+    <string name="assigned_ta">指派ta</string>
+    <string name="add_ta">逗ta</string>
 
 </resources>

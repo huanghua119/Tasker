@@ -2,13 +2,14 @@ package com.chuanshida.tasker.ui;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.chuanshida.tasker.CustomApplcation;
 import com.chuanshida.tasker.R;
-import com.chuanshida.tasker.fragment.CalendarFragment;
+import com.chuanshida.tasker.fragment.TaskFragment;
 import com.chuanshida.tasker.fragment.FindFragment;
 import com.chuanshida.tasker.fragment.FriendsFragment;
 import com.chuanshida.tasker.fragment.MeFragment;
@@ -21,7 +22,7 @@ public class MainActivity extends BaseActivity {
     private int mIndex;
     private int mCurrentTabIndex;
 
-    private CalendarFragment mCalendarFrament;
+    private TaskFragment mCalendarFrament;
     private FriendsFragment mFriendsFrament;
     private FindFragment mFindFrament;
     private MeFragment mMeFragment;
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initTab() {
-        mCalendarFrament = new CalendarFragment();
+        mCalendarFrament = new TaskFragment();
         mFriendsFrament = new FriendsFragment();
         mFindFrament = new FindFragment();
         mMeFragment = new MeFragment();
@@ -131,4 +132,10 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    public void onLogout(View v) {
+        userManager.logout();
+        startActivity(new Intent(this, LoginChooseActivity.class));
+        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        finish();
+    }
 }

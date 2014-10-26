@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
+        android:background="@drawable/home_bar_bg"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal" >

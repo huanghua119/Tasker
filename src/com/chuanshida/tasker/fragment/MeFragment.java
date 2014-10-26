@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
+import com.chuanshida.tasker.bean.User;
+import com.chuanshida.tasker.manager.UserManager;
 
 /***
  * 任务日历
@@ -15,6 +18,9 @@ import com.chuanshida.tasker.R;
  * 
  */
 public class MeFragment extends FragmentBase implements OnClickListener {
+
+    private UserManager mUserManager;
+    private TextView mUserName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,21 +32,26 @@ public class MeFragment extends FragmentBase implements OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mUserManager = UserManager.getInstance(getActivity());
         init();
     }
 
     private void init() {
+        mUserName = (TextView) findViewById(R.id.user_name);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        User user = mUserManager.getCurrentUser();
+        if (user != null) {
+            mUserName.setText(user.getPhoneNumber() + " : "
+                    + user.getUsername());
+        }
     }
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
 
     }
-
 }

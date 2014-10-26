@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg_color"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:background="@color/calendar_bg_color"
+        android:gravity="center"
+        android:text="我是日历" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0" >
+
+        <com.chuanshida.tasker.view.xlist.XListView
+            android:id="@+id/list_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="0dip"
+            android:fadingEdgeLength="0dp"
+            android:fastScrollEnabled="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="0dip" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/activity_bg_color"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -26,10 +26,11 @@
         <ImageButton
             android:id="@+id/remind"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/action_settings"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
             android:src="@drawable/title_remind_bg" />
@@ -38,14 +39,14 @@
             android:id="@+id/remind_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/remind"
             android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/remind"
             android:layout_marginTop="5dip"
             android:background="@drawable/new_notice"
             android:gravity="center"
             android:text="1"
-            android:textSize="11sp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
 
         <RadioGroup
             android:id="@+id/calendar_radio"
@@ -67,7 +68,7 @@
                 android:textSize="12sp" />
 
             <RadioButton
-                android:id="@+id/radio_new"
+                android:id="@+id/radio_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/title_radio_right_bg"
@@ -85,9 +86,22 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/action_settings"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
             android:src="@drawable/title_add_bg" />
     </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </android.support.v4.view.ViewPager>
+    </FrameLayout>
 
 </LinearLayout>

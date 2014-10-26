@@ -9,6 +9,7 @@ import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -22,7 +23,7 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.CustomApplcation;
 import com.chuanshida.tasker.R;
-
+import com.chuanshida.tasker.bean.Task;
 
 public class CommonUtils {
     /** 检查是否有网络 */
@@ -82,7 +83,7 @@ public class CommonUtils {
         tipTextView.setText(msg);
         Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);
 
-        //loadingDialog.setCancelable(false);
+        // loadingDialog.setCancelable(false);
         loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
@@ -130,5 +131,15 @@ public class CommonUtils {
         }
     }
 
-
+    public static String getTaskPermission(Resources res, int permission) {
+        switch (permission) {
+        case Task.TASK_PERMISSIONS_PUBLIC:
+            return res.getString(R.string.task_public);
+        case Task.TASK_PERMISSIONS_ONLY_FRIEND:
+            return res.getString(R.string.task_only_friend);
+        case Task.TASK_PERMISSIONS_ONLY_SELF:
+            return res.getString(R.string.task_only_self);
+        }
+        return "";
+    }
 }
