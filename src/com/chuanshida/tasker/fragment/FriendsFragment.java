@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
-import com.chuanshida.tasker.adapter.FriendAdapter;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.util.TempData;
-import com.chuanshida.tasker.view.xlist.XListView;
+import com.chuanshida.tasker.util.ViewHolder;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 
 /***
@@ -26,12 +29,83 @@ import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 public class FriendsFragment extends FragmentBase implements
         IXListViewListener, View.OnClickListener, OnItemClickListener {
 
-    private XListView mMyFriendList;
-    private XListView mNoAddFriend;
-    private FriendAdapter mNoAddFriendAdapter;
-    private FriendAdapter mFriendAdapter;
+    private ExpandableListView mAllFriendList;
+
+    private List<List<User>> mFriendGroup = new ArrayList<List<User>>();
     private List<User> mMyList = new ArrayList<User>();
     private List<User> mNoAddList = new ArrayList<User>();
+
+    private BaseExpandableListAdapter mAllFriendListAdapter = new BaseExpandableListAdapter() {
+
+        @Override
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean isExpanded,
+                View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (convertView == null) {
+                view = mInflater.inflate(R.layout.friend_group_view, null);
+            }
+            TextView groupName = ViewHolder.get(view, R.id.group_name);
+            groupName.setText(groupPosition == 0 ? R.string.your_friend
+                    : R.string.no_add_friend);
+            return view;
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public int getGroupCount() {
+            return mFriendGroup.size();
+        }
+
+        @Override
+        public Object getGroup(int groupPosition) {
+            return mFriendGroup.get(groupPosition);
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return mFriendGroup.get(groupPosition).size();
+        }
+
+        @Override
+        public View getChildView(int groupPosition, int childPosition,
+                boolean isLastChild, View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (convertView == null) {
+                view = mInflater.inflate(R.layout.friend_item_view, null);
+            }
+            User user = getChild(groupPosition, childPosition);
+            TextView userName = ViewHolder.get(view, R.id.user_name);
+            userName.setText(user.getUsername());
+            Button button = ViewHolder.get(view, R.id.btn);
+            button.setText(groupPosition == 0 ? R.string.assigned_ta
+                    : R.string.add_ta);
+            return view;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public User getChild(int groupPosition, int childPosition) {
+            return mFriendGroup.get(groupPosition).get(childPosition);
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,25 +122,23 @@ public class FriendsFragment extends FragmentBase implements
 
     private void init() {
         mMyList = TempData.createTempMyFriend(getActivity());
-        mMyFriendList = (XListView) findViewById(R.id.list_my_friend);
-        mMyFriendList.setPullLoadEnable(false);
-        mMyFriendList.setPullRefreshEnable(false);
-        mMyFriendList.setXListViewListener(this);
-        mFriendAdapter = new FriendAdapter(getActivity(), mMyList, true);
-        mMyFriendList.setAdapter(mFriendAdapter);
-        mMyFriendList.pullRefreshing();
-        mMyFriendList.setOnItemClickListener(this);
-
         mNoAddList = TempData.createTempNewFriend(getActivity());
-        mNoAddFriend = (XListView) findViewById(R.id.list_no_add_friend);
-        mNoAddFriend.setPullLoadEnable(false);
-        mNoAddFriend.setPullRefreshEnable(false);
-        mNoAddFriend.setXListViewListener(this);
-        mNoAddFriendAdapter = new FriendAdapter(getActivity(), mNoAddList,
-                false);
-        mNoAddFriend.setAdapter(mNoAddFriendAdapter);
-        mNoAddFriend.pullRefreshing();
-        mNoAddFriend.setOnItemClickListener(this);
+        mFriendGroup.add(mMyList);
+        mFriendGroup.add(mNoAddList);
+
+        mAllFriendList = (ExpandableListView) findViewById(R.id.list_friends);
+        mAllFriendList.setAdapter(mAllFriendListAdapter);
+        mAllFriendList
+                .setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                    @Override
+                    public boolean onGroupClick(ExpandableListView parent,
+                            View v, int groupPosition, long id) {
+                        return true;
+                    }
+                });
+        for (int i = 0; i < mFriendGroup.size(); i++) {
+            mAllFriendList.expandGroup(i);
+        }
     }
 
     @Override

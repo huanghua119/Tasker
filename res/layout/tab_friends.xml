@@ -49,56 +49,14 @@
         android:padding="6dip"
         android:textSize="15sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_title_bg"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dip"
-            android:text="@string/your_friend"
-            android:textColor="@color/task_permissions_color"
-            android:textSize="15sp" />
-
-        <com.chuanshida.tasker.view.xlist.XListView
-            android:id="@+id/list_my_friend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@null"
-            android:dividerHeight="0dip"
-            android:fadingEdgeLength="0dp"
-            android:fastScrollEnabled="false" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_title_bg"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="10dip"
-            android:text="@string/no_add_friend"
-            android:textColor="@color/task_permissions_color"
-            android:textSize="15sp" />
-
-        <com.chuanshida.tasker.view.xlist.XListView
-            android:id="@+id/list_no_add_friend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@null"
-            android:dividerHeight="0dip"
-            android:fadingEdgeLength="0dp"
-            android:fastScrollEnabled="false" />
-    </LinearLayout>
+    <ExpandableListView
+        android:id="@+id/list_friends"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:childDivider="@null"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:groupIndicator="@android:color/transparent" >
+    </ExpandableListView>
 
 </LinearLayout>

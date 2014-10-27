@@ -108,6 +108,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="40dip"
+                android:layout_marginTop="4dip"
                 android:background="@drawable/verify_btn__bg"
                 android:text="@string/send_verify"
                 android:textColor="@color/send_verify_color"
