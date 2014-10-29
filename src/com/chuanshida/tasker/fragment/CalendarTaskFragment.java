@@ -1,19 +1,23 @@
 package com.chuanshida.tasker.fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.calendar.CalendarPagerAdapter;
+import com.chuanshida.tasker.calendar.LunarCalendar;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -27,9 +31,30 @@ import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 public class CalendarTaskFragment extends FragmentBase implements
         IXListViewListener, View.OnClickListener, OnItemClickListener {
 
+    private ViewPager mPager;
+    private CalendarPagerAdapter mPagerAdapter;
+    private TextView mCalendarMonth;
     private XListView mDayTask;
     private TaskListAdapter mTaskListAdapter;
     private List<Task> mList = new ArrayList<Task>();
+
+    // 月份显示切换事件
+    private class SimplePageChangeListener extends
+            ViewPager.SimpleOnPageChangeListener {
+        @Override
+        public void onPageSelected(int position) {
+            // set title year month
+            StringBuilder title = new StringBuilder();
+            title.append(LunarCalendar.getMinYear() + (position / 12));
+            title.append(getResources().getString(R.string.calendar_year));
+            int month = (position % 12) + 1;
+            if (month < 10) {
+                title.append('0');
+            }
+            title.append(month + getResources().getString(R.string.calendar_month));
+            mCalendarMonth.setText(title);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +70,17 @@ public class CalendarTaskFragment extends FragmentBase implements
     }
 
     private void init() {
+        mCalendarMonth = (TextView) findViewById(R.id.calendar_month);
+        mPager = (ViewPager) findViewById(R.id.pager);
+        try {
+            mPagerAdapter = new CalendarPagerAdapter(getChildFragmentManager());
+        } catch (NoSuchMethodError e) {
+            mPagerAdapter = new CalendarPagerAdapter(getFragmentManager());
+        }
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setOnPageChangeListener(new SimplePageChangeListener());
+        mPager.setCurrentItem(getTodayMonthIndex());
+
         mList = TempData.createTempDayTaskData(getActivity());
         mDayTask = (XListView) findViewById(R.id.list_task);
         mDayTask.setPullLoadEnable(false);
@@ -54,6 +90,13 @@ public class CalendarTaskFragment extends FragmentBase implements
         mDayTask.setAdapter(mTaskListAdapter);
         mDayTask.pullRefreshing();
         mDayTask.setOnItemClickListener(this);
+    }
+
+    private int getTodayMonthIndex() {
+        Calendar today = Calendar.getInstance();
+        int offset = (today.get(Calendar.YEAR) - LunarCalendar.getMinYear())
+                * 12 + today.get(Calendar.MONTH);
+        return offset;
     }
 
     @Override

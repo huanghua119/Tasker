@@ -56,6 +56,8 @@
     <string name="xlistview_header_last_time">上次更新时间：</string>
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
     <string name="loading">正在玩命加载....</string>
     <string name="status_finish">已完成</string>
     <string name="status_progress">进行中</string>

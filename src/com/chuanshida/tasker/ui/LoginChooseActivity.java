@@ -99,6 +99,7 @@ public class LoginChooseActivity extends BaseActivity implements
     protected void onResume() {
         super.onResume();
         if (userManager.getCurrentUser() != null) {
+            mRunFinishAnim = false;
             finish();
         }
     }

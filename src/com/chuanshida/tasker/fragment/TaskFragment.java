@@ -118,7 +118,7 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
         }
     }
 
-    private class PageChangeListener implements OnPageChangeListener {
+    public class PageChangeListener implements OnPageChangeListener {
 
         @Override
         public void onPageScrollStateChanged(int arg0) {

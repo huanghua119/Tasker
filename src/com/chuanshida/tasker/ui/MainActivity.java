@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 
 import com.chuanshida.tasker.CustomApplcation;
@@ -15,7 +16,7 @@ import com.chuanshida.tasker.fragment.FriendsFragment;
 import com.chuanshida.tasker.fragment.MeFragment;
 import com.chuanshida.tasker.util.SharePreferenceUtil;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnFocusChangeListener{
 
     private Button[] mTabs;
     private Fragment[] fragments;
@@ -137,5 +138,10 @@ public class MainActivity extends BaseActivity {
         startActivity(new Intent(this, LoginChooseActivity.class));
         overridePendingTransition(R.anim.left_in, R.anim.left_out);
         finish();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        
     }
 }
