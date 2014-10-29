@@ -48,6 +48,18 @@
             android:textColor="@android:color/white"
             android:textSize="11sp" />
 
+        <ImageButton
+            android:id="@+id/out_box"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/remind"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/action_settings"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:src="@drawable/title_out_box_bg" />
+
         <RadioGroup
             android:id="@+id/calendar_radio"
             android:layout_width="wrap_content"

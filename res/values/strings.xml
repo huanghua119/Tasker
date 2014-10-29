@@ -67,7 +67,17 @@
     <string name="search">搜索</string>
     <string name="your_friend">你的好友</string>
     <string name="no_add_friend">以下好友待添加</string>
-    <string name="assigned_ta">指派ta</string>
+    <string name="assigned_ta">分配ta</string>
     <string name="add_ta">逗ta</string>
+    <string name="add_friend">加好友</string>
+    <string name="invite_ta">邀请ta</string>
+    <string name="complete">完成</string>
+    <string name="new_task">新任务</string>
+    <string name="new_task_name">任务名称</string>
+    <string name="new_assigned">指派给谁</string>
+    <string name="new_conent">任务内容</string>
+    <string name="new_final_date">到期日</string>
+    <string name="new_remind">提醒</string>
+    <string name="location">所在位置</string>
 
 </resources>

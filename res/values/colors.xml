@@ -7,11 +7,13 @@
     <color name="orange_color">#ED8E6D</color>
     <color name="xlistview_footer_textcolor">#323131</color>
     <color name="activity_bg_color">#FFFFFF</color>
+    <color name="fragment_bg_color">#eeeae9</color>
     <color name="task_name_color">#777573</color>
-    <color name="task_permissions_color">#A19B98</color>
+    <color name="task_permissions_color">#797472</color>
     <drawable name="list_pressed_bg">#ED8E6D</drawable>
     <drawable name="list_normal_bg">#00000000</drawable>
     <color name="calendar_bg_color">#d08067</color>
     <drawable name="driver_color">#d2d0cc</drawable>
+    <color name="invite_friend_color">#a19b99</color>
 
 </resources>

@@ -3,60 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/activity_bg_color"
+    android:background="@color/fragment_bg_color"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@drawable/title"
-        android:gravity="center_vertical" >
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/tab_friends"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <ImageButton
-            android:id="@+id/add_task"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:src="@drawable/title_add_bg" />
-    </RelativeLayout>
-
-    <EditText
-        android:id="@+id/search_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="5dip"
-        android:background="@drawable/edit_view_bg"
-        android:drawableLeft="@drawable/search"
-        android:drawablePadding="8dip"
-        android:hint="@string/search"
-        android:padding="6dip"
-        android:textSize="15sp" />
+        android:background="@color/activity_bg_color"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-    <ExpandableListView
-        android:id="@+id/list_friends"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:childDivider="@null"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:groupIndicator="@android:color/transparent" >
-    </ExpandableListView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@drawable/title"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/tab_friends"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/add_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:src="@drawable/title_add_bg" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/edit_view_bg"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="8dip"
+            android:hint="@string/search"
+            android:padding="6dip"
+            android:textSize="15sp" />
+
+        <ExpandableListView
+            android:id="@+id/list_friends"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:childDivider="@null"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:groupIndicator="@android:color/transparent" >
+        </ExpandableListView>
+    </LinearLayout>
 
 </LinearLayout>

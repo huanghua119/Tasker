@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 import com.chuanshida.tasker.R;
+import com.chuanshida.tasker.ui.MainActivity;
 
 /***
  * 任务日历
@@ -24,6 +26,7 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
 
     private ViewPager mPager;
     private RadioGroup mTitleRadioGroup = null;
+    private ImageButton mNewTask = null;
     private ViewPagerAdapter mPagerAdapter;
     private ListTaskFragment mListTaskFragment;
     private CalendarTaskFragment mCalendarTaskFragment;
@@ -73,6 +76,8 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
         mTitleRadioGroup = (RadioGroup) findViewById(R.id.calendar_radio);
         mTitleRadioGroup.setVisibility(View.VISIBLE);
         mTitleRadioGroup.setOnCheckedChangeListener(mRadioListener);
+        mNewTask = (ImageButton) findViewById(R.id.add_task);
+        mNewTask.setOnClickListener(this);
     }
 
     @Override
@@ -92,7 +97,10 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        if (v == mNewTask) {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.toNewTaskFragment();
+        }
     }
 
     public class ViewPagerAdapter extends FragmentPagerAdapter {

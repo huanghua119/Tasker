@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
-        android:layout_marginRight="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginTop="10dip" >
 
@@ -36,22 +35,21 @@
             android:textColor="@color/task_name_color"
             android:textSize="16sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/task_permissions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/task_name"
             android:layout_toRightOf="@+id/user_photo"
+            android:layout_marginTop="4dip"
             android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textColor="@color/task_permissions_color"
-            android:textSize="15sp" />
+            android:contentDescription="@string/action_settings" />
 
         <TextView
             android:id="@+id/task_create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/task_permissions"
+            android:layout_below="@+id/task_name"
             android:layout_marginLeft="2dip"
             android:layout_toRightOf="@+id/task_permissions"
             android:gravity="center_vertical"
@@ -60,7 +58,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center_horizontal"
@@ -70,11 +68,8 @@
                 android:id="@+id/task_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@null"
-                android:drawableTop="@drawable/check_box_bg"
-                android:text="@string/status_progress"
-                android:textColor="@color/task_permissions_color"
-                android:textSize="12sp" />
+                android:padding="10dip"
+                android:button="@drawable/check_box_bg" />
         </LinearLayout>
     </RelativeLayout>
 

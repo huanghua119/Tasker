@@ -39,26 +39,17 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView taskName = ViewHolder.get(view, R.id.task_name);
         TextView taskCreateTime = ViewHolder.get(view, R.id.task_create_time);
-        TextView taskPermissions = ViewHolder.get(view, R.id.task_permissions);
+        ImageView taskPermissions = ViewHolder.get(view, R.id.task_permissions);
         CheckBox taskStatus = ViewHolder.get(view, R.id.task_status);
 
         taskName.setText(task.getName());
 
-        taskPermissions.setText(CommonUtils.getTaskPermission(
-                mContext.getResources(), task.getPermissions()));
+        taskPermissions.setBackgroundResource(CommonUtils
+                .getTaskPermission(task.getPermissions()));
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
         String time = sdf.format(task.getCreateAt());
-        taskCreateTime.setText("(" + time +")");
+        taskCreateTime.setText("(" + time + ")");
         taskStatus.setChecked(task.getStatus() == Task.TASK_STATUS_FINISH);
-        if (task.getStatus() == Task.TASK_STATUS_PROGRESS) {
-            taskStatus.setText(R.string.status_progress);
-            taskStatus.setTextColor(mContext.getResources().getColor(
-                    R.color.orange_color));
-        } else if (task.getStatus() == Task.TASK_STATUS_FINISH) {
-            taskStatus.setText(R.string.status_finish);
-            taskStatus.setTextColor(mContext.getResources().getColor(
-                    R.color.task_permissions_color));
-        }
         return view;
     }
 

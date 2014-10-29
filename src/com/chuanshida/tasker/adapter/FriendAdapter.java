@@ -37,9 +37,27 @@ public class FriendAdapter extends BaseListAdapter<User> {
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView userName = ViewHolder.get(view, R.id.user_name);
         userName.setText(user.getUsername());
-        Button button = ViewHolder.get(view, R.id.btn);
-        button.setText(mMyFriend ? R.string.assigned_ta : R.string.add_ta);
+        Button addFriend = ViewHolder.get(view, R.id.add_friend);
+        if (position == getCount() - 1) {
+            addFriend.setText(R.string.invite_ta);
+            addFriend.setBackgroundResource(R.drawable.invite_btn_bg);
+            addFriend.setTextColor(mContext.getResources().getColor(
+                    R.color.invite_friend_color));
+            userName.setTextColor(mContext.getResources().getColor(
+                    R.color.invite_friend_color));
+        } else {
+            addFriend.setText(R.string.add_friend);
+            addFriend.setBackgroundResource(R.drawable.verify_btn__bg);
+            addFriend.setTextColor(mContext.getResources().getColor(
+                    R.color.send_verify_color));
+            userName.setTextColor(mContext.getResources().getColor(
+                    R.color.task_name_color));
+        }
+        if (!mMyFriend) {
+            addFriend.setVisibility(View.VISIBLE);
+        } else {
+            addFriend.setVisibility(View.GONE);
+        }
         return view;
     }
-
 }

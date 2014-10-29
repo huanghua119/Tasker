@@ -90,9 +90,27 @@ public class FriendsFragment extends FragmentBase implements
             User user = getChild(groupPosition, childPosition);
             TextView userName = ViewHolder.get(view, R.id.user_name);
             userName.setText(user.getUsername());
-            Button button = ViewHolder.get(view, R.id.btn);
-            button.setText(groupPosition == 0 ? R.string.assigned_ta
-                    : R.string.add_ta);
+            Button addFriend = ViewHolder.get(view, R.id.add_friend);
+            if (childPosition == getChildrenCount(groupPosition) - 1) {
+                addFriend.setText(R.string.invite_ta);
+                addFriend.setBackgroundResource(R.drawable.invite_btn_bg);
+                addFriend.setTextColor(getResources().getColor(
+                        R.color.invite_friend_color));
+                userName.setTextColor(getResources().getColor(
+                        R.color.invite_friend_color));
+            } else {
+                addFriend.setText(R.string.add_friend);
+                addFriend.setBackgroundResource(R.drawable.verify_btn__bg);
+                addFriend.setTextColor(getResources().getColor(
+                        R.color.send_verify_color));
+                userName.setTextColor(getResources().getColor(
+                        R.color.task_name_color));
+            }
+            if (groupPosition == 1) {
+                addFriend.setVisibility(View.VISIBLE);
+            } else {
+                addFriend.setVisibility(View.GONE);
+            }
             return view;
         }
 

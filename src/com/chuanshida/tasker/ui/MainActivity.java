@@ -10,13 +10,14 @@ import android.widget.Button;
 
 import com.chuanshida.tasker.CustomApplcation;
 import com.chuanshida.tasker.R;
-import com.chuanshida.tasker.fragment.TaskFragment;
 import com.chuanshida.tasker.fragment.FindFragment;
 import com.chuanshida.tasker.fragment.FriendsFragment;
 import com.chuanshida.tasker.fragment.MeFragment;
+import com.chuanshida.tasker.fragment.NewTaskFragment;
+import com.chuanshida.tasker.fragment.TaskFragment;
 import com.chuanshida.tasker.util.SharePreferenceUtil;
 
-public class MainActivity extends BaseActivity implements OnFocusChangeListener{
+public class MainActivity extends BaseActivity implements OnFocusChangeListener {
 
     private Button[] mTabs;
     private Fragment[] fragments;
@@ -27,6 +28,7 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener{
     private FriendsFragment mFriendsFrament;
     private FindFragment mFindFrament;
     private MeFragment mMeFragment;
+    private NewTaskFragment mNewTaskFragment;
     private SharePreferenceUtil mSp = null;
 
     @Override
@@ -53,17 +55,19 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener{
         mFriendsFrament = new FriendsFragment();
         mFindFrament = new FindFragment();
         mMeFragment = new MeFragment();
+        mNewTaskFragment = new NewTaskFragment();
         fragments = new Fragment[] { mCalendarFrament, mFriendsFrament,
-                mFindFrament, mMeFragment };
+                mFindFrament, mMeFragment, mNewTaskFragment };
         FragmentTransaction trx = getFragmentManager().beginTransaction();
         trx.add(R.id.fragment_container, mCalendarFrament);
         trx.add(R.id.fragment_container, mFriendsFrament);
         trx.add(R.id.fragment_container, mFindFrament);
         trx.add(R.id.fragment_container, mMeFragment);
+        trx.add(R.id.fragment_container, mNewTaskFragment);
         trx.commit();
         getFragmentManager().beginTransaction().hide(mFriendsFrament)
-                .hide(mMeFragment).hide(mFindFrament).show(mCalendarFrament)
-                .commit();
+                .hide(mMeFragment).hide(mFindFrament).hide(mNewTaskFragment)
+                .show(mCalendarFrament).commit();
         mTabs[0].setSelected(true);
         mCurrentTabIndex = 0;
     }
@@ -90,15 +94,21 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener{
         }
         if (mCurrentTabIndex != mIndex) {
             FragmentTransaction trx = getFragmentManager().beginTransaction();
+            /*
+             * if (mCurrentTabIndex == 4 && mIndex == 0 ) {
+             * trx.setCustomAnimations(R.anim.fragment_left_out,
+             * R.anim.fragment_left_in); }
+             */
             trx.hide(fragments[mCurrentTabIndex]);
             if (!fragments[mIndex].isAdded()) {
                 trx.add(R.id.fragment_container, fragments[mIndex]);
             }
             trx.show(fragments[mIndex]).commit();
         }
-        mTabs[mCurrentTabIndex].setSelected(false);
-        // 把当前tab设为选中状态
-        mTabs[mIndex].setSelected(true);
+        if (mCurrentTabIndex < 4) {
+            mTabs[mCurrentTabIndex].setSelected(false);
+            mTabs[mIndex].setSelected(true);
+        }
         mCurrentTabIndex = mIndex;
     }
 
@@ -142,6 +152,36 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener{
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        
+
+    }
+
+    public void toNewTaskFragment() {
+        FragmentTransaction trx = getFragmentManager().beginTransaction();
+        /*
+         * trx.setCustomAnimations(R.anim.fragment_left_in,
+         * R.anim.fragment_left_out);
+         */
+        mIndex = 4;
+        trx.hide(fragments[mCurrentTabIndex]);
+        if (!fragments[mIndex].isAdded()) {
+            trx.add(R.id.fragment_container, fragments[mIndex]);
+        }
+        trx.show(fragments[mIndex]).commit();
+        mCurrentTabIndex = mIndex;
+    }
+
+    public void exitNewTaskFragment() {
+        FragmentTransaction trx = getFragmentManager().beginTransaction();
+        /*
+         * trx.setCustomAnimations(R.anim.fragment_left_out,
+         * R.anim.fragment_left_in); }
+         */
+        mIndex = 0;
+        trx.hide(fragments[mCurrentTabIndex]);
+        if (!fragments[mIndex].isAdded()) {
+            trx.add(R.id.fragment_container, fragments[mIndex]);
+        }
+        trx.show(fragments[mIndex]).commit();
+        mCurrentTabIndex = mIndex;
     }
 }

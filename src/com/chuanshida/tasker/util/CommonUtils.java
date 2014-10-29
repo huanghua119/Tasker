@@ -142,4 +142,16 @@ public class CommonUtils {
         }
         return "";
     }
+
+    public static int getTaskPermission(int permission) {
+        switch (permission) {
+        case Task.TASK_PERMISSIONS_PUBLIC:
+            return R.drawable.permission_public;
+        case Task.TASK_PERMISSIONS_ONLY_FRIEND:
+            return R.drawable.permission_friend;
+        case Task.TASK_PERMISSIONS_ONLY_SELF:
+            return R.drawable.permission_only_self;
+        }
+        return 0;
+    }
 }
