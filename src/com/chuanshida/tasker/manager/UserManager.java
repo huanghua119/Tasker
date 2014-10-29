@@ -70,7 +70,7 @@ public class UserManager {
         mCurrentUser = new User();
         mCurrentUser.setPhoneNumber(phoneNumber);
         mCurrentUser.setPassword(passWord);
-        mCurrentUser.setUsername("我是傻逼");
+        mCurrentUser.setUsername("香喷喷");
         if (phoneNumber.equals("123456") && passWord.equals("123456")) {
             userListener.onSuccess(mCurrentUser);
         }

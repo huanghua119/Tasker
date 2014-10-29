@@ -184,4 +184,8 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
         trx.show(fragments[mIndex]).commit();
         mCurrentTabIndex = mIndex;
     }
+
+    public void onCellClick(View v) {
+        
+    }
 }

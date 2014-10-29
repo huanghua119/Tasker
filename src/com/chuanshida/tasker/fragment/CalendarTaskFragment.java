@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
@@ -37,6 +39,18 @@ public class CalendarTaskFragment extends FragmentBase implements
     private XListView mDayTask;
     private TaskListAdapter mTaskListAdapter;
     private List<Task> mList = new ArrayList<Task>();
+    private DatePickerDialog mSelectDateDialog = null;
+
+    private DatePickerDialog.OnDateSetListener mDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                int dayOfMonth) {
+            int offset = (year - LunarCalendar.getMinYear())
+                    * 12 + monthOfYear;
+            LunarCalendar.DATE_SELECT_OFFSET = offset + dayOfMonth;
+            mPager.setCurrentItem(offset, true);
+        }
+    };
 
     // 月份显示切换事件
     private class SimplePageChangeListener extends
@@ -51,7 +65,8 @@ public class CalendarTaskFragment extends FragmentBase implements
             if (month < 10) {
                 title.append('0');
             }
-            title.append(month + getResources().getString(R.string.calendar_month));
+            title.append(month
+                    + getResources().getString(R.string.calendar_month));
             mCalendarMonth.setText(title);
         }
     }
@@ -79,7 +94,7 @@ public class CalendarTaskFragment extends FragmentBase implements
         }
         mPager.setAdapter(mPagerAdapter);
         mPager.setOnPageChangeListener(new SimplePageChangeListener());
-        mPager.setCurrentItem(getTodayMonthIndex());
+        mPager.setCurrentItem(getTodayMonthIndex(), false);
 
         mList = TempData.createTempDayTaskData(getActivity());
         mDayTask = (XListView) findViewById(R.id.list_task);
@@ -90,6 +105,7 @@ public class CalendarTaskFragment extends FragmentBase implements
         mDayTask.setAdapter(mTaskListAdapter);
         mDayTask.pullRefreshing();
         mDayTask.setOnItemClickListener(this);
+        mCalendarMonth.setOnClickListener(this);
     }
 
     private int getTodayMonthIndex() {
@@ -99,6 +115,14 @@ public class CalendarTaskFragment extends FragmentBase implements
         return offset;
     }
 
+    private void showSelectDateDialog() {
+        Calendar today = Calendar.getInstance();
+        mSelectDateDialog = new DatePickerDialog(getActivity(), mDateListener,
+                today.get(Calendar.YEAR), today.get(Calendar.MARCH),
+                today.get(Calendar.DAY_OF_MONTH));
+        mSelectDateDialog.show();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -106,7 +130,9 @@ public class CalendarTaskFragment extends FragmentBase implements
 
     @Override
     public void onClick(View v) {
-
+        if (v == mCalendarMonth) {
+            showSelectDateDialog();
+        }
     }
 
     @Override

@@ -38,18 +38,23 @@ public class CalendarPagerFragment extends FragmentBase {
                 R.layout.view_calendar_table, container, false);
         CalendarTableCellProvider adpt = new CalendarTableCellProvider(
                 getResources(), mMonthIndex);
+        int rowCount = adpt.getMonthRow();
         for (int row = 0; row < 6; row++) {
             tableRow = new TableRow(tableView.getContext());
+            boolean isChild = false;
             for (int column = 0; column < 8; column++) {
                 cellView = adpt.getView(row * 8 + column, inflater, tableRow);
                 if (cellView == null) {
                     continue;
                 }
+                isChild = true;
                 cellView.setOnFocusChangeListener((View.OnFocusChangeListener) container
                         .getContext());
                 tableRow.addView(cellView);
             }
-            tableView.addView(tableRow);
+            if (isChild) {
+                tableView.addView(tableRow);
+            }
         }
 
         return tableView;

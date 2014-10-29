@@ -16,7 +16,7 @@
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
     </style>
 
     <style name="style_calendar_header_text">
@@ -25,7 +25,8 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
     </style>
 
     <style name="style_calendar_cell_gregorian">
@@ -49,14 +50,16 @@
     </style>
 
     <style name="style_calendar_cell">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dip</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
         <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:onClick">onCellClick</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/calendar_item_select</item>
+        <item name="android:layout_margin">2dp</item>
     </style>
 
 </resources>

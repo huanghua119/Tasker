@@ -32,7 +32,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/calendar_header_bg" >
+            android:background="@drawable/calendar_header_bg"
+            android:gravity="center_vertical" >
+
+            <LinearLayout style="@style/style_calendar_header_container" >
+
+                <TextView
+                    style="@style/style_calendar_header_text"
+                    android:text="@string/calendar_sunday"
+                    android:textColor="@color/orange_color" />
+            </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
 
@@ -81,20 +90,12 @@
                     android:text="@string/calendar_saturday"
                     android:textColor="@color/orange_color" />
             </LinearLayout>
-
-            <LinearLayout style="@style/style_calendar_header_container" >
-
-                <TextView
-                    style="@style/style_calendar_header_text"
-                    android:text="@string/calendar_sunday"
-                    android:textColor="@color/orange_color" />
-            </LinearLayout>
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="270dip" >
         </android.support.v4.view.ViewPager>
     </LinearLayout>
 

@@ -26,7 +26,9 @@ public class LunarCalendar {
     /** 农历是否为闰月字段 */
     public static final int LUNAR_IS_LEAP = 3;
     /** 周偏移*/
-    public static final int WEEK_OFFSET = 0;
+    public static final int WEEK_OFFSET = 1;
+
+    public static int DATE_SELECT_OFFSET = 0;
 
     // 公历节日
     private static final int[][] GREGORIAN_FESTIVALS = { { 1, 1, 0 }, // 元旦

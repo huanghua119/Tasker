@@ -67,7 +67,7 @@ public class TempData {
         List<User> result = new ArrayList<User>();
         for (int i = 0; i < 2; i++) {
             User user = new User();
-            user.setUsername("小华仔" + i);
+            user.setUsername("qshnwq");
             user.setPhoneNumber("123");
             result.add(user);
         }
@@ -78,7 +78,7 @@ public class TempData {
         List<User> result = new ArrayList<User>();
         for (int i = 0; i < 3; i++) {
             User user = new User();
-            user.setUsername("大华仔" + i);
+            user.setUsername("kkkwfnh");
             user.setPhoneNumber("123");
             result.add(user);
         }

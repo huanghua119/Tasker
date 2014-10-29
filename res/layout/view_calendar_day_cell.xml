@@ -8,8 +8,7 @@
 
         <TextView
             android:id="@+id/txtCellGregorian"
-            style="@style/style_calendar_cell_gregorian"
-            android:text="@string/action_settings" />
+            style="@style/style_calendar_cell_gregorian" />
 
         <ImageView
             android:id="@+id/imgCellHint"
