@@ -38,7 +38,7 @@ public class CalendarPagerFragment extends FragmentBase {
                 R.layout.view_calendar_table, container, false);
         CalendarTableCellProvider adpt = new CalendarTableCellProvider(
                 getResources(), mMonthIndex);
-        int rowCount = adpt.getMonthRow();
+        //int rowCount = adpt.getMonthRow();
         for (int row = 0; row < 6; row++) {
             tableRow = new TableRow(tableView.getContext());
             boolean isChild = false;

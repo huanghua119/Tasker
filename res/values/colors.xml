@@ -10,10 +10,36 @@
     <color name="fragment_bg_color">#eeeae9</color>
     <color name="task_name_color">#777573</color>
     <color name="task_permissions_color">#797472</color>
+
     <drawable name="list_pressed_bg">#ED8E6D</drawable>
     <drawable name="list_normal_bg">#00000000</drawable>
+
     <color name="calendar_bg_color">#d08067</color>
+
     <drawable name="driver_color">#d2d0cc</drawable>
+
     <color name="invite_friend_color">#a19b99</color>
+
+    <!-- timessquare start -->
+    <color name="calendar_active_month_bg">#fff5f7f9</color>
+    <color name="calendar_bg">#ffffffff</color>
+    <color name="calendar_divider">#ffbababa</color>
+    <color name="calendar_inactive_month_bg">#ffd7d9db</color>
+    <color name="calendar_selected_day_bg">#ff379bff</color>
+    <color name="calendar_highlighted_day_bg">#ccffcc</color>
+    <color name="calendar_selected_range_bg">#ff96caff</color>
+    <color name="calendar_text_inactive">#40778088</color>
+    <color name="calendar_text_active">#ff778088</color>
+    <color name="calendar_text_selected">#ffffffff</color>
+    <color name="calendar_text_unselectable">#7f778088</color>
+    <color name="custom_header_text">#85B100</color>
+    <color name="custom_selected">#A8D324</color>
+    <color name="custom_background">#F0F8DB</color>
+    <color name="custom_background_today">#FF9105</color>
+    <color name="custom_background_disabled">#F0F8DB</color>
+    <color name="custom_text_selected">#FFFFFFFF</color>
+    <color name="custom_text_inactive">#7f778088</color>
+    <color name="transparent">#00000000</color>
+    <!-- timessquare end -->
 
 </resources>

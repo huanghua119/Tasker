@@ -79,5 +79,8 @@
     <string name="new_final_date">到期日</string>
     <string name="new_remind">提醒</string>
     <string name="location">所在位置</string>
+    <string name="day_name_format">EEE</string>
+    <string name="invalid_date">Date must be between %1$s and %2$s.</string>
+    <string name="month_name_format">MMMM yyyy</string>
 
 </resources>

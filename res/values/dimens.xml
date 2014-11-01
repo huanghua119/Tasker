@@ -8,4 +8,14 @@
     <dimen name="view_margin">30dip</dimen>
     <dimen name="register_commit_margin_top">50dip</dimen>
 
+    <!-- timessquare start -->
+    <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
+    <dimen name="calendar_month_topmargin">16dp</dimen>
+    <dimen name="calendar_month_title_bottommargin">4dp</dimen>
+    <dimen name="calendar_text_medium">18sp</dimen>
+    <dimen name="calendar_text_small">14sp</dimen>
+    <dimen name="dimen_margin_circle">4dp</dimen>
+    <dimen name="dimen_margin_circle.negative">-4dp</dimen>
+    <!-- timessquare end -->
+
 </resources>
