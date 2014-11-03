@@ -19,10 +19,10 @@ import android.widget.TextView;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
 import com.chuanshida.tasker.bean.Task;
-import com.chuanshida.tasker.calendar.CalendarPagerAdapter;
 import com.chuanshida.tasker.calendar.LunarCalendar;
 import com.chuanshida.tasker.timessquare.CalendarPickerView;
-import com.chuanshida.tasker.timessquare.CalendarPickerView.SelectionMode;
+import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter;
+import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.SelectionMode;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -38,7 +38,7 @@ public class CalendarTaskFragment extends FragmentBase implements
 
     private ViewPager mPager;
     private CalendarPickerView calendar;
-    private CalendarPagerAdapter mPagerAdapter;
+    private CalendarViewPagerAdapter mPagerAdapter;
     private TextView mCalendarMonth;
     private XListView mDayTask;
     private TaskListAdapter mTaskListAdapter;
@@ -89,15 +89,19 @@ public class CalendarTaskFragment extends FragmentBase implements
 
     private void init() {
         mCalendarMonth = (TextView) findViewById(R.id.calendar_month);
-/*        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager = (ViewPager) findViewById(R.id.pager);
         try {
-            mPagerAdapter = new CalendarPagerAdapter(getChildFragmentManager());
+            mPagerAdapter = new CalendarViewPagerAdapter(getChildFragmentManager(), getActivity());
         } catch (NoSuchMethodError e) {
-            mPagerAdapter = new CalendarPagerAdapter(getFragmentManager());
+            mPagerAdapter = new CalendarViewPagerAdapter(getFragmentManager(), getActivity());
         }
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setOnPageChangeListener(new SimplePageChangeListener());
-        mPager.setCurrentItem(getTodayMonthIndex(), false);*/
+        final Calendar lastYear = Calendar.getInstance();
+        lastYear.add(Calendar.YEAR, -1);
+        final Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+        mPagerAdapter.init(lastYear.getTime(), nextYear.getTime(), mPager).inMode(SelectionMode.SINGLE).withSelectedDate(new Date());
+        //mPager.setOnPageChangeListener(new SimplePageChangeListener());
+        //mPager.setCurrentItem(getTodayMonthIndex(), false);
 
         mList = TempData.createTempDayTaskData(getActivity());
         mDayTask = (XListView) findViewById(R.id.list_task);
@@ -110,14 +114,19 @@ public class CalendarTaskFragment extends FragmentBase implements
         mDayTask.setOnItemClickListener(this);
         mCalendarMonth.setOnClickListener(this);
 
-        final Calendar lastYear = Calendar.getInstance();
+/*        final Calendar lastYear = Calendar.getInstance();
         lastYear.add(Calendar.YEAR, -1);
         final Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 1);
+        try {
+            mPagerAdapter = new CalendarPagerAdapter(getChildFragmentManager());
+        } catch (NoSuchMethodError e) {
+            mPagerAdapter = new CalendarPagerAdapter(getFragmentManager());
+        }
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
         calendar.init(lastYear.getTime(), nextYear.getTime()) //
                 .inMode(SelectionMode.SINGLE) //
-                .withSelectedDate(new Date());
+                .withSelectedDate(new Date());*/
     }
 
     private int getTodayMonthIndex() {

@@ -221,8 +221,8 @@ public class CalendarPickerView extends ListView {
               monthNameFormat.format(date));
       cells.add(getMonthCells(month, monthCounter));
       Logr.d("Adding month %s", month);
-      months.add(month);
-      monthCounter.add(MONTH, 1);
+            months.add(month);
+            monthCounter.add(MONTH, 1);
     }
 
     validateAndUpdate();
