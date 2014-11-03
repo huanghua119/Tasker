@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -30,6 +29,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +42,7 @@ import com.chuanshida.tasker.timessquare.MonthCellDescriptor.RangeState;
 public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context mContext;
+    private SparseArray<MonthView> mViews = null;
 
     public Context getContext() {
         return mContext;
@@ -68,6 +69,7 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
         weekdayNameFormat = new SimpleDateFormat(
                 context.getString(R.string.day_name_format), locale);
         fullDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
+        mViews = new SparseArray<MonthView>();
 
     }
 
@@ -98,14 +100,16 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            MonthView monthView = MonthView.create(container, inflater,
+            MonthView view = MonthView.create(container, inflater,
                     weekdayNameFormat, listener, today, dividerColor,
                     dayBackgroundResId, dayTextColorResId, titleTextColor,
                     displayHeader, headerTextColor);
-            monthView.init(months.get(mMonthIndex), cells.get(mMonthIndex),
+            view.init(months.get(mMonthIndex), cells.get(mMonthIndex),
                     displayOnly, titleTypeface, dateTypeface);
-            return monthView;
+            mViews.put(mMonthIndex, view);
+            return view;
         }
+
     }
 
     private ViewPager mPager;
@@ -586,8 +590,19 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         // Update the adapter.
+        int position = mPager.getCurrentItem();
+        MonthView view = (MonthView) mViews.get(position);
+        if (view != null) {
+            view.init(months.get(position), cells.get(position),
+                    displayOnly, titleTypeface, dateTypeface);
+        }
         validateAndUpdate();
         return date != null;
+    }
+
+    public String getCurrentDate() {
+        int position = mPager.getCurrentItem();
+        return months.get(position).getLabel();
     }
 
     private void clearOldSelections() {

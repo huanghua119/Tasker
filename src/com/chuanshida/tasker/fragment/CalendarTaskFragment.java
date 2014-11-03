@@ -22,6 +22,7 @@ import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.calendar.LunarCalendar;
 import com.chuanshida.tasker.timessquare.CalendarPickerView;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter;
+import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.FluentInitializer;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.SelectionMode;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
@@ -39,6 +40,7 @@ public class CalendarTaskFragment extends FragmentBase implements
     private ViewPager mPager;
     private CalendarPickerView calendar;
     private CalendarViewPagerAdapter mPagerAdapter;
+    private FluentInitializer mPageFluent;
     private TextView mCalendarMonth;
     private XListView mDayTask;
     private TaskListAdapter mTaskListAdapter;
@@ -49,9 +51,8 @@ public class CalendarTaskFragment extends FragmentBase implements
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                 int dayOfMonth) {
-            int offset = (year - LunarCalendar.getMinYear()) * 12 + monthOfYear;
-            LunarCalendar.DATE_SELECT_OFFSET = offset + dayOfMonth;
-            mPager.setCurrentItem(offset, true);
+            Date date = new Date(year, monthOfYear, dayOfMonth);
+            mPageFluent.withSelectedDate(date);
         }
     };
 
@@ -60,17 +61,7 @@ public class CalendarTaskFragment extends FragmentBase implements
             ViewPager.SimpleOnPageChangeListener {
         @Override
         public void onPageSelected(int position) {
-            // set title year month
-            StringBuilder title = new StringBuilder();
-            title.append(LunarCalendar.getMinYear() + (position / 12));
-            title.append(getResources().getString(R.string.calendar_year));
-            int month = (position % 12) + 1;
-            if (month < 10) {
-                title.append('0');
-            }
-            title.append(month
-                    + getResources().getString(R.string.calendar_month));
-            mCalendarMonth.setText(title);
+            mCalendarMonth.setText(mPagerAdapter.getCurrentDate());
         }
     }
 
@@ -99,8 +90,8 @@ public class CalendarTaskFragment extends FragmentBase implements
         lastYear.add(Calendar.YEAR, -1);
         final Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 1);
-        mPagerAdapter.init(lastYear.getTime(), nextYear.getTime(), mPager).inMode(SelectionMode.SINGLE).withSelectedDate(new Date());
-        //mPager.setOnPageChangeListener(new SimplePageChangeListener());
+        mPageFluent = mPagerAdapter.init(lastYear.getTime(), nextYear.getTime(), mPager).inMode(SelectionMode.SINGLE).withSelectedDate(new Date());
+        mPager.setOnPageChangeListener(new SimplePageChangeListener());
         //mPager.setCurrentItem(getTodayMonthIndex(), false);
 
         mList = TempData.createTempDayTaskData(getActivity());
