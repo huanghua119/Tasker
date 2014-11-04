@@ -90,6 +90,8 @@ public class FriendsFragment extends FragmentBase implements
             User user = getChild(groupPosition, childPosition);
             TextView userName = ViewHolder.get(view, R.id.user_name);
             userName.setText(user.getUsername());
+            userName.setTextColor(getResources().getColor(
+                    R.color.task_name_color));
             Button addFriend = ViewHolder.get(view, R.id.add_friend);
             if (groupPosition == 1) {
                 if (childPosition == getChildrenCount(groupPosition) - 1) {

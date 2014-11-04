@@ -109,4 +109,8 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
             ((TextView) getChildAt(i)).setTypeface(typeface);
         }
     }
+
+    public int getNewHeight() {
+        return this.getHeight();
+    }
 }

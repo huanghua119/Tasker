@@ -140,4 +140,8 @@ public class MonthView extends LinearLayout {
     public interface Listener {
         void handleClick(MonthCellDescriptor cell);
     }
+
+    public int getViewBottom() {
+        return grid.getBottom();
+    }
 }

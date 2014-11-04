@@ -29,6 +29,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -600,9 +601,23 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
         return date != null;
     }
 
-    public String getCurrentDate() {
+    public String getCurrentDateLabel() {
         int position = mPager.getCurrentItem();
         return months.get(position).getLabel();
+    }
+
+    public Date getCurrentDate() {
+        int position = mPager.getCurrentItem();
+        return months.get(position).getDate();
+    }
+
+    public int getMonthViewBottom() {
+        int position = mPager.getCurrentItem();
+        MonthView view = (MonthView) mViews.get(position);
+        if (view != null) {
+            return view.getViewBottom();
+        }
+        return 0;
     }
 
     private void clearOldSelections() {

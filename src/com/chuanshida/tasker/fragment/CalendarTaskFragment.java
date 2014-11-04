@@ -5,9 +5,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +24,6 @@ import android.widget.TextView;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
 import com.chuanshida.tasker.bean.Task;
-import com.chuanshida.tasker.calendar.LunarCalendar;
-import com.chuanshida.tasker.timessquare.CalendarPickerView;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.FluentInitializer;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.SelectionMode;
@@ -37,22 +40,55 @@ import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 public class CalendarTaskFragment extends FragmentBase implements
         IXListViewListener, View.OnClickListener, OnItemClickListener {
 
+    public static final int MAX_YEAR = 2050;
+    public static final int MIX_YEAR = 2000;
     private ViewPager mPager;
-    private CalendarPickerView calendar;
     private CalendarViewPagerAdapter mPagerAdapter;
     private FluentInitializer mPageFluent;
     private TextView mCalendarMonth;
+    private View mCalendarHead;
+    private View mCalendarBottom;
     private XListView mDayTask;
     private TaskListAdapter mTaskListAdapter;
     private List<Task> mList = new ArrayList<Task>();
     private DatePickerDialog mSelectDateDialog = null;
+    private boolean mDelayAnim = true;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     private DatePickerDialog.OnDateSetListener mDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                 int dayOfMonth) {
-            Date date = new Date(year, monthOfYear, dayOfMonth);
+            Date date = new Date();
+            Time time = new Time();
+            time.set(dayOfMonth, monthOfYear, year);
+            date.setTime(time.toMillis(true));
+            mDelayAnim = true;
             mPageFluent.withSelectedDate(date);
+        }
+    };
+
+    private CalendarViewPagerAdapter.OnDateSelectedListener mDateSelectedListener = new CalendarViewPagerAdapter.OnDateSelectedListener() {
+
+        @Override
+        public void onDateUnselected(Date date) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            ShowToastOld(" onDateUnselected:" + c.get(Calendar.MONTH)
+                    + c.get(Calendar.DAY_OF_MONTH));
+        }
+
+        @Override
+        public void onDateSelected(Date date) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            ShowToastOld(" onDateSelected:" + c.get(Calendar.MONTH)
+                    + c.get(Calendar.DAY_OF_MONTH));
         }
     };
 
@@ -61,7 +97,30 @@ public class CalendarTaskFragment extends FragmentBase implements
             ViewPager.SimpleOnPageChangeListener {
         @Override
         public void onPageSelected(int position) {
-            mCalendarMonth.setText(mPagerAdapter.getCurrentDate());
+            mCalendarMonth.setText(mPagerAdapter.getCurrentDateLabel());
+            int delay = mDelayAnim ? 300 : 0;
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int bottom = mPagerAdapter.getMonthViewBottom();
+                    if (bottom != 0) {
+                        final float fromY =  mCalendarBottom.getY();
+                        final float toY = bottom + mCalendarMonth.getHeight()
+                                + mCalendarHead.getHeight();
+                        ValueAnimator animation = ValueAnimator.ofFloat(fromY, toY);
+                        animation.setDuration(200);
+                        animation.addUpdateListener(new AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator animation) {
+                                float value = (Float)animation.getAnimatedValue();
+                                mCalendarBottom.setY(value);
+                            }
+                        });
+                        animation.start();
+                    }
+                    mDelayAnim = false;
+                }
+            }, delay);
         }
     }
 
@@ -80,19 +139,28 @@ public class CalendarTaskFragment extends FragmentBase implements
 
     private void init() {
         mCalendarMonth = (TextView) findViewById(R.id.calendar_month);
+        mCalendarHead = findViewById(R.id.calendar_head_view);
+        mCalendarBottom = findViewById(R.id.calendar_bottom_view);
         mPager = (ViewPager) findViewById(R.id.pager);
         try {
-            mPagerAdapter = new CalendarViewPagerAdapter(getChildFragmentManager(), getActivity());
+            mPagerAdapter = new CalendarViewPagerAdapter(
+                    getChildFragmentManager(), getActivity());
         } catch (NoSuchMethodError e) {
-            mPagerAdapter = new CalendarViewPagerAdapter(getFragmentManager(), getActivity());
+            mPagerAdapter = new CalendarViewPagerAdapter(getFragmentManager(),
+                    getActivity());
         }
         final Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, -1);
+        int last = MIX_YEAR - lastYear.get(Calendar.YEAR);
+        lastYear.add(Calendar.YEAR, last);
         final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
-        mPageFluent = mPagerAdapter.init(lastYear.getTime(), nextYear.getTime(), mPager).inMode(SelectionMode.SINGLE).withSelectedDate(new Date());
+        int next = MAX_YEAR - lastYear.get(Calendar.YEAR);
+        nextYear.add(Calendar.YEAR, next);
+        mPageFluent = mPagerAdapter
+                .init(lastYear.getTime(), nextYear.getTime(), mPager)
+                .inMode(SelectionMode.SINGLE).withSelectedDate(new Date());
+        mCalendarMonth.setText(mPagerAdapter.getCurrentDateLabel());
+        mPagerAdapter.setOnDateSelectedListener(mDateSelectedListener);
         mPager.setOnPageChangeListener(new SimplePageChangeListener());
-        //mPager.setCurrentItem(getTodayMonthIndex(), false);
 
         mList = TempData.createTempDayTaskData(getActivity());
         mDayTask = (XListView) findViewById(R.id.list_task);
@@ -105,30 +173,11 @@ public class CalendarTaskFragment extends FragmentBase implements
         mDayTask.setOnItemClickListener(this);
         mCalendarMonth.setOnClickListener(this);
 
-/*        final Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, -1);
-        final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
-        try {
-            mPagerAdapter = new CalendarPagerAdapter(getChildFragmentManager());
-        } catch (NoSuchMethodError e) {
-            mPagerAdapter = new CalendarPagerAdapter(getFragmentManager());
-        }
-        calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-        calendar.init(lastYear.getTime(), nextYear.getTime()) //
-                .inMode(SelectionMode.SINGLE) //
-                .withSelectedDate(new Date());*/
-    }
-
-    private int getTodayMonthIndex() {
-        Calendar today = Calendar.getInstance();
-        int offset = (today.get(Calendar.YEAR) - LunarCalendar.getMinYear())
-                * 12 + today.get(Calendar.MONTH);
-        return offset;
     }
 
     private void showSelectDateDialog() {
         Calendar today = Calendar.getInstance();
+        today.setTime(mPagerAdapter.getCurrentDate());
         mSelectDateDialog = new DatePickerDialog(getActivity(), mDateListener,
                 today.get(Calendar.YEAR), today.get(Calendar.MARCH),
                 today.get(Calendar.DAY_OF_MONTH));
