@@ -18,4 +18,6 @@
     <dimen name="dimen_margin_circle.negative">-4dp</dimen>
     <!-- timessquare end -->
 
+    <dimen name="circle_size">40dip</dimen>
+
 </resources>

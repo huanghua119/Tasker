@@ -20,6 +20,7 @@
 
     <color name="invite_friend_color">#a19b99</color>
 
+    <color name="lv_score_color">#eb9155</color>
     <!-- timessquare start -->
     <color name="calendar_active_month_bg">#fff5f7f9</color>
     <color name="calendar_bg">#ffffffff</color>

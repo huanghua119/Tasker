@@ -21,6 +21,7 @@ public class MeFragment extends FragmentBase implements OnClickListener {
 
     private UserManager mUserManager;
     private TextView mUserName;
+    private TextView mUserId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +39,7 @@ public class MeFragment extends FragmentBase implements OnClickListener {
 
     private void init() {
         mUserName = (TextView) findViewById(R.id.user_name);
+        mUserId = (TextView) findViewById(R.id.user_id);
     }
 
     @Override
@@ -45,8 +47,8 @@ public class MeFragment extends FragmentBase implements OnClickListener {
         super.onResume();
         User user = mUserManager.getCurrentUser();
         if (user != null) {
-            mUserName.setText(user.getPhoneNumber() + " : "
-                    + user.getUsername());
+            mUserName.setText(user.getUsername());
+            mUserId.setText(user.getPhoneNumber());
         }
     }
 
