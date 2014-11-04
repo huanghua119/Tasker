@@ -27,9 +27,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,25 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context mContext;
     private SparseArray<MonthView> mViews = null;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                int position = msg.getData().getInt("position");
+                for (int i = 0; i < getCount(); i++) {
+                    if (i != position) {
+                        MonthView view = (MonthView) mViews.get(i);
+                        if (view != null) {
+                            view.init(months.get(i), cells.get(i), displayOnly,
+                                    titleTypeface, dateTypeface);
+                        }
+                    }
+                }
+            }
+        }
+    };
 
     public Context getContext() {
         return mContext;
@@ -594,9 +614,16 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
         int position = mPager.getCurrentItem();
         MonthView view = (MonthView) mViews.get(position);
         if (view != null) {
-            view.init(months.get(position), cells.get(position),
-                    displayOnly, titleTypeface, dateTypeface);
+            view.init(months.get(position), cells.get(position), displayOnly,
+                    titleTypeface, dateTypeface);
         }
+        mHandler.removeMessages(1);
+        Message message = new Message();
+        message.what = 1;
+        Bundle data = new Bundle();
+        data.putInt("position", position);
+        message.setData(data);
+        mHandler.sendMessage(message);
         validateAndUpdate();
         return date != null;
     }
@@ -609,6 +636,30 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
     public Date getCurrentDate() {
         int position = mPager.getCurrentItem();
         return months.get(position).getDate();
+    }
+
+    public boolean isToday() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(getSelectedDate());
+        Calendar today = Calendar.getInstance();
+        if (c.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+                && c.get(Calendar.MONTH) == today.get(Calendar.MONTH)
+                && c.get(Calendar.DAY_OF_MONTH) == today
+                        .get(Calendar.DAY_OF_MONTH)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCurrentMonth() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(getCurrentDate());
+        Calendar today = Calendar.getInstance();
+        if (c.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+                && c.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
+            return true;
+        }
+        return false;
     }
 
     public int getMonthViewBottom() {
@@ -699,7 +750,6 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
         }
         return null;
     }
-
 
     List<List<MonthCellDescriptor>> getMonthCells(MonthDescriptor month,
             Calendar startCal) {
@@ -873,7 +923,8 @@ public class CalendarViewPagerAdapter extends FragmentStatePagerAdapter {
             OnInvalidDateSelectedListener {
         @Override
         public void onInvalidDateSelected(Date date) {
-            String errMessage = getContext().getResources().getString(R.string.invalid_date,
+            String errMessage = getContext().getResources().getString(
+                    R.string.invalid_date,
                     fullDateFormat.format(minCal.getTime()),
                     fullDateFormat.format(maxCal.getTime()));
             Toast.makeText(getContext(), errMessage, Toast.LENGTH_SHORT).show();

@@ -40,12 +40,13 @@ import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 public class CalendarTaskFragment extends FragmentBase implements
         IXListViewListener, View.OnClickListener, OnItemClickListener {
 
-    public static final int MAX_YEAR = 2050;
+    public static final int MAX_YEAR = 2030;
     public static final int MIX_YEAR = 2000;
     private ViewPager mPager;
     private CalendarViewPagerAdapter mPagerAdapter;
     private FluentInitializer mPageFluent;
     private TextView mCalendarMonth;
+    private TextView mCalendarToday;
     private View mCalendarHead;
     private View mCalendarBottom;
     private XListView mDayTask;
@@ -64,12 +65,14 @@ public class CalendarTaskFragment extends FragmentBase implements
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                 int dayOfMonth) {
-            Date date = new Date();
-            Time time = new Time();
-            time.set(dayOfMonth, monthOfYear, year);
-            date.setTime(time.toMillis(true));
-            mDelayAnim = true;
-            mPageFluent.withSelectedDate(date);
+            if (year >= MIX_YEAR && year <= MAX_YEAR) {
+                Date date = new Date();
+                Time time = new Time();
+                time.set(dayOfMonth, monthOfYear, year);
+                date.setTime(time.toMillis(true));
+                mDelayAnim = true;
+                mPageFluent.withSelectedDate(date);
+            }
         }
     };
 
@@ -87,6 +90,7 @@ public class CalendarTaskFragment extends FragmentBase implements
         public void onDateSelected(Date date) {
             Calendar c = Calendar.getInstance();
             c.setTime(date);
+            mCalendarToday.setVisibility(mPagerAdapter.isToday() ? View.GONE : View.VISIBLE);
             ShowToastOld(" onDateSelected:" + c.get(Calendar.MONTH)
                     + c.get(Calendar.DAY_OF_MONTH));
         }
@@ -98,6 +102,7 @@ public class CalendarTaskFragment extends FragmentBase implements
         @Override
         public void onPageSelected(int position) {
             mCalendarMonth.setText(mPagerAdapter.getCurrentDateLabel());
+            mCalendarToday.setVisibility(mPagerAdapter.isCurrentMonth() ? View.GONE : View.VISIBLE);
             int delay = mDelayAnim ? 300 : 0;
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -141,6 +146,8 @@ public class CalendarTaskFragment extends FragmentBase implements
         mCalendarMonth = (TextView) findViewById(R.id.calendar_month);
         mCalendarHead = findViewById(R.id.calendar_head_view);
         mCalendarBottom = findViewById(R.id.calendar_bottom_view);
+        mCalendarToday = (TextView) findViewById(R.id.calendar_today);
+        mCalendarToday.setOnClickListener(this);
         mPager = (ViewPager) findViewById(R.id.pager);
         try {
             mPagerAdapter = new CalendarViewPagerAdapter(
@@ -193,6 +200,10 @@ public class CalendarTaskFragment extends FragmentBase implements
     public void onClick(View v) {
         if (v == mCalendarMonth) {
             showSelectDateDialog();
+        } else if (v == mCalendarToday) {
+            Calendar today = Calendar.getInstance();
+            mDelayAnim = true;
+            mPageFluent.withSelectedDate(today.getTime());
         }
     }
 

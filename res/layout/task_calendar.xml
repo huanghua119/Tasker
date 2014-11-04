@@ -26,6 +26,18 @@
                 android:text="@string/action_settings"
                 android:textColor="@android:color/white"
                 android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/calendar_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="8dip"
+                android:layout_marginRight="10dip"
+                android:layout_alignParentRight="true"
+                android:text="@string/today"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <LinearLayout

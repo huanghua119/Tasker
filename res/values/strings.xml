@@ -82,5 +82,6 @@
     <string name="day_name_format">EEE</string>
     <string name="invalid_date">Date must be between %1$s and %2$s.</string>
     <string name="month_name_format">yyyy年MMMM</string>
+    <string name="today">今天</string>
 
 </resources>
