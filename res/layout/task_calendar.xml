@@ -6,13 +6,14 @@
     android:background="@color/activity_bg_color"
     android:gravity="center_horizontal" >
 
-    <LinearLayout
+    <com.chuanshida.tasker.view.CalendarGestureView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/calendar_bg_color"
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/calendar_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -31,10 +32,10 @@
                 android:id="@+id/calendar_today"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dip"
                 android:gravity="center_horizontal"
                 android:padding="8dip"
-                android:layout_marginRight="10dip"
-                android:layout_alignParentRight="true"
                 android:text="@string/today"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -45,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/calendar_header_bg"
+            android:layout_below="@+id/calendar_title_view"
             android:gravity="center_vertical" >
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -108,25 +110,26 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/calendar_head_view"
             android:background="@color/calendar_bg_color" >
         </android.support.v4.view.ViewPager>
-    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/calendar_bottom_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/activity_bg_color" >
-
-        <com.chuanshida.tasker.view.xlist.XListView
-            android:id="@+id/list_task"
+        <FrameLayout
+            android:id="@+id/calendar_bottom_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@null"
-            android:dividerHeight="0dip"
-            android:fadingEdgeLength="0dp"
-            android:fastScrollEnabled="false" />
-    </FrameLayout>
+            android:background="@color/activity_bg_color" >
+
+            <com.chuanshida.tasker.view.xlist.XListView
+                android:id="@+id/list_task"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@null"
+                android:dividerHeight="0dip"
+                android:fadingEdgeLength="0dp"
+                android:fastScrollEnabled="false" />
+        </FrameLayout>
+    </com.chuanshida.tasker.view.CalendarGestureView>
 
 </RelativeLayout>

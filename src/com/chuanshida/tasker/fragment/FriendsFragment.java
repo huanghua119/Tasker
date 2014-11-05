@@ -34,6 +34,7 @@ public class FriendsFragment extends FragmentBase implements
     private List<List<User>> mFriendGroup = new ArrayList<List<User>>();
     private List<User> mMyList = new ArrayList<User>();
     private List<User> mNoAddList = new ArrayList<User>();
+    private View mSearchView = null;
 
     private BaseExpandableListAdapter mAllFriendListAdapter = new BaseExpandableListAdapter() {
 
@@ -159,6 +160,8 @@ public class FriendsFragment extends FragmentBase implements
         for (int i = 0; i < mFriendGroup.size(); i++) {
             mAllFriendList.expandGroup(i);
         }
+        mSearchView = mInflater.inflate(R.layout.search_view, null);
+        mAllFriendList.addHeaderView(mSearchView);
     }
 
     @Override

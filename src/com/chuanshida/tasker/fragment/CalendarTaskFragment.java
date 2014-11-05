@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
@@ -102,14 +103,19 @@ public class CalendarTaskFragment extends FragmentBase implements
         @Override
         public void onPageSelected(int position) {
             mCalendarMonth.setText(mPagerAdapter.getCurrentDateLabel());
-            mCalendarToday.setVisibility(mPagerAdapter.isCurrentMonth() ? View.GONE : View.VISIBLE);
+            mCalendarToday
+                    .setVisibility(mPagerAdapter.isCurrentMonth() ? (mPagerAdapter
+                            .isToday() ? View.GONE : View.VISIBLE)
+                            : View.VISIBLE);
             int delay = mDelayAnim ? 300 : 0;
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     int bottom = mPagerAdapter.getMonthViewBottom();
                     if (bottom != 0) {
-                        final float fromY =  mCalendarBottom.getY();
+                        final RelativeLayout.LayoutParams layout = (RelativeLayout.LayoutParams) mCalendarBottom
+                                .getLayoutParams();
+                        final float fromY =  layout.topMargin;
                         final float toY = bottom + mCalendarMonth.getHeight()
                                 + mCalendarHead.getHeight();
                         ValueAnimator animation = ValueAnimator.ofFloat(fromY, toY);
@@ -118,7 +124,8 @@ public class CalendarTaskFragment extends FragmentBase implements
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
                                 float value = (Float)animation.getAnimatedValue();
-                                mCalendarBottom.setY(value);
+                                layout.setMargins(0, (int) value, 0, 0);
+                                mCalendarBottom.setLayoutParams(layout);
                             }
                         });
                         animation.start();

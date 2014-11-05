@@ -41,21 +41,6 @@
                 android:src="@drawable/title_add_bg" />
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dip"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginTop="5dip"
-            android:background="@drawable/edit_view_bg"
-            android:drawableLeft="@drawable/search"
-            android:drawablePadding="8dip"
-            android:hint="@string/search"
-            android:padding="6dip"
-            android:textSize="15sp" />
-
         <ExpandableListView
             android:id="@+id/list_friends"
             android:layout_width="match_parent"

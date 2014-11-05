@@ -105,6 +105,9 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
             }
             trx.show(fragments[mIndex]).commit();
         }
+        if (mCurrentTabIndex == 4) {
+            mCurrentTabIndex = 0;
+        }
         if (mCurrentTabIndex < 4) {
             mTabs[mCurrentTabIndex].setSelected(false);
             mTabs[mIndex].setSelected(true);

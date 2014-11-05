@@ -44,28 +44,32 @@ public class TempData {
 
     public static List<Task> createTempDayTaskData(Context context) {
         List<Task> result = new ArrayList<Task>();
-        Task task1 = new Task();
-        task1.setCreateAt(new Date());
-        task1.setStatus(Task.TASK_STATUS_FINISH);
-        task1.setPermissions(Task.TASK_PERMISSIONS_ONLY_SELF);
-        task1.setName("天天加班，老子不干了");
-        task1.setContent("11");
-        task1.setCreateUser(UserManager.getInstance(context).getCurrentUser());
-        result.add(task1);
-        Task task3 = new Task();
-        task3.setCreateAt(new Date());
-        task3.setStatus(Task.TASK_STATUS_PROGRESS);
-        task3.setPermissions(Task.TASK_PERMISSIONS_ONLY_FRIEND);
-        task3.setName("就是不回家吃饭");
-        task3.setContent("11");
-        task3.setCreateUser(UserManager.getInstance(context).getCurrentUser());
-        result.add(task3);
+        for (int i = 0; i < 4; i++) {
+            Task task1 = new Task();
+            task1.setCreateAt(new Date());
+            task1.setStatus(Task.TASK_STATUS_FINISH);
+            task1.setPermissions(Task.TASK_PERMISSIONS_ONLY_SELF);
+            task1.setName("天天加班，老子不干了");
+            task1.setContent("11");
+            task1.setCreateUser(UserManager.getInstance(context)
+                    .getCurrentUser());
+            result.add(task1);
+            Task task3 = new Task();
+            task3.setCreateAt(new Date());
+            task3.setStatus(Task.TASK_STATUS_PROGRESS);
+            task3.setPermissions(Task.TASK_PERMISSIONS_ONLY_FRIEND);
+            task3.setName("就是不回家吃饭");
+            task3.setContent("11");
+            task3.setCreateUser(UserManager.getInstance(context)
+                    .getCurrentUser());
+            result.add(task3);
+        }
         return result;
     }
 
     public static List<User> createTempMyFriend(Context context) {
         List<User> result = new ArrayList<User>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             User user = new User();
             user.setUsername("qshnwq");
             user.setPhoneNumber("123");
@@ -76,7 +80,7 @@ public class TempData {
 
     public static List<User> createTempNewFriend(Context context) {
         List<User> result = new ArrayList<User>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             User user = new User();
             user.setUsername("kkkwfnh");
             user.setPhoneNumber("123");
