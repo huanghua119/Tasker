@@ -71,6 +71,7 @@ public class UserManager {
         mCurrentUser.setPhoneNumber(phoneNumber);
         mCurrentUser.setPassword(passWord);
         mCurrentUser.setUsername("香喷喷");
+        mCurrentUser.setLabel("哦");
         if (phoneNumber.equals("123456") && passWord.equals("123456")) {
             userListener.onSuccess(mCurrentUser);
         }

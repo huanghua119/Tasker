@@ -50,6 +50,13 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
         String time = sdf.format(task.getCreateAt());
         taskCreateTime.setText("(" + time + ")");
         taskStatus.setChecked(task.getStatus() == Task.TASK_STATUS_FINISH);
+        setOnInViewClickListener(R.id.user_photo,
+                new onInternalClickListener() {
+                    @Override
+                    public void OnClickListener(View parentV, View v,
+                            Integer position, Object values) {
+                    }
+                });
         return view;
     }
 

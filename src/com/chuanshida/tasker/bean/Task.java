@@ -1,8 +1,11 @@
 package com.chuanshida.tasker.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Task {
+public class Task implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private User createUser;
 

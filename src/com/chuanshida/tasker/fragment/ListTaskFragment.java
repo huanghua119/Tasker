@@ -3,6 +3,7 @@ package com.chuanshida.tasker.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.ui.TaskDetailActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -70,7 +72,10 @@ public class ListTaskFragment extends FragmentBase implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
+        Task task = mList.get(arg2);
+        Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+        intent.putExtra("task", task);
+        startAnimActivity(intent);
     }
 
     @Override

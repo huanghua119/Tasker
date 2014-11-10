@@ -1,5 +1,6 @@
 package com.chuanshida.tasker.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.manager.UserManager;
+import com.chuanshida.tasker.ui.UserDetailActivity;
 
 /***
  * 任务日历
@@ -22,6 +24,7 @@ public class MeFragment extends FragmentBase implements OnClickListener {
     private UserManager mUserManager;
     private TextView mUserName;
     private TextView mUserId;
+    private View mUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +43,8 @@ public class MeFragment extends FragmentBase implements OnClickListener {
     private void init() {
         mUserName = (TextView) findViewById(R.id.user_name);
         mUserId = (TextView) findViewById(R.id.user_id);
+        mUser = findViewById(R.id.user_view);
+        mUser.setOnClickListener(this);
     }
 
     @Override
@@ -54,6 +59,9 @@ public class MeFragment extends FragmentBase implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        if (v == mUser) {
+            startAnimActivity(new Intent(getActivity(),
+                    UserDetailActivity.class));
+        }
     }
 }

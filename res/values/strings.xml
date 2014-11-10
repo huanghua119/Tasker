@@ -92,5 +92,20 @@
     <string name="task_find">任务发现</string>
     <string name="drift_bottles">漂流瓶</string>
     <string name="intelligent_task">智能任务</string>
+    <string name="user_info">个人资料</string>
+    <string name="user_head">头像</string>
+    <string name="user_name">名字</string>
+    <string name="user_six">性别</string>
+    <string name="user_address">地区</string>
+    <string name="user_signature">签名</string>
+    <string name="user_phone">绑定手机</string>
+    <string name="user_email">绑定邮箱</string>
+    <string name="user_good_at">擅长领域</string>
+    <string name="add_label">+标签</string>
+    <string name="user_no_phone">未绑定邮箱</string>
+    <string name="user_no_email">未绑定手机</string>
+    <string name="user_no_signature">好懒！什么都没写？</string>
+    <string name="user_no_address">未知</string>
+    <string name="task_info">任务详情</string>
 
 </resources>

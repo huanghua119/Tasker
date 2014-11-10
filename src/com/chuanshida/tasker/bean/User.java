@@ -21,6 +21,14 @@ public class User {
 
     private Integer logintype;
 
+    private String address;
+
+    private String signature;
+
+    private String email;
+
+    private String label;
+
     public User() {
 
     }
@@ -106,6 +114,38 @@ public class User {
 
     public void setPassword(String passWord) {
         this.passWord = passWord;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
 }

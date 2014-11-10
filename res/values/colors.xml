@@ -10,6 +10,7 @@
     <color name="fragment_bg_color">#eeeae9</color>
     <color name="task_name_color">#777573</color>
     <color name="task_permissions_color">#797472</color>
+    <color name="user_info_color">#a39b99</color>
 
     <drawable name="list_pressed_bg">#ED8E6D</drawable>
     <drawable name="list_normal_bg">#00000000</drawable>
