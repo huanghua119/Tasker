@@ -14,6 +14,7 @@ import com.chuanshida.tasker.fragment.FindFragment;
 import com.chuanshida.tasker.fragment.FriendsFragment;
 import com.chuanshida.tasker.fragment.MeFragment;
 import com.chuanshida.tasker.fragment.NewTaskFragment;
+import com.chuanshida.tasker.fragment.OutBoxFragment;
 import com.chuanshida.tasker.fragment.TaskFragment;
 import com.chuanshida.tasker.util.SharePreferenceUtil;
 
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
     private FindFragment mFindFrament;
     private MeFragment mMeFragment;
     private NewTaskFragment mNewTaskFragment;
+    private OutBoxFragment mOutBoxFragment;
     private SharePreferenceUtil mSp = null;
 
     @Override
@@ -56,18 +58,20 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
         mFindFrament = new FindFragment();
         mMeFragment = new MeFragment();
         mNewTaskFragment = new NewTaskFragment();
+        mOutBoxFragment = new OutBoxFragment();
         fragments = new Fragment[] { mCalendarFrament, mFriendsFrament,
-                mFindFrament, mMeFragment, mNewTaskFragment };
+                mFindFrament, mMeFragment, mNewTaskFragment, mOutBoxFragment };
         FragmentTransaction trx = getFragmentManager().beginTransaction();
         trx.add(R.id.fragment_container, mCalendarFrament);
         trx.add(R.id.fragment_container, mFriendsFrament);
         trx.add(R.id.fragment_container, mFindFrament);
         trx.add(R.id.fragment_container, mMeFragment);
         trx.add(R.id.fragment_container, mNewTaskFragment);
+        trx.add(R.id.fragment_container, mOutBoxFragment);
         trx.commit();
         getFragmentManager().beginTransaction().hide(mFriendsFrament)
                 .hide(mMeFragment).hide(mFindFrament).hide(mNewTaskFragment)
-                .show(mCalendarFrament).commit();
+                .hide(mOutBoxFragment).show(mCalendarFrament).commit();
         mTabs[0].setSelected(true);
         mCurrentTabIndex = 0;
     }
@@ -105,7 +109,7 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
             }
             trx.show(fragments[mIndex]).commit();
         }
-        if (mCurrentTabIndex == 4) {
+        if (mCurrentTabIndex == 4 || mCurrentTabIndex == 5) {
             mCurrentTabIndex = 0;
         }
         if (mCurrentTabIndex < 4) {
@@ -173,7 +177,7 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
         mCurrentTabIndex = mIndex;
     }
 
-    public void exitNewTaskFragment() {
+    public void exitFragment() {
         FragmentTransaction trx = getFragmentManager().beginTransaction();
         /*
          * trx.setCustomAnimations(R.anim.fragment_left_out,
@@ -188,7 +192,18 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
         mCurrentTabIndex = mIndex;
     }
 
+    public void toOutBoxFragment() {
+        FragmentTransaction trx = getFragmentManager().beginTransaction();
+        mIndex = 5;
+        trx.hide(fragments[mCurrentTabIndex]);
+        if (!fragments[mIndex].isAdded()) {
+            trx.add(R.id.fragment_container, fragments[mIndex]);
+        }
+        trx.show(fragments[mIndex]).commit();
+        mCurrentTabIndex = mIndex;
+    }
+
     public void onCellClick(View v) {
-        
+
     }
 }

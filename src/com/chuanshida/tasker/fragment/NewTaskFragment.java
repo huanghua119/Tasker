@@ -52,7 +52,7 @@ public class NewTaskFragment extends FragmentBase implements OnClickListener {
     public void onClick(View v) {
         if (v == mBack) {
             MainActivity activity = (MainActivity) getActivity();
-            activity.exitNewTaskFragment();
+            activity.exitFragment();
         }
     }
 }

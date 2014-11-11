@@ -117,5 +117,9 @@
     <string name="assigned_task">指派任务</string>
     <string name="send_message">发起对话</string>
     <string name="ta_task_calendar">ta的任务日历</string>
+    <string name="like_people">我可能感兴趣的人</string>
+    <string name="input_phone_number">输入手机号码</string>
+    <string name="add">添加</string>
+    <string name="out_box">发件箱</string>
 
 </resources>

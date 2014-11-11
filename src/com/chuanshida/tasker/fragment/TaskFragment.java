@@ -27,6 +27,7 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
     private ViewPager mPager;
     private RadioGroup mTitleRadioGroup = null;
     private ImageButton mNewTask = null;
+    private ImageButton mOutBox = null;
     private ViewPagerAdapter mPagerAdapter;
     private ListTaskFragment mListTaskFragment;
     private CalendarTaskFragment mCalendarTaskFragment;
@@ -78,6 +79,8 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
         mTitleRadioGroup.setOnCheckedChangeListener(mRadioListener);
         mNewTask = (ImageButton) findViewById(R.id.add_task);
         mNewTask.setOnClickListener(this);
+        mOutBox = (ImageButton) findViewById(R.id.out_box);
+        mOutBox.setOnClickListener(this);
     }
 
     @Override
@@ -100,6 +103,9 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
         if (v == mNewTask) {
             MainActivity activity = (MainActivity) getActivity();
             activity.toNewTaskFragment();
+        } else if (v == mOutBox) {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.toOutBoxFragment();
         }
     }
 

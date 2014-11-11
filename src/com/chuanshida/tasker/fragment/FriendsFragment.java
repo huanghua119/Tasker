@@ -3,6 +3,7 @@ package com.chuanshida.tasker.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.User;
+import com.chuanshida.tasker.ui.AddFriendActivity;
+import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.util.ViewHolder;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -35,6 +39,7 @@ public class FriendsFragment extends FragmentBase implements
     private List<User> mMyList = new ArrayList<User>();
     private List<User> mNoAddList = new ArrayList<User>();
     private View mSearchView = null;
+    private ImageView mAddFriend;
 
     private BaseExpandableListAdapter mAllFriendListAdapter = new BaseExpandableListAdapter() {
 
@@ -88,7 +93,7 @@ public class FriendsFragment extends FragmentBase implements
             if (convertView == null) {
                 view = mInflater.inflate(R.layout.friend_item_view, null);
             }
-            User user = getChild(groupPosition, childPosition);
+            final User user = getChild(groupPosition, childPosition);
             TextView userName = ViewHolder.get(view, R.id.user_name);
             userName.setText(user.getUsername());
             userName.setTextColor(getResources().getColor(
@@ -114,6 +119,16 @@ public class FriendsFragment extends FragmentBase implements
             } else {
                 addFriend.setVisibility(View.GONE);
             }
+            ImageView userPhoto =  ViewHolder.get(view, R.id.user_photo);
+            userPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),
+                            UserDetailActivity.class);
+                    intent.putExtra("user", user);
+                    startAnimActivity(intent);
+                }
+            });
             return view;
         }
 
@@ -162,6 +177,8 @@ public class FriendsFragment extends FragmentBase implements
         }
         mSearchView = mInflater.inflate(R.layout.search_view, null);
         mAllFriendList.addHeaderView(mSearchView);
+        mAddFriend = (ImageView) findViewById(R.id.add_friend);
+        mAddFriend.setOnClickListener(this);
     }
 
     @Override
@@ -171,7 +188,11 @@ public class FriendsFragment extends FragmentBase implements
 
     @Override
     public void onClick(View v) {
-
+        if (v == mAddFriend) {
+            Intent intent = new Intent(getActivity(),
+                    AddFriendActivity.class);
+            startAnimActivity(intent);
+        }
     }
 
     @Override

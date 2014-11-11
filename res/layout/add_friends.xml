@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_bg_color"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activity_bg_color"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@drawable/title"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:drawableLeft="@drawable/back_left_bg"
+                android:drawablePadding="10dip"
+                android:gravity="center_vertical"
+                android:onClick="onBack"
+                android:paddingLeft="15dip"
+                android:text="@string/back"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/add"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/activity_bg_color"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:layout_marginTop="20dip"
+                android:text="@string/add_friend"
+                android:textColor="@color/task_permissions_color"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/edit_view_bg"
+                android:drawableLeft="@drawable/search"
+                android:drawablePadding="8dip"
+                android:hint="@string/input_phone_number"
+                android:padding="6dip"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_title_bg"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dip"
+            android:text="@string/like_people"
+            android:textColor="@color/task_permissions_color"
+            android:textSize="15sp" />
+
+        <com.chuanshida.tasker.view.xlist.XListView
+            android:id="@+id/list_like_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="0dip"
+            android:fadingEdgeLength="0dp"
+            android:fastScrollEnabled="false" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -34,36 +34,41 @@
             android:textColor="@color/task_name_color"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/add_friend"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="35dip"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dip"
-            android:layout_toLeftOf="@+id/assigned_ta"
-            android:background="@drawable/verify_btn__bg"
-            android:gravity="center_vertical|right"
-            android:text="@string/add_friend"
-            android:textColor="@color/send_verify_color"
-            android:textSize="17sp"
-            android:visibility="gone" >
-        </Button>
-
-        <Button
-            android:id="@+id/assigned_ta"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
-            android:drawablePadding="4dip"
-            android:drawableRight="@drawable/right_arrow_bg"
-            android:gravity="center_vertical|right"
-            android:paddingRight="5dip"
-            android:text="@string/assigned_ta"
-            android:textColor="@color/assigned_text_color"
-            android:textSize="17sp" >
-        </Button>
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/add_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="35dip"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/verify_btn__bg"
+                android:gravity="center_vertical|right"
+                android:text="@string/add_friend"
+                android:textColor="@color/send_verify_color"
+                android:textSize="17sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/assigned_ta"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:drawablePadding="4dip"
+                android:drawableRight="@drawable/right_arrow_bg"
+                android:gravity="center_vertical|right"
+                android:paddingRight="5dip"
+                android:text="@string/assigned_ta"
+                android:textColor="@color/assigned_text_color"
+                android:textSize="17sp" />
+        </LinearLayout>
     </RelativeLayout>
 
     <View
