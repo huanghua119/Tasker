@@ -8,6 +8,7 @@ import java.util.List;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,7 @@ import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.FluentInitializer;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.SelectionMode;
+import com.chuanshida.tasker.ui.TaskDetailActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -216,7 +218,11 @@ public class CalendarTaskFragment extends FragmentBase implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
+        int count = mDayTask.getHeaderViewsCount();
+        Task task = mList.get(arg2 - count);
+        Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+        intent.putExtra("task", task);
+        startAnimActivity(intent);
     }
 
     @Override

@@ -1,11 +1,10 @@
 package com.chuanshida.tasker.adapter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,8 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.ui.BaseActivity;
+import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.ViewHolder;
 
@@ -55,6 +56,10 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
                     @Override
                     public void OnClickListener(View parentV, View v,
                             Integer position, Object values) {
+                        Intent intent = new Intent(mContext,
+                                UserDetailActivity.class);
+                        intent.putExtra("user", task.getCreateUser());
+                        ((BaseActivity)mContext).startAnimActivity(intent);
                     }
                 });
         return view;

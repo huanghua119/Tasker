@@ -41,7 +41,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/activity_bg_color" >
+        android:background="@color/activity_bg_color"
+        android:padding="20dip" >
 
         <ImageView
             android:id="@+id/user_photo"
@@ -61,9 +62,10 @@
             android:layout_toRightOf="@+id/user_photo"
             android:gravity="center_vertical"
             android:maxWidth="350dip"
+            android:paddingRight="10dip"
             android:singleLine="true"
-            android:textColor="@color/task_name_color"
-            android:textSize="16sp" />
+            android:textColor="@color/orange_color"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/task_content"
@@ -72,23 +74,18 @@
             android:layout_below="@+id/task_name"
             android:layout_marginTop="4dip"
             android:layout_toRightOf="@+id/user_photo"
-            android:contentDescription="@string/action_settings"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:paddingRight="10dip"
+            android:textSize="15sp" />
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/task_voice"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/task_voice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/voice_right" />
-        </LinearLayout>
+            android:background="@drawable/voice_right"
+            android:contentDescription="@string/action_settings" />
     </RelativeLayout>
 
     <View
@@ -98,63 +95,205 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@color/activity_bg_color" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="17dip" >
+                <LinearLayout
+                    android:id="@+id/task_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_background_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" >
+
+                <TextView
+                    android:id="@+id/task_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/final_date_pressed"
+                    android:drawablePadding="13dip"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:textColor="@color/task_permissions_color"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="#d2d0cc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_background_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" >
+
+                <TextView
+                    android:id="@+id/task_remind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/task_remind_pressed"
+                    android:drawablePadding="13dip"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:textColor="@color/task_permissions_color"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="#d2d0cc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_background_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" >
+
+                <TextView
+                    android:id="@+id/task_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/location_pressed"
+                    android:drawablePadding="13dip"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:textColor="@color/task_permissions_color"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="#d2d0cc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_background_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" >
+
+                <TextView
+                    android:id="@+id/task_permissions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/location_pressed"
+                    android:drawablePadding="13dip"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="20dip"
+                    android:paddingTop="20dip"
+                    android:textColor="@color/task_permissions_color"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/task_permissions_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dip"
+                    android:layout_marginTop="6dip"
+                    android:layout_toRightOf="@+id/task_permissions"
+                    android:contentDescription="@string/action_settings"
+                    android:gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dip"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/right_arrow_bg" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="#d2d0cc" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/activity_bg_color"
-                android:orientation="vertical" >
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:paddingTop="30dip" >
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/list_background_bg"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dip"
-                    android:paddingRight="20dip" >
+                    android:layout_marginRight="10dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/red_button_bg"
+                    android:text="@string/task_no_accept"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:paddingBottom="20dip"
-                        android:paddingTop="20dip"
-                        android:text="@string/user_good_at"
-                        android:textColor="@color/task_permissions_color"
-                        android:textSize="18sp" />
-
-                    <Button
-                        android:id="@+id/add_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dip"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/invite_btn_bg"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="@string/add_label"
-                        android:textColor="@color/user_info_color"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/user_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dip"
-                        android:layout_toLeftOf="@+id/add_label"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/user_info_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/red_button_bg"
+                    android:text="@string/task_accept"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

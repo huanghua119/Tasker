@@ -54,9 +54,9 @@ public class ListTaskFragment extends FragmentBase implements
         mListTask.setPullLoadEnable(false);
         mListTask.setPullRefreshEnable(false);
         mListTask.setXListViewListener(this);
+        mListTask.pullRefreshing();
         mTaskListAdapter = new TaskListAdapter(getActivity(), mList);
         mListTask.setAdapter(mTaskListAdapter);
-        mListTask.pullRefreshing();
         mListTask.setOnItemClickListener(this);
     }
 
@@ -72,7 +72,8 @@ public class ListTaskFragment extends FragmentBase implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        Task task = mList.get(arg2);
+        int count = mListTask.getHeaderViewsCount();
+        Task task = mList.get(arg2 - count);
         Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
         intent.putExtra("task", task);
         startAnimActivity(intent);

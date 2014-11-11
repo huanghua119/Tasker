@@ -17,7 +17,11 @@ public class Task implements Serializable {
 
     private Date createAt;
 
-    private String updateAt;
+    private long remindAt;
+
+    private Date finalAt;
+
+    private String address;
 
     public static final int TASK_PERMISSIONS_ONLY_SELF = 1;
     public static final int TASK_PERMISSIONS_ONLY_FRIEND = 2;
@@ -70,12 +74,12 @@ public class Task implements Serializable {
         this.createAt = createAt;
     }
 
-    public String getUpdateAt() {
-        return updateAt;
+    public Date getFinalAt() {
+        return finalAt;
     }
 
-    public void setUpdateAt(String updateAt) {
-        this.updateAt = updateAt;
+    public void setFinalAt(Date updateAt) {
+        this.finalAt = updateAt;
     }
 
     public int getPermissions() {
@@ -92,6 +96,22 @@ public class Task implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public long getRemindAt() {
+        return remindAt;
+    }
+
+    public void setRemindAt(long remindAt) {
+        this.remindAt = remindAt;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

@@ -23,10 +23,20 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
     private TextView mUserLabel;
     private Button mAddLabel;
 
+    private View mMySelfView;
+    private View mOtherUserView;
+    private View mOtherUserBottom;
+    private View mUserPhoneView;
+    private View mUserEmailView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_detail_view);
+        mCurrentUser = (User) getIntent().getSerializableExtra("user");
+        if (mCurrentUser == null) {
+            mCurrentUser = userManager.getCurrentUser();
+        }
         init();
     }
 
@@ -41,6 +51,11 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
         mUserLabel = (TextView) findViewById(R.id.user_label);
         mAddLabel = (Button) findViewById(R.id.add_label);
         mAddLabel.setOnClickListener(this);
+        mMySelfView = findViewById(R.id.my_self_view);
+        mOtherUserView = findViewById(R.id.other_user_view);
+        mOtherUserBottom = findViewById(R.id.other_user_bottom);
+        mUserPhoneView = findViewById(R.id.user_phone_view);
+        mUserEmailView = findViewById(R.id.user_email_view);
     }
 
     @Override
@@ -55,7 +70,6 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
     }
 
     private void updateInfoUI() {
-        mCurrentUser = userManager.getCurrentUser();
         if (mCurrentUser != null) {
             mUserName.setText(mCurrentUser.getUsername());
             mUserSix.setText(mCurrentUser.isSex() ? R.string.sex_man
@@ -77,6 +91,21 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
                     .setText((phone == null || phone.equals("")) ? getString(R.string.user_no_phone)
                             : phone);
             mUserLabel.setText(mCurrentUser.getLabel());
+            if (mCurrentUser == userManager.getCurrentUser()) {
+                mMySelfView.setVisibility(View.VISIBLE);
+                mOtherUserView.setVisibility(View.GONE);
+                mUserPhoneView.setVisibility(View.VISIBLE);
+                mUserEmailView.setVisibility(View.VISIBLE);
+                mOtherUserBottom.setVisibility(View.GONE);
+                mAddLabel.setText(R.string.add_label);
+            } else {
+                mMySelfView.setVisibility(View.GONE);
+                mOtherUserView.setVisibility(View.VISIBLE);
+                mUserEmailView.setVisibility(View.GONE);
+                mUserPhoneView.setVisibility(View.GONE);
+                mOtherUserBottom.setVisibility(View.VISIBLE);
+                mAddLabel.setText(R.string.add_label_to);
+            }
         }
     }
 

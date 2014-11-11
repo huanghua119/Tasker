@@ -1,7 +1,10 @@
 package com.chuanshida.tasker.bean;
 
-public class User {
+import java.io.Serializable;
 
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     public static final int LOGIN_TYPE_WEIBO = 1;
     public static final int LOGIN_TYPE_TENCENT_QQ = 2;
 
