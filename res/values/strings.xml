@@ -131,5 +131,6 @@
     <string name="has_no_accept">已拒绝</string>
     <string name="waiting">等待中</string>
     <string name="has_final">已完成</string>
+    <string name="assigned_to">分配给</string>
 
 </resources>

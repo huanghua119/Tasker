@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -63,15 +64,8 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
                 mFindFrament, mMeFragment, mNewTaskFragment, mOutBoxFragment };
         FragmentTransaction trx = getFragmentManager().beginTransaction();
         trx.add(R.id.fragment_container, mCalendarFrament);
-        trx.add(R.id.fragment_container, mFriendsFrament);
-        trx.add(R.id.fragment_container, mFindFrament);
-        trx.add(R.id.fragment_container, mMeFragment);
-        trx.add(R.id.fragment_container, mNewTaskFragment);
-        trx.add(R.id.fragment_container, mOutBoxFragment);
         trx.commit();
-        getFragmentManager().beginTransaction().hide(mFriendsFrament)
-                .hide(mMeFragment).hide(mFindFrament).hide(mNewTaskFragment)
-                .hide(mOutBoxFragment).show(mCalendarFrament).commit();
+        getFragmentManager().beginTransaction().show(mCalendarFrament).commit();
         mTabs[0].setSelected(true);
         mCurrentTabIndex = 0;
     }
@@ -104,6 +98,9 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
              * R.anim.fragment_left_in); }
              */
             trx.hide(fragments[mCurrentTabIndex]);
+            if (mCurrentTabIndex >= 4) {
+                trx.remove(fragments[mCurrentTabIndex]);
+            }
             if (!fragments[mIndex].isAdded()) {
                 trx.add(R.id.fragment_container, fragments[mIndex]);
             }
@@ -170,10 +167,31 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
          */
         mIndex = 4;
         trx.hide(fragments[mCurrentTabIndex]);
+        mNewTaskFragment.setArguments(null);
         if (!fragments[mIndex].isAdded()) {
             trx.add(R.id.fragment_container, fragments[mIndex]);
         }
         trx.show(fragments[mIndex]).commit();
+        if (mCurrentTabIndex < 4) {
+            mTabs[mCurrentTabIndex].setSelected(false);
+            mTabs[0].setSelected(true);
+        }
+        mCurrentTabIndex = mIndex;
+    }
+
+    public void toNewTaskFragment(Bundle bundle) {
+        FragmentTransaction trx = getFragmentManager().beginTransaction();
+        mIndex = 4;
+        trx.hide(fragments[mCurrentTabIndex]);
+        mNewTaskFragment.setArguments(bundle);
+        if (!fragments[mIndex].isAdded()) {
+            trx.add(R.id.fragment_container, fragments[mIndex]);
+        }
+        trx.show(fragments[mIndex]).commit();
+        if (mCurrentTabIndex < 4) {
+            mTabs[mCurrentTabIndex].setSelected(false);
+            mTabs[0].setSelected(true);
+        }
         mCurrentTabIndex = mIndex;
     }
 
@@ -185,6 +203,7 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
          */
         mIndex = 0;
         trx.hide(fragments[mCurrentTabIndex]);
+        trx.remove(fragments[mCurrentTabIndex]);
         if (!fragments[mIndex].isAdded()) {
             trx.add(R.id.fragment_container, fragments[mIndex]);
         }
@@ -200,6 +219,11 @@ public class MainActivity extends BaseActivity implements OnFocusChangeListener 
             trx.add(R.id.fragment_container, fragments[mIndex]);
         }
         trx.show(fragments[mIndex]).commit();
+
+        if (mCurrentTabIndex < 4) {
+            mTabs[mCurrentTabIndex].setSelected(false);
+            mTabs[0].setSelected(true);
+        }
         mCurrentTabIndex = mIndex;
     }
 

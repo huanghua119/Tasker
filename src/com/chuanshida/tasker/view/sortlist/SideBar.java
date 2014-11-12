@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chuanshida.tasker.R;
+
 public class SideBar extends View {
     // 触摸事件
     private OnTouchingLetterChangedListener onTouchingLetterChangedListener;
@@ -88,7 +90,7 @@ public class SideBar extends View {
             break;
 
         default:
-            //setBackgroundResource(R.drawable.sidebar_background);
+            setBackgroundResource(R.drawable.sidebar_background);
             if (oldChoose != c) {
                 if (c >= 0 && c < b.length) {
                     if (listener != null) {

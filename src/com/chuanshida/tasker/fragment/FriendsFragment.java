@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.ui.AddFriendActivity;
+import com.chuanshida.tasker.ui.MainActivity;
 import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.util.ViewHolder;
@@ -126,6 +127,16 @@ public class FriendsFragment extends FragmentBase implements
                             UserDetailActivity.class);
                     intent.putExtra("user", user);
                     startAnimActivity(intent);
+                }
+            });
+            TextView assignedTa = ViewHolder.get(view, R.id.assigned_ta);
+            assignedTa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity activity = (MainActivity) getActivity();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", user);
+                    activity.toNewTaskFragment(bundle);
                 }
             });
             return view;

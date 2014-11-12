@@ -32,9 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/tab_me"
+            android:text="@string/new_task"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/complete"
@@ -46,7 +46,7 @@
             android:paddingRight="10dip"
             android:text="@string/complete"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -78,12 +78,13 @@
                     android:layout_height="1dip"
                     android:background="@drawable/driver_color" />
 
-                <EditText
+                <TextView
                     android:id="@+id/new_assigned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="@string/new_assigned"
+                    android:textSize="18sp"
                     android:padding="20dip" />
 
                 <View

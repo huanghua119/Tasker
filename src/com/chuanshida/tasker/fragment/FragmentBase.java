@@ -197,6 +197,12 @@ public abstract class FragmentBase extends Fragment {
                 R.anim.right_out);
     }
 
+    public void startAnimActivityForResult(Intent intent, int requestCode) {
+        this.startActivityForResult(intent, requestCode);
+        getActivity().overridePendingTransition(R.anim.right_in,
+                R.anim.right_out);
+    }
+
     public void showLog(String msg) {
         if (CustomApplcation.DEBUG) {
             Log.i(CustomApplcation.TAG, msg);

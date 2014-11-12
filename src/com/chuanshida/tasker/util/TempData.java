@@ -95,10 +95,13 @@ public class TempData {
     }
 
     public static List<User> createTempMyFriend(Context context) {
+        String name[] = new String[] { "Peter", "Peter", "Peter", "Peter",
+                "Peter", "Abb", "黄品", "黄品", "黄品", "黄品", "渑顺", "软骨", "#1k",
+                "Um", "有中", "估右", "估右", "林右", "估右" };
         List<User> result = new ArrayList<User>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < name.length; i++) {
             User user = new User();
-            user.setUsername("Peter");
+            user.setUsername(name[i]);
             user.setPhoneNumber("13036292929");
             user.setSex(true);
             user.setLabel("宅男");
@@ -158,7 +161,8 @@ public class TempData {
             task2.setFinalAt(c.getTime());
             task2.setStatus((i % 2 == 0) ? Task.TASK_STATUS_ACCEPT
                     : Task.TASK_STATUS_NO_ACCEPT);
-            task2.setCreateUser(UserManager.getInstance(context).getCurrentUser());
+            task2.setCreateUser(UserManager.getInstance(context)
+                    .getCurrentUser());
             task2.setToUser(user);
             result.add(task2);
         }

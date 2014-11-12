@@ -30,7 +30,7 @@ public class AddFriendActivity extends BaseActivity implements OnClickListener,
     }
 
     private void init() {
-        mList = TempData.createTempMyFriend(this);
+        mList = TempData.createTempNewFriend(this);
         mListTask = (XListView) findViewById(R.id.list_like_people);
         mListTask.setPullLoadEnable(false);
         mListTask.setPullRefreshEnable(false);
