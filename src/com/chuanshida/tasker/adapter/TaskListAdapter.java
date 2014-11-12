@@ -18,6 +18,7 @@ import com.chuanshida.tasker.ui.BaseActivity;
 import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.ViewHolder;
+import com.chuanshida.tasker.view.DateTextView;
 
 public class TaskListAdapter extends BaseListAdapter<Task> {
 
@@ -39,7 +40,7 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
         final Task task = list.get(position);
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView taskName = ViewHolder.get(view, R.id.task_name);
-        TextView taskCreateTime = ViewHolder.get(view, R.id.task_create_time);
+        DateTextView taskCreateTime = ViewHolder.get(view, R.id.task_create_time);
         ImageView taskPermissions = ViewHolder.get(view, R.id.task_permissions);
         CheckBox taskStatus = ViewHolder.get(view, R.id.task_status);
 
@@ -47,9 +48,9 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
 
         taskPermissions.setBackgroundResource(CommonUtils
                 .getTaskPermission(task.getPermissions()));
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = sdf.format(task.getCreateAt());
-        taskCreateTime.setText("(" + time + ")");
+        taskCreateTime.setInitDate(time);
         taskStatus.setChecked(task.getStatus() == Task.TASK_STATUS_FINISH);
         setOnInViewClickListener(R.id.user_photo,
                 new onInternalClickListener() {

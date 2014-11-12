@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.TempData;
 
@@ -29,13 +32,23 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
     private TextView mTaskAddress;
     private TextView mTaskPermissions;
     private ImageView mTaskPermissionsImg;
+    private Button mTaskAccept;
+    private Button mTaskNoAccept;
+    private TextView mTaskStatus;
     private LinearLayout mTaskImg;
+
+    private boolean mSelfCreate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_detail_view);
         mCurrentTask = (Task) getIntent().getSerializableExtra("task");
+        User createUser = mCurrentTask.getCreateUser();
+        if (createUser.getPhoneNumber().equals(
+                userManager.getCurrentUser().getPhoneNumber())) {
+            mSelfCreate = true;
+        }
         init();
     }
 
@@ -49,6 +62,9 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
         mTaskAddress = (TextView) findViewById(R.id.task_address);
         mTaskPermissions = (TextView) findViewById(R.id.task_permissions);
         mTaskPermissionsImg = (ImageView) findViewById(R.id.task_permissions_img);
+        mTaskAccept = (Button) findViewById(R.id.task_accept);
+        mTaskNoAccept = (Button) findViewById(R.id.task_no_accept);
+        mTaskStatus = (TextView) findViewById(R.id.task_status);
         mTaskImg = (LinearLayout) findViewById(R.id.task_img);
         mUserPhoto.setOnClickListener(this);
     }
@@ -111,15 +127,42 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
                 img.setBackgroundResource(imgRes[i]);
                 mTaskImg.addView(img);
             }
+
+            int status = mCurrentTask.getStatus();
+            if (status == Task.TASK_STATUS_WAITING) {
+                mTaskStatus.setVisibility(View.GONE);
+                mTaskAccept.setVisibility(View.VISIBLE);
+                if (mSelfCreate) {
+                    mTaskAccept.setText(R.string.remind_ta);
+                    mTaskNoAccept.setVisibility(View.GONE);
+                } else {
+                    mTaskAccept.setText(R.string.task_accept);
+                    mTaskNoAccept.setVisibility(View.VISIBLE);
+                }
+            } else {
+                mTaskAccept.setVisibility(View.GONE);
+                mTaskNoAccept.setVisibility(View.GONE);
+                mTaskStatus.setVisibility(View.VISIBLE);
+                mTaskStatus.setText(CommonUtils.getTaskStatus(getResources(),
+                        status));
+                mTaskStatus.setTextColor(CommonUtils.getTaskStatusColor(
+                        getResources(), status));
+                if (status == Task.TASK_STATUS_FINISH) {
+                    mTaskStatus.getPaint()
+                            .setFlags(
+                                    Paint.STRIKE_THRU_TEXT_FLAG
+                                            | Paint.ANTI_ALIAS_FLAG);
+                }
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v == mUserPhoto) {
-            Intent intent = new Intent(this,
-                    UserDetailActivity.class);
-            intent.putExtra("user", mCurrentTask.getCreateUser());
+            Intent intent = new Intent(this, UserDetailActivity.class);
+            intent.putExtra("user", mSelfCreate ? mCurrentTask.getToUser()
+                    : mCurrentTask.getCreateUser());
             startAnimActivity(intent);
         }
     }

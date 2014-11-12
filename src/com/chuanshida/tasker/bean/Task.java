@@ -29,10 +29,12 @@ public class Task implements Serializable {
 
     private int permissions = TASK_PERMISSIONS_PUBLIC;
 
-    private int status = TASK_STATUS_PROGRESS;
+    private int status = TASK_STATUS_WAITING;
 
-    public static final int TASK_STATUS_PROGRESS = 1;
+    public static final int TASK_STATUS_WAITING = 1;
     public static final int TASK_STATUS_FINISH = 2;
+    public static final int TASK_STATUS_ACCEPT = 3;
+    public static final int TASK_STATUS_NO_ACCEPT = 4;
 
     public User getCreateUser() {
         return createUser;

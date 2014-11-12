@@ -33,6 +33,14 @@
             android:background="@drawable/login_head"
             android:contentDescription="@string/action_settings" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/user_photo"
+            android:layout_alignTop="@+id/user_photo"
+            android:background="@drawable/head_flag"
+            android:contentDescription="@string/action_settings" />
+
         <TextView
             android:id="@+id/task_name"
             android:layout_width="wrap_content"
@@ -46,42 +54,49 @@
             android:textColor="@color/task_name_color"
             android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/task_permissions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/task_name"
-            android:layout_marginTop="3dip"
-            android:layout_toRightOf="@+id/user_photo"
-            android:contentDescription="@string/action_settings"
-            android:gravity="center_vertical" />
-
         <com.chuanshida.tasker.view.DateTextView
             android:id="@+id/task_create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/task_name"
             android:layout_marginLeft="2dip"
-            android:layout_toRightOf="@+id/task_permissions"
+            android:layout_toRightOf="@+id/user_photo"
             android:gravity="center_vertical"
             android:textColor="@color/task_permissions_color"
             android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-            <CheckBox
-                android:id="@+id/task_status"
+            <Button
+                android:id="@+id/remind_ta"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/check_box_bg"
+                android:layout_height="35dip"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/invite_btn_bg"
                 android:focusable="false"
-                android:padding="10dip" />
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/remind_ta"
+                android:textColor="@color/invite_friend_color"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical|right"
+                android:paddingRight="15dip"
+                android:text="@string/waiting"
+                android:textColor="@color/assigned_text_color"
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
 

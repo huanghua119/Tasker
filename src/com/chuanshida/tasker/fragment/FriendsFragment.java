@@ -25,7 +25,7 @@ import com.chuanshida.tasker.util.ViewHolder;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 
 /***
- * 任务日历
+ * 好友列表
  * 
  * @author huanghua
  * 
@@ -38,7 +38,6 @@ public class FriendsFragment extends FragmentBase implements
     private List<List<User>> mFriendGroup = new ArrayList<List<User>>();
     private List<User> mMyList = new ArrayList<User>();
     private List<User> mNoAddList = new ArrayList<User>();
-    private View mSearchView = null;
     private ImageView mAddFriend;
 
     private BaseExpandableListAdapter mAllFriendListAdapter = new BaseExpandableListAdapter() {
@@ -175,8 +174,6 @@ public class FriendsFragment extends FragmentBase implements
         for (int i = 0; i < mFriendGroup.size(); i++) {
             mAllFriendList.expandGroup(i);
         }
-        mSearchView = mInflater.inflate(R.layout.search_view, null);
-        mAllFriendList.addHeaderView(mSearchView);
         mAddFriend = (ImageView) findViewById(R.id.add_friend);
         mAddFriend.setOnClickListener(this);
     }

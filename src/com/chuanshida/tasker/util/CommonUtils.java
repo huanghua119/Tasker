@@ -154,4 +154,31 @@ public class CommonUtils {
         }
         return 0;
     }
+
+    public static String getTaskStatus(Resources res, int status) {
+        switch (status) {
+        case Task.TASK_STATUS_FINISH:
+            return res.getString(R.string.has_final);
+        case Task.TASK_STATUS_WAITING:
+            return res.getString(R.string.waiting);
+        case Task.TASK_STATUS_ACCEPT:
+            return res.getString(R.string.has_accept);
+        case Task.TASK_STATUS_NO_ACCEPT:
+            return res.getString(R.string.has_no_accept);
+        }
+        return "";
+    }
+
+    public static int getTaskStatusColor(Resources res, int status) {
+        switch (status) {
+        case Task.TASK_STATUS_FINISH:
+        case Task.TASK_STATUS_WAITING:
+            return res.getColor(R.color.assigned_text_color);
+        case Task.TASK_STATUS_ACCEPT:
+            return res.getColor(R.color.orange_color);
+        case Task.TASK_STATUS_NO_ACCEPT:
+            return res.getColor(R.color.send_verify_color);
+        }
+        return res.getColor(R.color.assigned_text_color);
+    }
 }

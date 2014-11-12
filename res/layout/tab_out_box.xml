@@ -50,9 +50,7 @@
             android:divider="@null"
             android:dividerHeight="0dip"
             android:fadingEdgeLength="0dp"
-            android:fastScrollEnabled="false"
-            android:paddingBottom="10dp"
-            android:paddingTop="0dip" />
+            android:fastScrollEnabled="false" />
 
         <LinearLayout
             android:id="@+id/load_view"

@@ -121,5 +121,15 @@
     <string name="input_phone_number">输入手机号码</string>
     <string name="add">添加</string>
     <string name="out_box">发件箱</string>
+    <string name="date_now">刚才</string>
+    <string name="date_min_befor">分钟前</string>
+    <string name="date_hour_befor">小时前</string>
+    <string name="date_day_befor">天前</string>
+    <string name="date_month_befor">个月前</string>
+    <string name="remind_ta">提醒ta</string>
+    <string name="has_accept">已接收</string>
+    <string name="has_no_accept">已拒绝</string>
+    <string name="waiting">等待中</string>
+    <string name="has_final">已完成</string>
 
 </resources>
