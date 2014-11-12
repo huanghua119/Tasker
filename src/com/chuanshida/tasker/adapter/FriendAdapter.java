@@ -4,10 +4,12 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
@@ -23,32 +25,32 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         SectionIndexer {
 
     protected Handler mMainThreadHandler;
+    private SparseArray<User> mCheckUser = new SparseArray<User>();
+    private OnCheckBoxClickListener mOnCheckBoxClickListener;
 
-    public FriendAdapter(Context context, List<SortModel> list) {
+    public interface OnCheckBoxClickListener {
+        public void onCheckBoxClickListener(SparseArray<User> mCheckUser);
+    }
+
+    public FriendAdapter(Context context, List<SortModel> list,
+            OnCheckBoxClickListener onCheckBoxClickListener) {
         super(context, list);
+        mOnCheckBoxClickListener = onCheckBoxClickListener;
         mMainThreadHandler = new Handler(context.getApplicationContext()
                 .getMainLooper());
     }
 
     @Override
-    public View bindView(int position, View convertView, ViewGroup parent) {
+    public View bindView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (convertView == null) {
-            view = mInflater.inflate(R.layout.friend_item_view, null);
+            view = mInflater.inflate(R.layout.assigned_friend_item_view, null);
         }
         SortModel model = list.get(position);
         final User user = model.getUser();
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView userName = ViewHolder.get(view, R.id.user_name);
         userName.setText(user.getUsername());
-        Button addFriend = ViewHolder.get(view, R.id.add_friend);
-        addFriend.setText(R.string.add_friend);
-        addFriend.setBackgroundResource(R.drawable.verify_btn__bg);
-        addFriend.setTextColor(mContext.getResources().getColor(
-                R.color.send_verify_color));
-        addFriend.setVisibility(View.VISIBLE);
-        Button assignedTa = ViewHolder.get(view, R.id.assigned_ta);
-        assignedTa.setVisibility(View.GONE);
         setOnInViewClickListener(R.id.user_photo,
                 new onInternalClickListener() {
                     @Override
@@ -56,7 +58,9 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
                             Integer position, Object values) {
                         Intent intent = new Intent(mContext,
                                 UserDetailActivity.class);
-                        intent.putExtra("user", user);
+                        Bundle b = new Bundle();
+                        b.putSerializable("user", user);
+                        intent.putExtras(b);
                         ((BaseActivity) mContext).startAnimActivity(intent);
                     }
                 });
@@ -69,6 +73,24 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         } else {
             title.setVisibility(View.GONE);
         }
+        CheckBox checkBox = ViewHolder.get(view, R.id.check_box);
+        checkBox.setChecked(mCheckUser.get(position) != null);
+        setOnInViewClickListener(R.id.check_box, new onInternalClickListener() {
+            @Override
+            public void OnClickListener(View parentV, View v, Integer position,
+                    Object values) {
+                CheckBox box = (CheckBox) v;
+                if (box.isChecked()) {
+                    mCheckUser.put(position, user);
+                } else {
+                    mCheckUser.remove(position);
+                }
+                if (mOnCheckBoxClickListener != null) {
+                    mOnCheckBoxClickListener
+                            .onCheckBoxClickListener(mCheckUser);
+                }
+            }
+        });
 
         return view;
     }
@@ -95,4 +117,17 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         return list.get(position).getSortLetters().charAt(0);
     }
 
+    public void checkItemForPosition(int position, boolean checked) {
+        SortModel model = list.get(position);
+        User user = model.getUser();
+        if (checked) {
+            mCheckUser.put(position, user);
+        } else {
+            mCheckUser.remove(position);
+        }
+        notifyDataSetChanged();
+        if (mOnCheckBoxClickListener != null) {
+            mOnCheckBoxClickListener.onCheckBoxClickListener(mCheckUser);
+        }
+    }
 }

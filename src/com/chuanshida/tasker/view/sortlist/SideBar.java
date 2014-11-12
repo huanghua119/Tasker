@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -52,9 +51,8 @@ public class SideBar extends View {
         int singleHeight = height / b.length;// 获取每一个字母的高度
 
         for (int i = 0; i < b.length; i++) {
-            paint.setColor(Color.rgb(33, 65, 98));
-            // paint.setColor(Color.WHITE);
-            paint.setTypeface(Typeface.DEFAULT_BOLD);
+            paint.setColor(getResources().getColor(R.color.task_name_color));
+            // paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setAntiAlias(true);
             paint.setTextSize(20);
             // 选中的状态
@@ -81,7 +79,7 @@ public class SideBar extends View {
 
         switch (action) {
         case MotionEvent.ACTION_UP:
-            setBackgroundDrawable(new ColorDrawable(0x00000000));
+            setBackground(new ColorDrawable(0x00000000));
             choose = -1;//
             invalidate();
             if (mTextDialog != null) {

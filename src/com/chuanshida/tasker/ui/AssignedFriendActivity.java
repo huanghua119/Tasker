@@ -8,14 +8,21 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.FriendAdapter;
+import com.chuanshida.tasker.adapter.FriendAdapter.OnCheckBoxClickListener;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.sortlist.CharacterParser;
@@ -26,7 +33,8 @@ import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
 
 public class AssignedFriendActivity extends BaseActivity implements
-        OnClickListener, IXListViewListener, OnItemClickListener {
+        OnClickListener, IXListViewListener, OnItemClickListener,
+        OnCheckBoxClickListener {
 
     private XListView mListFriend;
     private List<User> mList;
@@ -34,9 +42,41 @@ public class AssignedFriendActivity extends BaseActivity implements
     private TextView mComplete;
     private SideBar mSideBar;
     private TextView mDialog;
+    private LinearLayout mHeadGroup;
+    private SparseArray<User> mCheckUser;
 
     private CharacterParser mCharacterParser;
     private List<SortModel> mSourceDateList;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mHeadGroup.removeAllViews();
+            for (int i = 0; i < mCheckUser.size(); i++) {
+                int key = mCheckUser.keyAt(i);
+                User user = mCheckUser.get(key);
+                ImageView img = new ImageView(AssignedFriendActivity.this);
+                img.setOnClickListener(AssignedFriendActivity.this);
+                img.setTag(user);
+                LayoutParams layout = new LayoutParams(100, 100);
+                int left = 5;
+                int right = 5;
+                if (i == 0) {
+                    left = 0;
+                } else if (i == mCheckUser.size() - 1) {
+                    right = 0;
+                }
+                layout.setMargins(left, 0, right, 0);
+                img.setLayoutParams(layout);
+                if (user.getAvatar() != null && !"".equals(user.getAvatar())) {
+                } else {
+                    img.setBackgroundResource(R.drawable.login_head);
+                }
+                mHeadGroup.addView(img);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +86,10 @@ public class AssignedFriendActivity extends BaseActivity implements
     }
 
     private void init() {
+        if (mCheckUser == null) {
+            mCheckUser = new SparseArray<User>();
+        }
+        mCheckUser.clear();
         mList = TempData.createTempMyFriend(this);
         mCharacterParser = CharacterParser.getInstance();
         mSourceDateList = filledData(mList);
@@ -55,13 +99,14 @@ public class AssignedFriendActivity extends BaseActivity implements
         mListFriend.setPullRefreshEnable(false);
         mListFriend.setXListViewListener(this);
         mListFriend.pullRefreshing();
-        mAdapter = new FriendAdapter(this, mSourceDateList);
+        mAdapter = new FriendAdapter(this, mSourceDateList, this);
         mListFriend.setAdapter(mAdapter);
         mListFriend.setOnItemClickListener(this);
         mComplete = (TextView) findViewById(R.id.complete);
         mComplete.setOnClickListener(this);
         mSideBar = (SideBar) findViewById(R.id.sidrbar);
         mDialog = (TextView) findViewById(R.id.dialog);
+        mHeadGroup = (LinearLayout) findViewById(R.id.head_group);
         mSideBar.setTextView(mDialog);
         mSideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
             @Override
@@ -92,8 +137,23 @@ public class AssignedFriendActivity extends BaseActivity implements
     public void onClick(View v) {
         if (v == mComplete) {
             Intent data = new Intent();
+            Bundle b = new Bundle();
+            b.putInt("data_size", mCheckUser.size());
+            for (int i = 0; i < mCheckUser.size(); i++) {
+                int key = mCheckUser.keyAt(i);
+                User user = mCheckUser.get(key);
+                b.putSerializable("data" + i, user);
+            }
+            data.putExtras(b);
             setResult(Activity.RESULT_OK, data);
             finish();
+        } else {
+            if (v instanceof ImageView) {
+                User user = (User) v.getTag();
+                int key = mCheckUser.keyAt(mCheckUser.indexOfValue(user));
+                mHeadGroup.removeView(v);
+                mAdapter.checkItemForPosition(key, false);
+            }
         }
     }
 
@@ -108,7 +168,10 @@ public class AssignedFriendActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
+        int count = mListFriend.getHeaderViewsCount();
+        int key = arg2 - count;
+        boolean isChecked = mCheckUser.get(key) == null;
+        mAdapter.checkItemForPosition(key, isChecked);
     }
 
     private List<SortModel> filledData(List<User> date) {
@@ -146,5 +209,19 @@ public class AssignedFriendActivity extends BaseActivity implements
             }
         }
 
+    }
+
+    @Override
+    public void onCheckBoxClickListener(SparseArray<User> checkUser) {
+        if (mCheckUser == null) {
+            mCheckUser = new SparseArray<User>();
+        }
+        mCheckUser.clear();
+        for (int i = 0; i < checkUser.size(); i++) {
+            int key = checkUser.keyAt(i);
+            User user = checkUser.get(key);
+            mCheckUser.put(key, user);
+        }
+        mHandler.sendEmptyMessage(1);
     }
 }

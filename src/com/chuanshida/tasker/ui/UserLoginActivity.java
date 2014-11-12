@@ -55,8 +55,10 @@ public class UserLoginActivity extends BaseActivity implements OnClickListener {
     private void init() {
         mNowRegiser = (TextView) findViewById(R.id.now_regiser);
         mForgotPass = (TextView) findViewById(R.id.forgot_pass);
-        mForgotPass.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        mNowRegiser.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        mForgotPass.getPaint().setFlags(
+                Paint.UNDERLINE_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        mNowRegiser.getPaint().setFlags(
+                Paint.UNDERLINE_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         mForgotPass.setOnClickListener(this);
         mNowRegiser.setOnClickListener(this);
         mLogin = (Button) findViewById(R.id.login);

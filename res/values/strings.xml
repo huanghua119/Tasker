@@ -132,5 +132,8 @@
     <string name="waiting">等待中</string>
     <string name="has_final">已完成</string>
     <string name="assigned_to">分配给</string>
+    <string name="outside_friend">站外好友（创建后可通过微信/QQ发送）</string>
+    <string name="my_self">我自己</string>
+    <string name="send">发送</string>
 
 </resources>

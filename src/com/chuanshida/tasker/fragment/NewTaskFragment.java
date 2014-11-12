@@ -3,6 +3,7 @@ package com.chuanshida.tasker.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,7 @@ public class NewTaskFragment extends FragmentBase implements OnClickListener {
     private TextView mBack;
     private User mToUser;
     private TextView mAssigned;
+    private SparseArray<User> mCheckUser;
 
     private static final int REQUEST_CODE_FOR_ASSIGNED = 1;
 
@@ -48,6 +50,7 @@ public class NewTaskFragment extends FragmentBase implements OnClickListener {
         mBack.setOnClickListener(this);
         mAssigned = (TextView) findViewById(R.id.new_assigned);
         mAssigned.setOnClickListener(this);
+        mAssigned.setText("");
     }
 
     @Override
@@ -58,8 +61,6 @@ public class NewTaskFragment extends FragmentBase implements OnClickListener {
         }
         if (mToUser != null) {
             mAssigned.setText(mToUser.getUsername());
-        } else {
-            mAssigned.setText("");
         }
     }
 
@@ -80,6 +81,26 @@ public class NewTaskFragment extends FragmentBase implements OnClickListener {
         switch (requestCode) {
         case REQUEST_CODE_FOR_ASSIGNED:
             if (resultCode == Activity.RESULT_OK) {
+                Bundle b = data.getExtras();
+                int size = b.getInt("data_size");
+                if (mCheckUser == null) {
+                    mCheckUser = new SparseArray<User>();
+                }
+                mCheckUser.clear();
+                for (int i = 0; i < size; i++) {
+                    User u = (User) b.getSerializable("data" + i);
+                    mCheckUser.put(i, u);
+                }
+                String names = "";
+                for (int i = 0; i < mCheckUser.size(); i++) {
+                    int key = mCheckUser.keyAt(i);
+                    User user = mCheckUser.get(key);
+                    names += user.getUsername();
+                    if (i != mCheckUser.size() - 1) {
+                        names += ",";
+                    }
+                }
+                mAssigned.setText(names);
             }
             break;
         }

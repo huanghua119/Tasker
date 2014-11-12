@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dip" >
+
+    <RelativeLayout
+        android:id="@+id/it_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/it_chat_photo"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/login_head"
+            android:contentDescription="@string/about" />
+
+        <TextView
+            android:id="@+id/it_chat_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/it_chat_photo"
+            android:textColor="@color/task_name_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/it_chat_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/it_chat_name"
+            android:textColor="@color/task_permissions_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/it_chat_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/it_chat_time"
+            android:layout_marginRight="15dip"
+            android:layout_toRightOf="@+id/it_chat_photo"
+            android:background="@drawable/it_chat_context_bg"
+            android:paddingBottom="12dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="12dip"
+            android:textColor="@color/task_permissions_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/self_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="18dip" >
+
+        <ImageView
+            android:id="@+id/self_chat_photo"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/login_head"
+            android:contentDescription="@string/about" />
+
+        <TextView
+            android:id="@+id/self_chat_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/self_chat_photo"
+            android:textColor="@color/task_permissions_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/self_chat_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@+id/self_chat_time"
+            android:textColor="@color/task_name_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/self_chat_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/self_chat_name"
+            android:layout_marginLeft="15dip"
+            android:layout_toLeftOf="@+id/self_chat_photo"
+            android:background="@drawable/self_chat_context_bg"
+            android:paddingBottom="12dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="12dip"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</FrameLayout>

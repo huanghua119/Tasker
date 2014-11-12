@@ -1,5 +1,6 @@
 package com.chuanshida.tasker.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,7 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
     private TextView mUserEmail;
     private TextView mUserLabel;
     private Button mAddLabel;
+    private Button mSendMessage;
 
     private View mMySelfView;
     private View mOtherUserView;
@@ -33,7 +35,10 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_detail_view);
-        mCurrentUser = (User) getIntent().getSerializableExtra("user");
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            mCurrentUser = (User) b.getSerializable("user");
+        }
         if (mCurrentUser == null) {
             mCurrentUser = userManager.getCurrentUser();
         }
@@ -56,6 +61,8 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
         mOtherUserBottom = findViewById(R.id.other_user_bottom);
         mUserPhoneView = findViewById(R.id.user_phone_view);
         mUserEmailView = findViewById(R.id.user_email_view);
+        mSendMessage = (Button) findViewById(R.id.send_message);
+        mSendMessage.setOnClickListener(this);
     }
 
     @Override
@@ -113,6 +120,12 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
     public void onClick(View v) {
         if (v == mAddLabel) {
 
+        } else if (v == mSendMessage) {
+            Intent intent = new Intent(this, ChatActivity.class);
+            Bundle b = new Bundle();
+            b.putSerializable("user", mCurrentUser);
+            intent.putExtras(b);
+            startAnimActivity(intent);
         }
     }
 

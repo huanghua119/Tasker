@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,9 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
                             Integer position, Object values) {
                         Intent intent = new Intent(mContext,
                                 UserDetailActivity.class);
-                        intent.putExtra("user", task.getCreateUser());
+                        Bundle b = new Bundle();
+                        b.putSerializable("user", task.getCreateUser());
+                        intent.putExtras(b);
                         ((BaseActivity)mContext).startAnimActivity(intent);
                     }
                 });

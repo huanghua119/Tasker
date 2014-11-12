@@ -161,8 +161,10 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
     public void onClick(View v) {
         if (v == mUserPhoto) {
             Intent intent = new Intent(this, UserDetailActivity.class);
-            intent.putExtra("user", mSelfCreate ? mCurrentTask.getToUser()
+            Bundle b = new Bundle();
+            b.putSerializable("user", mSelfCreate ? mCurrentTask.getToUser()
                     : mCurrentTask.getCreateUser());
+            intent.putExtras(b);
             startAnimActivity(intent);
         }
     }

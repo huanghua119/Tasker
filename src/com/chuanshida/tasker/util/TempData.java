@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Context;
 
 import com.chuanshida.tasker.R;
+import com.chuanshida.tasker.bean.NewMessage;
 import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.manager.UserManager;
@@ -178,6 +179,38 @@ public class TempData {
         task3.setCreateUser(UserManager.getInstance(context).getCurrentUser());
         task3.setToUser(user);
         result.add(task3);
+        return result;
+    }
+
+    public static List<NewMessage> createTempMessage(Context context,
+            User mChatUser) {
+        List<NewMessage> result = new ArrayList<NewMessage>();
+        NewMessage message = new NewMessage();
+        Calendar c = Calendar.getInstance();
+        c.set(2013, 4, 11);
+        message.setMessageDate(c.getTime());
+        message.setUser(mChatUser);
+        message.setContext("你好吗？");
+        result.add(message);
+        boolean isMe = false;
+        for (int i = 0; i < 6; i++) {
+            NewMessage message1 = new NewMessage();
+            Date date = new Date();
+            c.set(2013, 10, 11, date.getHours(), date.getMinutes(),
+                    date.getSeconds());
+            message1.setMessageDate(c.getTime());
+            message1.setUser(isMe ? mChatUser : UserManager
+                    .getInstance(context).getCurrentUser());
+            message1.setContext(isMe ? "你好吗？" : "不好！");
+            isMe = !isMe;
+            result.add(message1);
+        }
+        NewMessage message2 = new NewMessage();
+        c.set(2013, 5, 11);
+        message2.setMessageDate(c.getTime());
+        message2.setUser(mChatUser);
+        message2.setContext("Parcelable实现要点：需要实现三个东西1）writeToParcel 方法。该方法将类的数据写入外部提供的Parcel中.声明如下：writeToParcel (Parcel dest, int flags) 具体参数含义见javadoc2）describeContents方法。没搞懂有什么用，反正直接返回0也可以3）静态的Parcelable.Creator接口，本接口有两个方法：createFromParcel(Parcel in) 实现从in中创建出类的实例的功能newArray(int size) 创建一个类型为T，长度为size的数组，仅一句话（return new T[size])即可。估计本方法是供外部类反序列化本类数组使用。");
+        result.add(message2);
         return result;
     }
 }

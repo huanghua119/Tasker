@@ -125,7 +125,9 @@ public class FriendsFragment extends FragmentBase implements
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(),
                             UserDetailActivity.class);
-                    intent.putExtra("user", user);
+                    Bundle b = new Bundle();
+                    b.putSerializable("user", user);
+                    intent.putExtras(b);
                     startAnimActivity(intent);
                 }
             });

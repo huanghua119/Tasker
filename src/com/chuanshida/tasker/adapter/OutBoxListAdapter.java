@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -74,7 +75,9 @@ public class OutBoxListAdapter extends BaseListAdapter<Task> {
                             Integer position, Object values) {
                         Intent intent = new Intent(mContext,
                                 UserDetailActivity.class);
-                        intent.putExtra("user", task.getToUser());
+                        Bundle b = new Bundle();
+                        b.putSerializable("user", task.getToUser());
+                        intent.putExtras(b);
                         ((BaseActivity) mContext).startAnimActivity(intent);
                     }
                 });

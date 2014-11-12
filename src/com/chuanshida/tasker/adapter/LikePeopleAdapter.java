@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,9 @@ public class LikePeopleAdapter extends BaseListAdapter<User> {
                             Integer position, Object values) {
                         Intent intent = new Intent(mContext,
                                 UserDetailActivity.class);
-                        intent.putExtra("user", user);
+                        Bundle b = new Bundle();
+                        b.putSerializable("user", user);
+                        intent.putExtras(b);
                         ((BaseActivity) mContext).startAnimActivity(intent);
                     }
                 });
