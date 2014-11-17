@@ -146,7 +146,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                 //refreshList();
                 NewMessage message = new NewMessage();
                 message.setMessageDate(new Date());
-                message.setUser(mChatUser);
+                message.setUser(userManager.getCurrentUser());
                 message.setContext(context);
                 mAllMessage.add(message);
                 mAdapter.notifyDataSetInvalidated();

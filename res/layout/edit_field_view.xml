@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_bg_color"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:drawableLeft="@drawable/back_left_bg"
+            android:drawablePadding="10dip"
+            android:gravity="center_vertical"
+            android:onClick="onBack"
+            android:paddingLeft="15dip"
+            android:text="@string/back"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/new_task"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/complete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:onClick="onComplete"
+            android:paddingRight="10dip"
+            android:text="@string/complete"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="30dip"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="150dip"
+            android:background="@drawable/white_bg"
+            android:gravity="top"
+            android:hint="@string/input_content"
+            android:padding="10dip"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/repeat_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:id="@+id/repeat_count_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/task_bottom_height"
+                android:layout_marginBottom="24dip"
+                android:background="@drawable/list_background_white_bg"
+                android:clickable="true"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/task_repeat"
+                    android:drawablePadding="13dip"
+                    android:gravity="center_vertical"
+                    android:text="@string/task_repeat_count"
+                    android:textColor="@color/task_permissions_color"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/task_no_repeat"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_marginRight="4dip"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/no_repeat"
+                    android:onClick="onRepeatClick"
+                    android:text="@string/task_no_repeat"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/task_day_repeat"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_marginRight="2dip"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/repeat_day"
+                    android:onClick="onRepeatClick"
+                    android:text="@string/task_day_repeat"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dip"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/task_week_repeat"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_marginRight="4dip"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/repeat_week"
+                    android:onClick="onRepeatClick"
+                    android:text="@string/task_week_repeat"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/task_month_repeat"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_marginRight="2dip"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/repeat_month"
+                    android:onClick="onRepeatClick"
+                    android:text="@string/task_month_repeat"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dip"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/task_year_repeat"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_marginRight="4dip"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/repeat_year"
+                    android:onClick="onRepeatClick"
+                    android:text="@string/task_year_repeat"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/task_diy_repeat"
+                    android:layout_width="0dip"
+                    android:layout_height="60dip"
+                    android:layout_marginRight="2dip"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/repeat_diy"
+                    android:onClick="onRepeatClick"
+                    android:text="@string/diy"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/location_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/task_bottom_height"
+            android:background="@drawable/list_background_white_bg"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/task_location"
+                android:drawablePadding="13dip"
+                android:gravity="center_vertical"
+                android:hint="@string/input_location"
+                android:textColor="@color/task_permissions_color"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

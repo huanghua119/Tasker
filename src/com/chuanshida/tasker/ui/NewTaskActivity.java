@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.util.TempData;
 
 public class NewTaskActivity extends BaseActivity {
@@ -45,6 +46,7 @@ public class NewTaskActivity extends BaseActivity {
         if (name == null || "".equals(name)) {
             return;
         }
+        hideInputMethod();
         showCompleteDialog(name);
     }
 
@@ -59,11 +61,20 @@ public class NewTaskActivity extends BaseActivity {
                         task.setCreateAt(new Date());
                         task.setName(title);
                         TempData.mTempTaskList.add(task);
-                        Intent intent = new Intent(NewTaskActivity.this, UpdateTaskActivity.class);
+                        Intent intent = new Intent(NewTaskActivity.this,
+                                UpdateTaskActivity.class);
                         Bundle b = new Bundle();
+                        Bundle bundle = getIntent().getExtras();
+                        if (bundle != null) {
+                            User user = (User) bundle.getSerializable("user");
+                            if (user != null) {
+                                b.putSerializable("user", user);
+                            }
+                        }
                         b.putSerializable("task", task);
                         intent.putExtras(b);
                         startAnimActivity(intent);
+                        mRunFinishAnim = false;
                         finish();
                     }
                 }).setNegativeButton(R.string.cancle, null).create();

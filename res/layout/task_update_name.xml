@@ -61,7 +61,9 @@
         android:layout_marginTop="30dip"
         android:background="@drawable/orange_input"
         android:hint="@string/add_task"
+        android:maxLength="50"
         android:paddingLeft="20dip"
+        android:singleLine="true"
         android:textSize="18sp" />
 
 </LinearLayout>

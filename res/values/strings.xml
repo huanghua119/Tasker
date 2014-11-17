@@ -138,5 +138,17 @@
     <string name="send">发送</string>
     <string name="add_task">添加一个任务</string>
     <string name="complete_create_task">确认要创建此任务吗？</string>
+    <string name="task_remark">备注</string>
+    <string name="task_repeat">重复</string>
+    <string name="task_no_repeat">不重复</string>
+    <string name="task_day_repeat">每天</string>
+    <string name="task_week_repeat">每个星期</string>
+    <string name="task_month_repeat">每个月</string>
+    <string name="task_year_repeat">每年</string>
+    <string name="diy">自定义</string>
+    <string name="task_repeat_count">重复次数</string>
+    <string name="task_location">地理位置</string>
+    <string name="input_content">请输入详细内容</string>
+    <string name="input_location">请输入相关位置</string>
 
 </resources>

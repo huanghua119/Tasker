@@ -20,6 +20,7 @@ import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.ui.AddFriendActivity;
 import com.chuanshida.tasker.ui.MainActivity;
+import com.chuanshida.tasker.ui.NewTaskActivity;
 import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.util.ViewHolder;
@@ -119,7 +120,7 @@ public class FriendsFragment extends FragmentBase implements
             } else {
                 addFriend.setVisibility(View.GONE);
             }
-            ImageView userPhoto =  ViewHolder.get(view, R.id.user_photo);
+            ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
             userPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -136,9 +137,11 @@ public class FriendsFragment extends FragmentBase implements
                 @Override
                 public void onClick(View v) {
                     MainActivity activity = (MainActivity) getActivity();
+                    Intent intent = new Intent(activity, NewTaskActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("user", user);
-                    activity.toNewTaskFragment(bundle);
+                    intent.putExtras(bundle);
+                    activity.startAnimActivity(intent);
                 }
             });
             return view;
@@ -199,8 +202,7 @@ public class FriendsFragment extends FragmentBase implements
     @Override
     public void onClick(View v) {
         if (v == mAddFriend) {
-            Intent intent = new Intent(getActivity(),
-                    AddFriendActivity.class);
+            Intent intent = new Intent(getActivity(), AddFriendActivity.class);
             startAnimActivity(intent);
         }
     }

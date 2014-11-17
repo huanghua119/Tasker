@@ -59,7 +59,7 @@ public class OutBoxFragment extends FragmentBase implements OnClickListener,
     private void init() {
         mBack = (TextView) findViewById(R.id.btn_cancel);
         mBack.setOnClickListener(this);
-        mList = TempData.createTempOutBoxData(getActivity());
+        mList = TempData.mTempTaskList;
         Collections.sort(mList, new DateComparator());
         mListTask = (XListView) findViewById(R.id.list_box);
         mListTask.setPullLoadEnable(false);

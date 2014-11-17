@@ -94,6 +94,11 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".ui.EditFieldActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
         <!-- tencent login start -->
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
