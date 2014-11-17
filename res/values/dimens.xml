@@ -19,5 +19,6 @@
     <!-- timessquare end -->
 
     <dimen name="circle_size">40dip</dimen>
+    <dimen name="task_bottom_height">45dip</dimen>
 
 </resources>

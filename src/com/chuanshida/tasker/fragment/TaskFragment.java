@@ -2,6 +2,7 @@ package com.chuanshida.tasker.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.ui.MainActivity;
+import com.chuanshida.tasker.ui.NewTaskActivity;
 
 /***
  * 任务日历
@@ -102,7 +104,10 @@ public class TaskFragment extends FragmentBase implements OnClickListener {
     public void onClick(View v) {
         if (v == mNewTask) {
             MainActivity activity = (MainActivity) getActivity();
-            activity.toNewTaskFragment();
+            //activity.toNewTaskFragment();
+            Intent intent = new Intent(activity,
+                    NewTaskActivity.class);
+            activity.startAnimActivity(intent);
         } else if (v == mOutBox) {
             MainActivity activity = (MainActivity) getActivity();
             activity.toOutBoxFragment();

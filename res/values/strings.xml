@@ -43,6 +43,7 @@
     <string name="send_verify">发送验证码</string>
     <string name="reset_password">重置密码 </string>
     <string name="ok">确定</string>
+    <string name="cancle">取消</string>
     <string name="tab_calendar">任务日历</string>
     <string name="tab_me">我</string>
     <string name="tab_friends">好友列表</string>
@@ -72,11 +73,11 @@
     <string name="add_friend">加好友</string>
     <string name="invite_ta">邀请ta</string>
     <string name="complete">完成</string>
-    <string name="new_task">新任务</string>
+    <string name="new_task">新建任务</string>
     <string name="new_task_name">任务名称</string>
     <string name="new_assigned">分配给谁</string>
     <string name="new_conent">任务内容</string>
-    <string name="new_final_date">到期日</string>
+    <string name="new_final_date">到期时间</string>
     <string name="new_remind">提醒</string>
     <string name="location">所在位置</string>
     <string name="day_name_format">EEE</string>
@@ -135,5 +136,7 @@
     <string name="outside_friend">站外好友（创建后可通过微信/QQ发送）</string>
     <string name="my_self">我自己</string>
     <string name="send">发送</string>
+    <string name="add_task">添加一个任务</string>
+    <string name="complete_create_task">确认要创建此任务吗？</string>
 
 </resources>

@@ -164,6 +164,11 @@ public class BaseActivity extends Activity {
         overridePendingTransition(R.anim.right_in, R.anim.right_out);
     }
 
+    public void startAnimActivityForResult(Intent intent, int requestCode) {
+        this.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+    }
+
     public void showLog(String msg) {
         if (CustomApplcation.DEBUG) {
             Log.i(CustomApplcation.TAG, msg);
@@ -202,6 +207,5 @@ public class BaseActivity extends Activity {
         }
         return false;
     }
-
 
 }

@@ -130,4 +130,12 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
             mOnCheckBoxClickListener.onCheckBoxClickListener(mCheckUser);
         }
     }
+
+    public void setCheckUserList(SparseArray<User> list) {
+        if (mCheckUser == null) {
+            mCheckUser = new SparseArray<User>();
+        }
+        mCheckUser.clear();
+        mCheckUser = list.clone();
+    }
 }

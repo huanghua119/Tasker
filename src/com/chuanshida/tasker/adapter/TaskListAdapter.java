@@ -49,9 +49,10 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
 
         taskPermissions.setBackgroundResource(CommonUtils
                 .getTaskPermission(task.getPermissions()));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String time = sdf.format(task.getCreateAt());
-        taskCreateTime.setInitDate(time);
+        taskCreateTime.setText("(" + time + ")");
+        
         taskStatus.setChecked(task.getStatus() == Task.TASK_STATUS_FINISH);
         setOnInViewClickListener(R.id.user_photo,
                 new onInternalClickListener() {

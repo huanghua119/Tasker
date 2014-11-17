@@ -117,6 +117,18 @@ public class AssignedFriendActivity extends BaseActivity implements
                 }
             }
         });
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            int size = b.getInt("data_size");
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    User u = (User) b.getSerializable("data" + i);
+                    mCheckUser.put(i, u);
+                }
+                mHandler.sendEmptyMessage(1);
+                mAdapter.setCheckUserList(mCheckUser);
+            }
+        }
     }
 
     @Override

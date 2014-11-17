@@ -26,6 +26,7 @@ public class TempData {
         user.setAddress("江西省萍乡市上栗县");
     }
 
+    public static List<Task> mTempTaskList = new ArrayList<Task>();
     public static List<Task> createTempTaskData(Context context) {
         List<Task> result = new ArrayList<Task>();
         Task task1 = new Task();

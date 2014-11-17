@@ -14,6 +14,7 @@
 
     <drawable name="list_pressed_bg">#ED8E6D</drawable>
     <drawable name="list_normal_bg">#00000000</drawable>
+    <drawable name="list_normal_white_bg">#FFFFFF</drawable>
 
     <color name="calendar_bg_color">#d08067</color>
 
