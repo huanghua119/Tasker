@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.bean.User;
-import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.TempData;
 
 public class UpdateTaskActivity extends BaseActivity implements OnClickListener {
@@ -128,9 +128,12 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         for (int i = 0; i < count; i++) {
             int key = mCheckUser.keyAt(i);
             User user = mCheckUser.get(key);
-            mCurrentTask.setToUser(user);
-            TempData.mTempTaskList.add(mCurrentTask);
+            TaskToUser taskToUser = new TaskToUser();
+            taskToUser.setToUser(user);
+            taskToUser.setTask(mCurrentTask);
+            TempData.mTempTaskToUserList.add(taskToUser);
         }
+        TempData.mTempTaskList.add(mCurrentTask);
         if (count > 0) {
             onBackPressed();
         }

@@ -15,17 +15,18 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.ui.BaseActivity;
 import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.ViewHolder;
 import com.chuanshida.tasker.view.DateTextView;
 
-public class TaskListAdapter extends BaseListAdapter<Task> {
+public class TaskListAdapter extends BaseListAdapter<TaskToUser> {
 
     protected Handler mMainThreadHandler;
 
-    public TaskListAdapter(Context context, List<Task> list) {
+    public TaskListAdapter(Context context, List<TaskToUser> list) {
         super(context, list);
         mMainThreadHandler = new Handler(context.getApplicationContext()
                 .getMainLooper());
@@ -37,8 +38,9 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
         if (convertView == null) {
             view = mInflater.inflate(R.layout.task_item_view, null);
         }
-        List<Task> list = getList();
-        final Task task = list.get(position);
+        List<TaskToUser> list = getList();
+        final TaskToUser ttu = list.get(position);
+        final Task task = ttu.getTask();
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView taskName = ViewHolder.get(view, R.id.task_name);
         DateTextView taskCreateTime = ViewHolder.get(view, R.id.task_create_time);
@@ -53,7 +55,7 @@ public class TaskListAdapter extends BaseListAdapter<Task> {
         String time = sdf.format(task.getCreateAt());
         taskCreateTime.setText("(" + time + ")");
         
-        taskStatus.setChecked(task.getStatus() == Task.TASK_STATUS_FINISH);
+        taskStatus.setChecked(ttu.getStatus() == TaskToUser.TASK_STATUS_FINISH);
         setOnInViewClickListener(R.id.user_photo,
                 new onInternalClickListener() {
                     @Override

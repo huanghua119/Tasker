@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
-import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.ui.TaskDetailActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
@@ -31,7 +31,7 @@ public class ListTaskFragment extends FragmentBase implements
 
     private XListView mListTask;
     private TaskListAdapter mTaskListAdapter;
-    private List<Task> mList = new ArrayList<Task>();
+    private List<TaskToUser> mList = new ArrayList<TaskToUser>();
     private View mLoadView = null;
     private ImageView mLoadImage = null;
 
@@ -49,7 +49,8 @@ public class ListTaskFragment extends FragmentBase implements
     }
 
     private void init() {
-        mList = TempData.createTempTaskData(getActivity());
+        TempData.createTempTaskData(getActivity());
+        mList = TempData.mTempTaskToUserList;
         mListTask = (XListView) findViewById(R.id.list_task);
         mListTask.setPullLoadEnable(false);
         mListTask.setPullRefreshEnable(false);
@@ -73,9 +74,9 @@ public class ListTaskFragment extends FragmentBase implements
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         int count = mListTask.getHeaderViewsCount();
-        Task task = mList.get(arg2 - count);
+        TaskToUser task = mList.get(arg2 - count);
         Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-        intent.putExtra("task", task);
+        intent.putExtra("task", task.getTask());
         startAnimActivity(intent);
     }
 

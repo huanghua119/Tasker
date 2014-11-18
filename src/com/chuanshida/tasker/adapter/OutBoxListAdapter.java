@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.ui.BaseActivity;
 import com.chuanshida.tasker.ui.UserDetailActivity;
 import com.chuanshida.tasker.util.CommonUtils;
@@ -44,23 +45,24 @@ public class OutBoxListAdapter extends BaseListAdapter<Task> {
         }
         List<Task> list = getList();
         final Task task = list.get(position);
+        final TaskToUser ttu = CommonUtils.getTaskToUserForTask(task).get(0);
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView taskName = ViewHolder.get(view, R.id.task_name);
         taskName.setText(task.getName());
         TextView status = ViewHolder.get(view, R.id.status);
         Button remindTa = ViewHolder.get(view, R.id.remind_ta);
-        int taskStatus = task.getStatus();
+        int taskStatus = ttu.getStatus();
         status.setText(CommonUtils.getTaskStatus(mContext.getResources(),
                 taskStatus));
         status.setTextColor(CommonUtils.getTaskStatusColor(
                 mContext.getResources(), taskStatus));
-        if (taskStatus == Task.TASK_STATUS_FINISH) {
+        if (taskStatus == TaskToUser.TASK_STATUS_FINISH) {
             status.getPaint().setFlags(
                     Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         } else {
             status.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);
         }
-        remindTa.setVisibility(task.getStatus() == Task.TASK_STATUS_WAITING ? View.VISIBLE
+        remindTa.setVisibility(ttu.getStatus() == TaskToUser.TASK_STATUS_WAITING ? View.VISIBLE
                 : View.GONE);
 
         DateTextView taskCreateTime = ViewHolder.get(view,
@@ -76,7 +78,7 @@ public class OutBoxListAdapter extends BaseListAdapter<Task> {
                         Intent intent = new Intent(mContext,
                                 UserDetailActivity.class);
                         Bundle b = new Bundle();
-                        b.putSerializable("user", task.getToUser());
+                        b.putSerializable("user", ttu.getToUser());
                         intent.putExtras(b);
                         ((BaseActivity) mContext).startAnimActivity(intent);
                     }

@@ -74,7 +74,7 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
             title.setVisibility(View.GONE);
         }
         CheckBox checkBox = ViewHolder.get(view, R.id.check_box);
-        checkBox.setChecked(mCheckUser.get(position) != null);
+        checkBox.setChecked(userIsChecked(user));
         setOnInViewClickListener(R.id.check_box, new onInternalClickListener() {
             @Override
             public void OnClickListener(View parentV, View v, Integer position,
@@ -93,6 +93,17 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         });
 
         return view;
+    }
+
+    private boolean userIsChecked(User user) {
+        for (int i = 0; i < mCheckUser.size(); i++) {
+            int key = mCheckUser.keyAt(i);
+            User u = mCheckUser.get(key);
+            if (u.getPhoneNumber().equals(user.getPhoneNumber())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

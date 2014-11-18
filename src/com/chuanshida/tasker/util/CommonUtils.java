@@ -3,6 +3,7 @@ package com.chuanshida.tasker.util;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActivityManager;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.chuanshida.tasker.CustomApplcation;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.ui.UpdateTaskActivity;
 
 public class CommonUtils {
@@ -158,13 +160,13 @@ public class CommonUtils {
 
     public static String getTaskStatus(Resources res, int status) {
         switch (status) {
-        case Task.TASK_STATUS_FINISH:
+        case TaskToUser.TASK_STATUS_FINISH:
             return res.getString(R.string.has_final);
-        case Task.TASK_STATUS_WAITING:
+        case TaskToUser.TASK_STATUS_WAITING:
             return res.getString(R.string.waiting);
-        case Task.TASK_STATUS_ACCEPT:
+        case TaskToUser.TASK_STATUS_ACCEPT:
             return res.getString(R.string.has_accept);
-        case Task.TASK_STATUS_NO_ACCEPT:
+        case TaskToUser.TASK_STATUS_NO_ACCEPT:
             return res.getString(R.string.has_no_accept);
         }
         return "";
@@ -172,12 +174,12 @@ public class CommonUtils {
 
     public static int getTaskStatusColor(Resources res, int status) {
         switch (status) {
-        case Task.TASK_STATUS_FINISH:
-        case Task.TASK_STATUS_WAITING:
+        case TaskToUser.TASK_STATUS_FINISH:
+        case TaskToUser.TASK_STATUS_WAITING:
             return res.getColor(R.color.assigned_text_color);
-        case Task.TASK_STATUS_ACCEPT:
+        case TaskToUser.TASK_STATUS_ACCEPT:
             return res.getColor(R.color.orange_color);
-        case Task.TASK_STATUS_NO_ACCEPT:
+        case TaskToUser.TASK_STATUS_NO_ACCEPT:
             return res.getColor(R.color.send_verify_color);
         }
         return res.getColor(R.color.assigned_text_color);
@@ -199,5 +201,16 @@ public class CommonUtils {
             return 0;
         }
         return 0;
+    }
+
+    public static List<TaskToUser> getTaskToUserForTask(Task mCurrentTask) {
+        List<TaskToUser> result = new ArrayList<TaskToUser>();
+        List<TaskToUser> list = TempData.mTempTaskToUserList;
+        for (TaskToUser ttu : list) {
+            if (ttu.getTask().getName().equals(mCurrentTask.getName())) {
+                result.add(ttu);
+            }
+        }
+        return result;
     }
 }

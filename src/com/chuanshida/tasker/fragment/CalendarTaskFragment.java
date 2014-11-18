@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.FluentInitializer;
 import com.chuanshida.tasker.timessquare.CalendarViewPagerAdapter.SelectionMode;
@@ -54,7 +55,7 @@ public class CalendarTaskFragment extends FragmentBase implements
     private View mCalendarBottom;
     private XListView mDayTask;
     private TaskListAdapter mTaskListAdapter;
-    private List<Task> mList = new ArrayList<Task>();
+    private List<TaskToUser> mList = new ArrayList<TaskToUser>();
     private DatePickerDialog mSelectDateDialog = null;
     private boolean mDelayAnim = true;
     private Handler mHandler = new Handler() {
@@ -178,7 +179,8 @@ public class CalendarTaskFragment extends FragmentBase implements
         mPagerAdapter.setOnDateSelectedListener(mDateSelectedListener);
         mPager.setOnPageChangeListener(new SimplePageChangeListener());
 
-        mList = TempData.createTempDayTaskData(getActivity());
+        TempData.createTempDayTaskData(getActivity());
+        mList = TempData.mTempTaskToUserList;
         mDayTask = (XListView) findViewById(R.id.list_task);
         mDayTask.setPullLoadEnable(false);
         mDayTask.setPullRefreshEnable(false);
@@ -219,9 +221,9 @@ public class CalendarTaskFragment extends FragmentBase implements
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         int count = mDayTask.getHeaderViewsCount();
-        Task task = mList.get(arg2 - count);
+        TaskToUser task = mList.get(arg2 - count);
         Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-        intent.putExtra("task", task);
+        intent.putExtra("task", task.getTask());
         startAnimActivity(intent);
     }
 

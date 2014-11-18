@@ -10,6 +10,7 @@ import android.content.Context;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.NewMessage;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.manager.UserManager;
 
@@ -27,11 +28,12 @@ public class TempData {
     }
 
     public static List<Task> mTempTaskList = new ArrayList<Task>();
+    public static List<TaskToUser> mTempTaskToUserList = new ArrayList<TaskToUser>();
+
     public static List<Task> createTempTaskData(Context context) {
         List<Task> result = new ArrayList<Task>();
         Task task1 = new Task();
         task1.setCreateAt(new Date());
-        task1.setStatus(Task.TASK_STATUS_FINISH);
         task1.setPermissions(Task.TASK_PERMISSIONS_ONLY_SELF);
         task1.setName("天天加班，老子不干了");
         task1.setContent("从一些社会调查中我们可以看到，大部分中国家庭的独生子女在某些方面感到孤独。为什么独生子女会感到孤独呢？孤独是如此可怕的事吗？");
@@ -39,7 +41,11 @@ public class TempData {
         Calendar c = Calendar.getInstance();
         c.set(2015, 1, 22);
         task1.setFinalAt(c.getTime());
-        task1.setToUser(UserManager.getInstance(context).getCurrentUser());
+        TaskToUser toUser = new TaskToUser();
+        toUser.setStatus(TaskToUser.TASK_STATUS_FINISH);
+        toUser.setTask(task1);
+        toUser.setToUser(UserManager.getInstance(context).getCurrentUser());
+        mTempTaskToUserList.add(toUser);
         task1.setCreateUser(user);
         result.add(task1);
         for (int i = 0; i < 14; i++) {
@@ -48,24 +54,30 @@ public class TempData {
             task2.setCreateAt(c.getTime());
             task2.setName("晚上回家吃饭");
             task2.setContent("11");
-            task2.setRemindAt(30);
             Calendar c1 = Calendar.getInstance();
             c1.set(2034, 0, 19);
             task2.setFinalAt(c1.getTime());
-            task2.setToUser(UserManager.getInstance(context).getCurrentUser());
+            TaskToUser toUser2 = new TaskToUser();
+            toUser2.setTask(task2);
+            toUser2.setRemindAt(30);
+            toUser2.setToUser(UserManager.getInstance(context).getCurrentUser());
+            mTempTaskToUserList.add(toUser2);
             task2.setCreateUser(user);
             result.add(task2);
         }
         Task task3 = new Task();
         c.set(2014, 4, 13);
         task3.setCreateAt(c.getTime());
-        task3.setStatus(Task.TASK_STATUS_FINISH);
         task3.setPermissions(Task.TASK_PERMISSIONS_ONLY_FRIEND);
         task3.setName("就是不回家吃饭");
         task3.setContent("11");
-        task3.setRemindAt(60);
+        TaskToUser toUse3 = new TaskToUser();
+        toUse3.setStatus(TaskToUser.TASK_STATUS_FINISH);
+        toUse3.setTask(task3);
+        toUse3.setRemindAt(60);
+        toUse3.setToUser(UserManager.getInstance(context).getCurrentUser());
+        mTempTaskToUserList.add(toUse3);
         task3.setAddress("金龙网吧");
-        task3.setToUser(UserManager.getInstance(context).getCurrentUser());
         task3.setCreateUser(user);
         result.add(task3);
         return result;
@@ -76,20 +88,27 @@ public class TempData {
         for (int i = 0; i < 4; i++) {
             Task task1 = new Task();
             task1.setCreateAt(new Date());
-            task1.setStatus(Task.TASK_STATUS_FINISH);
             task1.setPermissions(Task.TASK_PERMISSIONS_ONLY_SELF);
             task1.setName("天天加班，老子不干了");
             task1.setContent("11");
-            task1.setToUser(UserManager.getInstance(context).getCurrentUser());
+            TaskToUser toUser = new TaskToUser();
+            toUser.setStatus(TaskToUser.TASK_STATUS_FINISH);
+            toUser.setTask(task1);
+            toUser.setRemindAt(60);
+            toUser.setToUser(UserManager.getInstance(context).getCurrentUser());
+            mTempTaskToUserList.add(toUser);
             task1.setCreateUser(user);
             result.add(task1);
             Task task3 = new Task();
             task3.setCreateAt(new Date());
-            task3.setStatus(Task.TASK_STATUS_WAITING);
             task3.setPermissions(Task.TASK_PERMISSIONS_ONLY_FRIEND);
             task3.setName("就是不回家吃饭");
             task3.setContent("11");
-            task3.setToUser(UserManager.getInstance(context).getCurrentUser());
+            TaskToUser toUser1 = new TaskToUser();
+            toUser1.setStatus(TaskToUser.TASK_STATUS_WAITING);
+            toUser1.setTask(task3);
+            toUser1.setToUser(UserManager.getInstance(context).getCurrentUser());
+            mTempTaskToUserList.add(toUser1);
             task3.setCreateUser(user);
             result.add(task3);
         }
@@ -104,7 +123,7 @@ public class TempData {
         for (int i = 0; i < name.length; i++) {
             User user = new User();
             user.setUsername(name[i]);
-            user.setPhoneNumber("13036292929");
+            user.setPhoneNumber("1303629292" + i);
             user.setSex(true);
             user.setLabel("宅男");
             user.setSignature("阿西吧");
@@ -120,7 +139,7 @@ public class TempData {
         for (int i = 0; i < 10; i++) {
             User user = new User();
             user.setUsername("kkkwfnh");
-            user.setPhoneNumber("123");
+            user.setPhoneNumber("123" + i);
             user.setSex(true);
             user.setLabel("宅男");
             user.setSignature("阿西吧");
@@ -142,7 +161,6 @@ public class TempData {
         Calendar c = Calendar.getInstance();
         c.set(2013, 11, 11);
         task1.setCreateAt(c.getTime());
-        task1.setStatus(Task.TASK_STATUS_FINISH);
         task1.setPermissions(Task.TASK_PERMISSIONS_ONLY_SELF);
         task1.setName("这样做真的好吗？");
         task1.setContent("从一些社会调查中我们可以看到，大部分中国家庭的独生子女在某些方面感到孤独。为什么独生子女会感到孤独呢？孤独是如此可怕的事吗？");
@@ -150,7 +168,11 @@ public class TempData {
         c.set(2015, 1, 22);
         task1.setFinalAt(c.getTime());
         task1.setCreateUser(UserManager.getInstance(context).getCurrentUser());
-        task1.setToUser(user);
+        TaskToUser toUser1 = new TaskToUser();
+        toUser1.setStatus(TaskToUser.TASK_STATUS_FINISH);
+        toUser1.setTask(task1);
+        toUser1.setToUser(user);
+        mTempTaskToUserList.add(toUser1);
         result.add(task1);
         for (int i = 0; i < 14; i++) {
             Task task2 = new Task();
@@ -158,27 +180,34 @@ public class TempData {
             task2.setCreateAt(c.getTime());
             task2.setName("光棍节怎么过？");
             task2.setContent("111111111111111111111111111111111");
-            task2.setRemindAt(30);
+            TaskToUser toUser2 = new TaskToUser();
+            toUser2.setTask(task2);
+            toUser2.setToUser(user);
+            toUser2.setRemindAt(30);
+            toUser2.setStatus((i % 2 == 0) ? TaskToUser.TASK_STATUS_ACCEPT
+                    : TaskToUser.TASK_STATUS_NO_ACCEPT);
+            mTempTaskToUserList.add(toUser2);
             c.set(2034, 0, 19);
             task2.setFinalAt(c.getTime());
-            task2.setStatus((i % 2 == 0) ? Task.TASK_STATUS_ACCEPT
-                    : Task.TASK_STATUS_NO_ACCEPT);
             task2.setCreateUser(UserManager.getInstance(context)
                     .getCurrentUser());
-            task2.setToUser(user);
             result.add(task2);
         }
         Task task3 = new Task();
         c.set(2014, 1, 23);
         task3.setCreateAt(c.getTime());
-        task3.setStatus(Task.TASK_STATUS_WAITING);
         task3.setPermissions(Task.TASK_PERMISSIONS_ONLY_FRIEND);
         task3.setName("去网吧打DOTA2");
         task3.setContent("22222222222222222222222222");
-        task3.setRemindAt(60);
+
+        TaskToUser toUser3 = new TaskToUser();
+        toUser3.setStatus(TaskToUser.TASK_STATUS_WAITING);
+        toUser3.setTask(task3);
+        toUser3.setToUser(user);
+        toUser3.setRemindAt(60);
+        mTempTaskToUserList.add(toUser3);
         task3.setAddress("金龙网吧");
         task3.setCreateUser(UserManager.getInstance(context).getCurrentUser());
-        task3.setToUser(user);
         result.add(task3);
         return result;
     }

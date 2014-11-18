@@ -2,6 +2,7 @@ package com.chuanshida.tasker.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
+import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.TempData;
@@ -36,6 +38,8 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
     private Button mTaskNoAccept;
     private TextView mTaskStatus;
     private LinearLayout mTaskImg;
+    private TaskToUser mCurrentTaskToUser;
+    private List<TaskToUser> mTaskAllToUsers;
 
     private boolean mSelfCreate = false;
 
@@ -44,6 +48,8 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_detail_view);
         mCurrentTask = (Task) getIntent().getSerializableExtra("task");
+        mTaskAllToUsers = CommonUtils.getTaskToUserForTask(mCurrentTask);
+        mCurrentTaskToUser = mTaskAllToUsers.get(0);
         User createUser = mCurrentTask.getCreateUser();
         if (createUser.getPhoneNumber().equals(
                 userManager.getCurrentUser().getPhoneNumber())) {
@@ -92,7 +98,8 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
             } else {
                 mTaskTime.setText(R.string.task_no_final_date);
             }
-            long remind = mCurrentTask.getRemindAt();
+           
+            long remind = mCurrentTaskToUser.getRemindAt();
             if (remind == 0) {
                 mTaskRemind.setText(getString(R.string.advance_time));
             } else if (remind < 60) {
@@ -128,8 +135,8 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
                 mTaskImg.addView(img);
             }
 
-            int status = mCurrentTask.getStatus();
-            if (status == Task.TASK_STATUS_WAITING) {
+            int status = mCurrentTaskToUser.getStatus();
+            if (status == TaskToUser.TASK_STATUS_WAITING) {
                 mTaskStatus.setVisibility(View.GONE);
                 mTaskAccept.setVisibility(View.VISIBLE);
                 if (mSelfCreate) {
@@ -147,7 +154,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
                         status));
                 mTaskStatus.setTextColor(CommonUtils.getTaskStatusColor(
                         getResources(), status));
-                if (status == Task.TASK_STATUS_FINISH) {
+                if (status == TaskToUser.TASK_STATUS_FINISH) {
                     mTaskStatus.getPaint()
                             .setFlags(
                                     Paint.STRIKE_THRU_TEXT_FLAG
@@ -162,7 +169,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
         if (v == mUserPhoto) {
             Intent intent = new Intent(this, UserDetailActivity.class);
             Bundle b = new Bundle();
-            b.putSerializable("user", mSelfCreate ? mCurrentTask.getToUser()
+            b.putSerializable("user", mSelfCreate ? mCurrentTaskToUser.getToUser()
                     : mCurrentTask.getCreateUser());
             intent.putExtras(b);
             startAnimActivity(intent);

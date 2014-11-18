@@ -9,15 +9,11 @@ public class Task implements Serializable {
 
     private User createUser;
 
-    private User toUser;
-
     private String name;
 
     private String content;
 
     private Date createAt;
-
-    private long remindAt;
 
     private Date finalAt;
 
@@ -29,27 +25,12 @@ public class Task implements Serializable {
 
     private int permissions = TASK_PERMISSIONS_PUBLIC;
 
-    private int status = TASK_STATUS_WAITING;
-
-    public static final int TASK_STATUS_WAITING = 1;
-    public static final int TASK_STATUS_FINISH = 2;
-    public static final int TASK_STATUS_ACCEPT = 3;
-    public static final int TASK_STATUS_NO_ACCEPT = 4;
-
     public User getCreateUser() {
         return createUser;
     }
 
     public void setCreateUser(User createUser) {
         this.createUser = createUser;
-    }
-
-    public User getToUser() {
-        return toUser;
-    }
-
-    public void setToUser(User toUser) {
-        this.toUser = toUser;
     }
 
     public String getName() {
@@ -90,22 +71,6 @@ public class Task implements Serializable {
 
     public void setPermissions(int permissions) {
         this.permissions = permissions;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public long getRemindAt() {
-        return remindAt;
-    }
-
-    public void setRemindAt(long remindAt) {
-        this.remindAt = remindAt;
     }
 
     public String getAddress() {
