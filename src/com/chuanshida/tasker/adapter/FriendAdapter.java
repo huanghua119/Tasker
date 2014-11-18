@@ -1,12 +1,13 @@
 package com.chuanshida.tasker.adapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -25,11 +26,11 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         SectionIndexer {
 
     protected Handler mMainThreadHandler;
-    private SparseArray<User> mCheckUser = new SparseArray<User>();
+    private Map<String, User> mCheckUser = new HashMap<String, User>();
     private OnCheckBoxClickListener mOnCheckBoxClickListener;
 
     public interface OnCheckBoxClickListener {
-        public void onCheckBoxClickListener(SparseArray<User> mCheckUser);
+        public void onCheckBoxClickListener(Map<String, User> checkUser);
     }
 
     public FriendAdapter(Context context, List<SortModel> list,
@@ -74,16 +75,16 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
             title.setVisibility(View.GONE);
         }
         CheckBox checkBox = ViewHolder.get(view, R.id.check_box);
-        checkBox.setChecked(userIsChecked(user));
+        checkBox.setChecked(mCheckUser.get(user.getPhoneNumber()) != null);
         setOnInViewClickListener(R.id.check_box, new onInternalClickListener() {
             @Override
             public void OnClickListener(View parentV, View v, Integer position,
                     Object values) {
                 CheckBox box = (CheckBox) v;
                 if (box.isChecked()) {
-                    mCheckUser.put(position, user);
+                    mCheckUser.put(user.getPhoneNumber(), user);
                 } else {
-                    mCheckUser.remove(position);
+                    mCheckUser.remove(user.getPhoneNumber());
                 }
                 if (mOnCheckBoxClickListener != null) {
                     mOnCheckBoxClickListener
@@ -93,17 +94,6 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         });
 
         return view;
-    }
-
-    private boolean userIsChecked(User user) {
-        for (int i = 0; i < mCheckUser.size(); i++) {
-            int key = mCheckUser.keyAt(i);
-            User u = mCheckUser.get(key);
-            if (u.getPhoneNumber().equals(user.getPhoneNumber())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -128,13 +118,11 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         return list.get(position).getSortLetters().charAt(0);
     }
 
-    public void checkItemForPosition(int position, boolean checked) {
-        SortModel model = list.get(position);
-        User user = model.getUser();
+    public void checkItemForPosition(User user, boolean checked) {
         if (checked) {
-            mCheckUser.put(position, user);
+            mCheckUser.put(user.getPhoneNumber(), user);
         } else {
-            mCheckUser.remove(position);
+            mCheckUser.remove(user.getPhoneNumber());
         }
         notifyDataSetChanged();
         if (mOnCheckBoxClickListener != null) {
@@ -142,11 +130,11 @@ public class FriendAdapter extends BaseListAdapter<SortModel> implements
         }
     }
 
-    public void setCheckUserList(SparseArray<User> list) {
+    public void setCheckUserList(Map<String, User> list) {
         if (mCheckUser == null) {
-            mCheckUser = new SparseArray<User>();
+            mCheckUser = new HashMap<String, User>();
         }
         mCheckUser.clear();
-        mCheckUser = list.clone();
+        mCheckUser.putAll(list);
     }
 }

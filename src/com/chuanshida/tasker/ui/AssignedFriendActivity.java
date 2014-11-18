@@ -3,13 +3,16 @@ package com.chuanshida.tasker.ui;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +46,7 @@ public class AssignedFriendActivity extends BaseActivity implements
     private SideBar mSideBar;
     private TextView mDialog;
     private LinearLayout mHeadGroup;
-    private SparseArray<User> mCheckUser;
+    private Map<String, User> mCheckUser;
 
     private CharacterParser mCharacterParser;
     private List<SortModel> mSourceDateList;
@@ -53,9 +56,8 @@ public class AssignedFriendActivity extends BaseActivity implements
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             mHeadGroup.removeAllViews();
-            for (int i = 0; i < mCheckUser.size(); i++) {
-                int key = mCheckUser.keyAt(i);
-                User user = mCheckUser.get(key);
+            int i = 0;
+            for (User user : mCheckUser.values()) {
                 ImageView img = new ImageView(AssignedFriendActivity.this);
                 img.setOnClickListener(AssignedFriendActivity.this);
                 img.setTag(user);
@@ -74,6 +76,7 @@ public class AssignedFriendActivity extends BaseActivity implements
                     img.setBackgroundResource(R.drawable.login_head);
                 }
                 mHeadGroup.addView(img);
+                i++;
             }
         }
     };
@@ -87,7 +90,7 @@ public class AssignedFriendActivity extends BaseActivity implements
 
     private void init() {
         if (mCheckUser == null) {
-            mCheckUser = new SparseArray<User>();
+            mCheckUser = new HashMap<String, User>();
         }
         mCheckUser.clear();
         mList = TempData.createTempMyFriend(this);
@@ -123,7 +126,7 @@ public class AssignedFriendActivity extends BaseActivity implements
             if (size > 0) {
                 for (int i = 0; i < size; i++) {
                     User u = (User) b.getSerializable("data" + i);
-                    mCheckUser.put(i, u);
+                    mCheckUser.put(u.getPhoneNumber(), u);
                 }
                 mHandler.sendEmptyMessage(1);
                 mAdapter.setCheckUserList(mCheckUser);
@@ -151,10 +154,10 @@ public class AssignedFriendActivity extends BaseActivity implements
             Intent data = new Intent();
             Bundle b = new Bundle();
             b.putInt("data_size", mCheckUser.size());
-            for (int i = 0; i < mCheckUser.size(); i++) {
-                int key = mCheckUser.keyAt(i);
-                User user = mCheckUser.get(key);
+            int i = 0;
+            for (User user : mCheckUser.values()) {
                 b.putSerializable("data" + i, user);
+                i++;
             }
             data.putExtras(b);
             setResult(Activity.RESULT_OK, data);
@@ -162,9 +165,8 @@ public class AssignedFriendActivity extends BaseActivity implements
         } else {
             if (v instanceof ImageView) {
                 User user = (User) v.getTag();
-                int key = mCheckUser.keyAt(mCheckUser.indexOfValue(user));
                 mHeadGroup.removeView(v);
-                mAdapter.checkItemForPosition(key, false);
+                mAdapter.checkItemForPosition(user, false);
             }
         }
     }
@@ -182,8 +184,9 @@ public class AssignedFriendActivity extends BaseActivity implements
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         int count = mListFriend.getHeaderViewsCount();
         int key = arg2 - count;
-        boolean isChecked = mCheckUser.get(key) == null;
-        mAdapter.checkItemForPosition(key, isChecked);
+        User user = ((SortModel) mAdapter.getItem(key)).getUser();
+        boolean isChecked = mCheckUser.get(user.getPhoneNumber()) == null;
+        mAdapter.checkItemForPosition(user, isChecked);
     }
 
     private List<SortModel> filledData(List<User> date) {
@@ -224,14 +227,14 @@ public class AssignedFriendActivity extends BaseActivity implements
     }
 
     @Override
-    public void onCheckBoxClickListener(SparseArray<User> checkUser) {
+    public void onCheckBoxClickListener(Map<String, User> checkUser) {
         if (mCheckUser == null) {
-            mCheckUser = new SparseArray<User>();
+            mCheckUser = new HashMap<String, User>();
         }
         mCheckUser.clear();
-        for (int i = 0; i < checkUser.size(); i++) {
-            int key = checkUser.keyAt(i);
-            User user = checkUser.get(key);
+        for (Map.Entry<String, User> entry : checkUser.entrySet()) {
+            String key = entry.getKey();
+            User user = entry.getValue();
             mCheckUser.put(key, user);
         }
         mHandler.sendEmptyMessage(1);

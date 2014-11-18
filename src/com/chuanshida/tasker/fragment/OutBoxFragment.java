@@ -22,7 +22,9 @@ import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.manager.UserManager;
 import com.chuanshida.tasker.ui.MainActivity;
+import com.chuanshida.tasker.ui.NewTaskActivity;
 import com.chuanshida.tasker.ui.TaskDetailActivity;
+import com.chuanshida.tasker.ui.UpdateTaskActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -59,7 +61,10 @@ public class OutBoxFragment extends FragmentBase implements OnClickListener,
     private void init() {
         mBack = (TextView) findViewById(R.id.btn_cancel);
         mBack.setOnClickListener(this);
-        mList = TempData.mTempTaskList;
+        mList.clear();
+        for (Task task : TempData.mTempTaskList.values()) {
+            mList.add(task);
+        }
         Collections.sort(mList, new DateComparator());
         mListTask = (XListView) findViewById(R.id.list_box);
         mListTask.setPullLoadEnable(false);
@@ -74,7 +79,10 @@ public class OutBoxFragment extends FragmentBase implements OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
-        User user = mUserManager.getCurrentUser();
+        mList.clear();
+        for (Task task : TempData.mTempTaskList.values()) {
+            mList.add(task);
+        }
     }
 
     @Override
@@ -89,7 +97,8 @@ public class OutBoxFragment extends FragmentBase implements OnClickListener,
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         int count = mListTask.getHeaderViewsCount();
         Task task = mList.get(arg2 - count);
-        Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+        // Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+        Intent intent = new Intent(getActivity(), UpdateTaskActivity.class);
         intent.putExtra("task", task);
         startAnimActivity(intent);
     }

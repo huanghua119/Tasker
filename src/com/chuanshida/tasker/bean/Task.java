@@ -17,6 +17,15 @@ public class Task implements Serializable {
 
     private Date finalAt;
 
+    private int repeat = TASK_REPEAT_TYLE_NO;
+
+    public static final int TASK_REPEAT_TYLE_NO = 1;
+    public static final int TASK_REPEAT_TYLE_DAY = 2;
+    public static final int TASK_REPEAT_TYLE_WEEK = 3;
+    public static final int TASK_REPEAT_TYLE_MONTH = 4;
+    public static final int TASK_REPEAT_TYLE_YEAR = 5;
+    public static final int TASK_REPEAT_TYLE_DIY = 6;
+
     private String address;
 
     public static final int TASK_PERMISSIONS_ONLY_SELF = 1;
@@ -79,6 +88,14 @@ public class Task implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(int repeat) {
+        this.repeat = repeat;
     }
 
 }

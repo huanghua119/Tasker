@@ -45,7 +45,7 @@ public class OutBoxListAdapter extends BaseListAdapter<Task> {
         }
         List<Task> list = getList();
         final Task task = list.get(position);
-        final TaskToUser ttu = CommonUtils.getTaskToUserForTask(task).get(0);
+        final TaskToUser ttu = CommonUtils.getTaskFirstUser(CommonUtils.getTaskToUserForTask(task));
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView taskName = ViewHolder.get(view, R.id.task_name);
         taskName.setText(task.getName());

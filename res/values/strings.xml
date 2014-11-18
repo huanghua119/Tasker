@@ -150,5 +150,7 @@
     <string name="task_location">地理位置</string>
     <string name="input_content">请输入详细内容</string>
     <string name="input_location">请输入相关位置</string>
+    <string name="task_name_same">已存在相同名称的任务</string>
+    <string name="task_new_success">任务创建成功...</string>
 
 </resources>

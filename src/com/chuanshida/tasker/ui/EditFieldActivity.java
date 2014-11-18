@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chuanshida.tasker.R;
+import com.chuanshida.tasker.bean.Task;
 
 public class EditFieldActivity extends BaseActivity implements OnClickListener {
 
@@ -22,7 +23,7 @@ public class EditFieldActivity extends BaseActivity implements OnClickListener {
 
     private View mRepeatView;
     private TextView mRepeat;
-    private int mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_NO;
+    private int mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
 
     private View mLocatioinView;
     private TextView mLocation;
@@ -73,7 +74,7 @@ public class EditFieldActivity extends BaseActivity implements OnClickListener {
             break;
         case EDIT_STYLE_REPEAT:
             mCurrentRepeat = getIntent().getIntExtra("repeat_old",
-                    UpdateTaskActivity.TASK_REPEAT_TYLE_NO);
+                    Task.TASK_REPEAT_TYLE_NO);
             mTitle.setText(R.string.task_repeat);
             updateRepeatView();
             mEditText.setVisibility(View.GONE);
@@ -90,49 +91,49 @@ public class EditFieldActivity extends BaseActivity implements OnClickListener {
         switch (v.getId()) {
         case R.id.task_no_repeat:
             mRepeat.setText(R.string.task_no_repeat);
-            mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_NO;
+            mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
             break;
         case R.id.task_week_repeat:
             mRepeat.setText(R.string.task_week_repeat);
-            mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_WEEK;
+            mCurrentRepeat = Task.TASK_REPEAT_TYLE_WEEK;
             break;
         case R.id.task_day_repeat:
             mRepeat.setText(R.string.task_day_repeat);
-            mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_DAY;
+            mCurrentRepeat = Task.TASK_REPEAT_TYLE_DAY;
             break;
         case R.id.task_month_repeat:
             mRepeat.setText(R.string.task_month_repeat);
-            mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_MONTH;
+            mCurrentRepeat = Task.TASK_REPEAT_TYLE_MONTH;
             break;
         case R.id.task_year_repeat:
             mRepeat.setText(R.string.task_year_repeat);
-            mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_YEAR;
+            mCurrentRepeat = Task.TASK_REPEAT_TYLE_YEAR;
             break;
         case R.id.task_diy_repeat:
             mRepeat.setText(R.string.diy);
-            mCurrentRepeat = UpdateTaskActivity.TASK_REPEAT_TYLE_DIY;
+            mCurrentRepeat = Task.TASK_REPEAT_TYLE_DIY;
             break;
         }
     }
 
     private void updateRepeatView() {
         switch (mCurrentRepeat) {
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_NO:
+        case Task.TASK_REPEAT_TYLE_NO:
             mRepeat.setText(R.string.task_no_repeat);
             break;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_WEEK:
+        case Task.TASK_REPEAT_TYLE_WEEK:
             mRepeat.setText(R.string.task_week_repeat);
             break;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_DAY:
+        case Task.TASK_REPEAT_TYLE_DAY:
             mRepeat.setText(R.string.task_day_repeat);
             break;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_MONTH:
+        case Task.TASK_REPEAT_TYLE_MONTH:
             mRepeat.setText(R.string.task_month_repeat);
             break;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_YEAR:
+        case Task.TASK_REPEAT_TYLE_YEAR:
             mRepeat.setText(R.string.task_year_repeat);
             break;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_DIY:
+        case Task.TASK_REPEAT_TYLE_DIY:
             mRepeat.setText(R.string.diy);
             break;
         }

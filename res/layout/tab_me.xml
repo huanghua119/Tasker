@@ -198,7 +198,7 @@
                             android:layout_width="@dimen/circle_size"
                             android:layout_height="@dimen/circle_size"
                             android:layout_marginRight="10dip"
-                            android:background="@drawable/circle_secrecy_bg"
+                            android:background="@drawable/circle_secrecy"
                             android:contentDescription="@string/action_settings" />
 
                         <TextView
@@ -249,7 +249,7 @@
                             android:layout_width="@dimen/circle_size"
                             android:layout_height="@dimen/circle_size"
                             android:layout_marginRight="10dip"
-                            android:background="@drawable/circle_judgement_bg"
+                            android:background="@drawable/circle_judgement"
                             android:contentDescription="@string/action_settings" />
 
                         <TextView
@@ -300,7 +300,7 @@
                             android:layout_width="@dimen/circle_size"
                             android:layout_height="@dimen/circle_size"
                             android:layout_marginRight="10dip"
-                            android:background="@drawable/circle_about_bg"
+                            android:background="@drawable/circle_about"
                             android:contentDescription="@string/action_settings" />
 
                         <TextView
@@ -354,7 +354,7 @@
                             android:layout_width="@dimen/circle_size"
                             android:layout_height="@dimen/circle_size"
                             android:layout_marginRight="10dip"
-                            android:background="@drawable/circle_appraisal_bg"
+                            android:background="@drawable/circle_appraisal"
                             android:contentDescription="@string/action_settings" />
 
                         <TextView
@@ -405,7 +405,7 @@
                             android:layout_width="@dimen/circle_size"
                             android:layout_height="@dimen/circle_size"
                             android:layout_marginRight="10dip"
-                            android:background="@drawable/circle_upgrade_bg"
+                            android:background="@drawable/circle_upgrade"
                             android:contentDescription="@string/action_settings" />
 
                         <TextView
@@ -456,7 +456,7 @@
                             android:layout_width="@dimen/circle_size"
                             android:layout_height="@dimen/circle_size"
                             android:layout_marginRight="10dip"
-                            android:background="@drawable/circle_logout_bg"
+                            android:background="@drawable/circle_logout"
                             android:contentDescription="@string/action_settings" />
 
                         <TextView

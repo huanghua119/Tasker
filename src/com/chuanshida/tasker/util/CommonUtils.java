@@ -26,7 +26,6 @@ import com.chuanshida.tasker.CustomApplcation;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.TaskToUser;
-import com.chuanshida.tasker.ui.UpdateTaskActivity;
 
 public class CommonUtils {
     /** 检查是否有网络 */
@@ -185,24 +184,6 @@ public class CommonUtils {
         return res.getColor(R.color.assigned_text_color);
     }
 
-    public static long repeatToTime(int repeat) {
-        switch (repeat) {
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_NO:
-            return 0;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_DAY:
-            return 60 * 60 * 24;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_WEEK:
-            return 60 * 60 * 24 * 7;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_MONTH:
-            return 60 * 60 * 24 * 7;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_YEAR:
-            return 0;
-        case UpdateTaskActivity.TASK_REPEAT_TYLE_DIY:
-            return 0;
-        }
-        return 0;
-    }
-
     public static List<TaskToUser> getTaskToUserForTask(Task mCurrentTask) {
         List<TaskToUser> result = new ArrayList<TaskToUser>();
         List<TaskToUser> list = TempData.mTempTaskToUserList;
@@ -212,5 +193,34 @@ public class CommonUtils {
             }
         }
         return result;
+    }
+
+    public static TaskToUser getTaskFirstUser(List<TaskToUser> users) {
+        TaskToUser accept = null;
+        TaskToUser noAccept = null;
+        TaskToUser finish = null;
+        for (TaskToUser ttu : users) {
+            int status = ttu.getStatus();
+            if (status == TaskToUser.TASK_STATUS_WAITING) {
+                return ttu;
+            } else if (status == TaskToUser.TASK_STATUS_ACCEPT) {
+                accept = ttu;
+            } else if (status == TaskToUser.TASK_STATUS_NO_ACCEPT) {
+                noAccept = ttu;
+            } else {
+                finish = ttu;
+            }
+        }
+        if (accept != null) {
+            return accept;
+        } else if (noAccept != null) {
+            return noAccept;
+        } else {
+            return finish;
+        }
+    }
+
+    public static int stringToInt(String number) {
+        return Integer.parseInt(number);
     }
 }

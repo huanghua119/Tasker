@@ -45,9 +45,12 @@ public class NewTaskActivity extends BaseActivity {
         String name = mTaskName.getText().toString();
         if (name == null || "".equals(name)) {
             return;
+        } else if (TempData.mTempTaskList.get(name) != null) {
+            ShowToast(R.string.task_name_same);
+        } else {
+            hideInputMethod();
+            showCompleteDialog(name);
         }
-        hideInputMethod();
-        showCompleteDialog(name);
     }
 
     private void showCompleteDialog(final String title) {
@@ -60,7 +63,7 @@ public class NewTaskActivity extends BaseActivity {
                         task.setCreateUser(userManager.getCurrentUser());
                         task.setCreateAt(new Date());
                         task.setName(title);
-                        //TempData.mTempTaskList.add(task);
+                        // TempData.mTempTaskList.add(task);
                         Intent intent = new Intent(NewTaskActivity.this,
                                 UpdateTaskActivity.class);
                         Bundle b = new Bundle();

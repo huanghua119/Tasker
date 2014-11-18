@@ -3,7 +3,9 @@ package com.chuanshida.tasker.util;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 
@@ -27,7 +29,7 @@ public class TempData {
         user.setAddress("江西省萍乡市上栗县");
     }
 
-    public static List<Task> mTempTaskList = new ArrayList<Task>();
+    public static Map<String, Task> mTempTaskList = new HashMap<String, Task>();
     public static List<TaskToUser> mTempTaskToUserList = new ArrayList<TaskToUser>();
 
     public static List<Task> createTempTaskData(Context context) {
@@ -241,6 +243,16 @@ public class TempData {
         message2.setUser(mChatUser);
         message2.setContext("Parcelable实现要点：需要实现三个东西1）writeToParcel 方法。该方法将类的数据写入外部提供的Parcel中.声明如下：writeToParcel (Parcel dest, int flags) 具体参数含义见javadoc2）describeContents方法。没搞懂有什么用，反正直接返回0也可以3）静态的Parcelable.Creator接口，本接口有两个方法：createFromParcel(Parcel in) 实现从in中创建出类的实例的功能newArray(int size) 创建一个类型为T，长度为size的数组，仅一句话（return new T[size])即可。估计本方法是供外部类反序列化本类数组使用。");
         result.add(message2);
+        return result;
+    }
+
+    public static List<TaskToUser> getTaskToUserForTask(Task task) {
+        List<TaskToUser> result = new ArrayList<TaskToUser>();
+        for (TaskToUser ttu : mTempTaskToUserList) {
+            if (ttu.getTask().getName().equals(task.getName())) {
+                result.add(ttu);
+            }
+        }
         return result;
     }
 }
