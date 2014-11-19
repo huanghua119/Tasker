@@ -181,6 +181,7 @@
                     android:layout_marginRight="2dip"
                     android:layout_weight="0.5"
                     android:background="@drawable/repeat_diy"
+                    android:visibility="invisible"
                     android:onClick="onRepeatClick"
                     android:text="@string/diy"
                     android:textColor="@android:color/white" />

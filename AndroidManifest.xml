@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="15"
         android:targetSdkVersion="19" />
 
     <application
@@ -96,6 +96,11 @@
         </activity>
         <activity
             android:name=".ui.EditFieldActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ui.PhotoViewActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" >
         </activity>

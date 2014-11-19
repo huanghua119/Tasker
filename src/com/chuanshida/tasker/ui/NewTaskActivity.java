@@ -56,6 +56,7 @@ public class NewTaskActivity extends BaseActivity {
     private void showCompleteDialog(final String title) {
         Dialog dialog = new AlertDialog.Builder(this).setTitle(title)
                 .setMessage(R.string.complete_create_task)
+                .setCancelable(false)
                 .setPositiveButton(R.string.ok, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

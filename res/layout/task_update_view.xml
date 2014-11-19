@@ -188,6 +188,7 @@
                 android:id="@+id/task_img_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="17dip"
                 android:background="@drawable/list_background_white_bg"
                 android:scrollbars="none"
                 android:visibility="gone" >
@@ -196,8 +197,8 @@
                     android:id="@+id/task_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:padding="10dip" >
                 </LinearLayout>
             </HorizontalScrollView>
 

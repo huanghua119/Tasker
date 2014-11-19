@@ -157,5 +157,6 @@
         <item>拍照</item>
         <item>从手机相册选择</item>
     </string-array>
+    <string name="pic_added">已经添加过些图片</string>
 
 </resources>

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +13,13 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -27,12 +30,16 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.TimePicker.OnTimeChangedListener;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
@@ -69,9 +76,10 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     private View mPicGroupParent;
 
     private String mClickDataTime = "";
-    private Map<String, Bitmap> mTaskPic = new HashMap<String, Bitmap>();
+    public static Map<String, Bitmap> mTaskPic = new HashMap<String, Bitmap>();
     private Map<String, User> mCheckUser;
     private int mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
+    private Calendar mFinalDateCalendar = Calendar.getInstance();
 
     private static final int REQUEST_CODE_FOR_ASSIGNED = 1;
     private static final int REQUEST_CODE_FOR_REMARK = 2;
@@ -86,6 +94,12 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     private static final int HANDLER_SEND_UPDATE_HEADGROUP = 1;
     private static final int HANDLER_SEND_UPDATE_PIC_GROUP = 2;
 
+    private DatePickerDialog.OnDateSetListener mDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                int dayOfMonth) {
+        }
+    };
     private OnClickListener mHeadClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -97,6 +111,25 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                 b.putSerializable("user", user);
                 intent.putExtras(b);
                 startAnimActivity(intent);
+            }
+        }
+    };
+
+    private OnClickListener mPicClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v instanceof ImageView) {
+                if (v.getTag() == null) {
+                    showSelectPicDialog();
+                } else {
+                    String pic = (String) v.getTag();
+                    Intent intent = new Intent(UpdateTaskActivity.this,
+                            PhotoViewActivity.class);
+                    intent.putExtra("photo_bit", pic);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_up_in,
+                            R.anim.push_up_out);
+                }
             }
         }
     };
@@ -138,21 +171,20 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                 break;
             case HANDLER_SEND_UPDATE_PIC_GROUP:
                 mPicGroup.removeAllViews();
-                for (Bitmap bit : mTaskPic.values()) {
+                for (Map.Entry<String, Bitmap> entry : mTaskPic.entrySet()) {
                     ImageView img = new ImageView(UpdateTaskActivity.this);
-                    img.setOnClickListener(mHeadClickListener);
-                    img.setTag(bit);
-                    LayoutParams layout = new LayoutParams(150, 150);
+                    img.setOnClickListener(mPicClickListener);
+                    img.setTag(entry.getKey());
+                    LayoutParams layout = new LayoutParams(150, 200);
                     int left = 5;
                     int right = 5;
                     if (i == 0) {
                         left = 0;
-                    } else if (i == mCheckUser.size() - 1) {
-                        right = 0;
                     }
                     layout.setMargins(left, 0, right, 0);
                     img.setLayoutParams(layout);
-                    img.setBackground(new BitmapDrawable(getResources(), bit));
+                    img.setBackground(new BitmapDrawable(getResources(), entry
+                            .getValue()));
                     mPicGroup.addView(img);
                     i++;
                 }
@@ -160,6 +192,14 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                     mPicGroupParent.setVisibility(View.GONE);
                     mBottomPic.setVisibility(View.VISIBLE);
                 } else {
+                    ImageView img = new ImageView(UpdateTaskActivity.this);
+                    img.setOnClickListener(mPicClickListener);
+                    img.setTag(null);
+                    LayoutParams layout = new LayoutParams(150, 200);
+                    layout.setMargins(5, 0, 0, 0);
+                    img.setLayoutParams(layout);
+                    img.setBackgroundResource(R.drawable.repeat_day);
+                    mPicGroup.addView(img);
                     mPicGroupParent.setVisibility(View.VISIBLE);
                     mBottomPic.setVisibility(View.GONE);
                 }
@@ -184,6 +224,7 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         mAssigned = (TextView) findViewById(R.id.new_assigned);
         mAssigned.setText("");
         mFinalDateView = findViewById(R.id.final_date_view);
+        mFinalDateView.setOnClickListener(this);
         mFinalDate = (TextView) findViewById(R.id.final_date);
         mRemarkView = findViewById(R.id.task_remark_view);
         mRemarkView.setOnClickListener(this);
@@ -208,6 +249,7 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         mBottomVoice.setOnClickListener(this);
         mBottomRepeat.setOnClickListener(this);
         mBottomLocation.setOnClickListener(this);
+
     }
 
     @Override
@@ -343,6 +385,8 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
             startAnimActivityForResult(intent, REQUEST_CODE_FOR_LOCATION);
         } else if (v == mBottomPic) {
             showSelectPicDialog();
+        } else if (v == mFinalDateView) {
+            showSelectDateDialog();
         } else {
             Intent intent = new Intent(this, EditFieldActivity.class);
             int requestCode = 0;
@@ -383,10 +427,70 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         }
     }
 
-    private void showSelectPicDialog() {
+    private void showSelectDateDialog() {
+        Calendar today = Calendar.getInstance();
+        final Calendar tempCalendar = Calendar.getInstance();
+        LinearLayout dateTimeLayout = (LinearLayout) mInFlater.inflate(
+                R.layout.select_date_time, null);
+        DatePicker datePicker = (DatePicker) dateTimeLayout
+                .findViewById(R.id.date_picker);
+        TimePicker timePicker = (TimePicker) dateTimeLayout
+                .findViewById(R.id.time_picker);
+
+        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MARCH),
+                today.get(Calendar.DAY_OF_MONTH), new OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int year,
+                            int monthOfYear, int dayOfMonth) {
+                        tempCalendar.set(Calendar.YEAR, year);
+                        tempCalendar.set(Calendar.MARCH, monthOfYear);
+                        tempCalendar.set(Calendar.DAY_OF_YEAR, dayOfMonth);
+                    }
+                });
+        timePicker.setCurrentHour(today.get(Calendar.HOUR_OF_DAY));
+        timePicker.setCurrentMinute(today.get(Calendar.MINUTE));
+        timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                tempCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                tempCalendar.set(Calendar.MINUTE, minute);
+            }
+        });
+
         AlertDialog.Builder build = new AlertDialog.Builder(this)
-                .setTitle(R.string.add_pic)
-                .setNegativeButton(android.R.string.cancel, null);
+                .setTitle(R.string.new_final_date)
+                .setView(dateTimeLayout)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                mFinalDateCalendar.set(Calendar.YEAR,
+                                        tempCalendar.get(Calendar.YEAR));
+                                mFinalDateCalendar.set(Calendar.MARCH,
+                                        tempCalendar.get(Calendar.MARCH));
+                                mFinalDateCalendar.set(Calendar.DAY_OF_YEAR,
+                                        tempCalendar.get(Calendar.DAY_OF_YEAR));
+                                mFinalDateCalendar.set(Calendar.HOUR_OF_DAY,
+                                        tempCalendar.get(Calendar.HOUR_OF_DAY));
+                                mFinalDateCalendar.set(Calendar.MINUTE,
+                                        tempCalendar.get(Calendar.MINUTE));
+                                Date date = mFinalDateCalendar.getTime();
+                                SimpleDateFormat sdf = new SimpleDateFormat(
+                                        "yyyy-MM-dd HH:mm");
+                                String time = sdf.format(date);
+                                mFinalDate.setText(time);
+                            }
+                        });
+
+        build.show();
+    }
+
+    private void showSelectPicDialog() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this).setTitle(
+                R.string.add_pic).setNegativeButton(android.R.string.cancel,
+                null);
 
         build.setItems(R.array.add_pic_array,
                 new DialogInterface.OnClickListener() {
@@ -521,12 +625,12 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
 
     private void updatePicUI(String path, Bitmap bitmap) {
         Bitmap bit = mTaskPic.get(path);
-        if (bit != null && !bit.isRecycled()) {
-            bit.recycle();
-            mTaskPic.remove(path);
+        if (bit != null) {
+            ShowToastOld(R.string.pic_added);
+        } else {
+            mTaskPic.put(path, bitmap);
+            mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_PIC_GROUP);
         }
-        mTaskPic.put(path, bitmap);
-        mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_PIC_GROUP);
     }
 
     private String saveToSdCard(Bitmap bitmap) {
