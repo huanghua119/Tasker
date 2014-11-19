@@ -152,5 +152,10 @@
     <string name="input_location">请输入相关位置</string>
     <string name="task_name_same">已存在相同名称的任务</string>
     <string name="task_new_success">任务创建成功...</string>
+    <string name="add_pic">添加图片</string>
+    <string-array name="add_pic_array">
+        <item>拍照</item>
+        <item>从手机相册选择</item>
+    </string-array>
 
 </resources>

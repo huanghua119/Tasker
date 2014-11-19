@@ -24,6 +24,7 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
     private TextView mUserLabel;
     private Button mAddLabel;
     private Button mSendMessage;
+    private Button mAssignedTask;
 
     private View mMySelfView;
     private View mOtherUserView;
@@ -63,6 +64,8 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
         mUserEmailView = findViewById(R.id.user_email_view);
         mSendMessage = (Button) findViewById(R.id.send_message);
         mSendMessage.setOnClickListener(this);
+        mAssignedTask = (Button) findViewById(R.id.assigned_task);
+        mAssignedTask.setOnClickListener(this);
     }
 
     @Override
@@ -125,6 +128,12 @@ public class UserDetailActivity extends BaseActivity implements OnClickListener 
             Bundle b = new Bundle();
             b.putSerializable("user", mCurrentUser);
             intent.putExtras(b);
+            startAnimActivity(intent);
+        } else if (v == mAssignedTask) {
+            Intent intent = new Intent(this, NewTaskActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", mCurrentUser);
+            intent.putExtras(bundle);
             startAnimActivity(intent);
         }
     }

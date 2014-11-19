@@ -138,8 +138,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/lv_score"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />
@@ -195,8 +195,8 @@
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:layout_width="@dimen/circle_size"
-                            android:layout_height="@dimen/circle_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dip"
                             android:background="@drawable/circle_secrecy"
                             android:contentDescription="@string/action_settings" />
@@ -205,8 +205,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/secrecy"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />
@@ -246,8 +246,8 @@
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:layout_width="@dimen/circle_size"
-                            android:layout_height="@dimen/circle_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dip"
                             android:background="@drawable/circle_judgement"
                             android:contentDescription="@string/action_settings" />
@@ -256,8 +256,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/judgement"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />
@@ -297,8 +297,8 @@
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:layout_width="@dimen/circle_size"
-                            android:layout_height="@dimen/circle_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dip"
                             android:background="@drawable/circle_about"
                             android:contentDescription="@string/action_settings" />
@@ -307,8 +307,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/about"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />
@@ -351,8 +351,8 @@
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:layout_width="@dimen/circle_size"
-                            android:layout_height="@dimen/circle_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dip"
                             android:background="@drawable/circle_appraisal"
                             android:contentDescription="@string/action_settings" />
@@ -361,8 +361,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/appraisal"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />
@@ -402,8 +402,8 @@
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:layout_width="@dimen/circle_size"
-                            android:layout_height="@dimen/circle_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dip"
                             android:background="@drawable/circle_upgrade"
                             android:contentDescription="@string/action_settings" />
@@ -412,8 +412,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/upgrade"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />
@@ -453,8 +453,8 @@
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:layout_width="@dimen/circle_size"
-                            android:layout_height="@dimen/circle_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dip"
                             android:background="@drawable/circle_logout"
                             android:contentDescription="@string/action_settings" />
@@ -464,8 +464,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="20dip"
-                            android:paddingTop="20dip"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/logout"
                             android:textColor="@color/task_permissions_color"
                             android:textSize="18sp" />

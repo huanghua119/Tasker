@@ -1,14 +1,30 @@
 package com.chuanshida.tasker.ui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.Config;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -22,6 +38,8 @@ import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.bean.User;
+import com.chuanshida.tasker.util.CacheUtils;
+import com.chuanshida.tasker.util.DocumentsUtil;
 import com.chuanshida.tasker.util.TempData;
 
 public class UpdateTaskActivity extends BaseActivity implements OnClickListener {
@@ -47,7 +65,11 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     private ImageButton mBottomRepeat;
     private ImageButton mBottomLocation;
     private LinearLayout mHeadGroup;
+    private LinearLayout mPicGroup;
+    private View mPicGroupParent;
 
+    private String mClickDataTime = "";
+    private Map<String, Bitmap> mTaskPic = new HashMap<String, Bitmap>();
     private Map<String, User> mCheckUser;
     private int mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
 
@@ -55,8 +77,14 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     private static final int REQUEST_CODE_FOR_REMARK = 2;
     private static final int REQUEST_CODE_FOR_REPEAT = 3;
     private static final int REQUEST_CODE_FOR_LOCATION = 4;
+    private static final int REQUEST_CODE_FOR_PIC_CAMERA = 5;
+    private static final int REQUEST_CODE_FOR_PIC_STORAGE = 6;
 
+    private boolean mIsUpdate = false;
     private boolean mResume = true;
+
+    private static final int HANDLER_SEND_UPDATE_HEADGROUP = 1;
+    private static final int HANDLER_SEND_UPDATE_PIC_GROUP = 2;
 
     private OnClickListener mHeadClickListener = new OnClickListener() {
         @Override
@@ -76,34 +104,68 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mHeadGroup.removeAllViews();
             int i = 0;
-            for (User user : mCheckUser.values()) {
-                ImageView img = new ImageView(UpdateTaskActivity.this);
-                img.setOnClickListener(mHeadClickListener);
-                img.setTag(user);
-                LayoutParams layout = new LayoutParams(70, 70);
-                int left = 5;
-                int right = 5;
-                if (i == 0) {
-                    left = 0;
-                } else if (i == mCheckUser.size() - 1) {
-                    right = 0;
+            switch (msg.what) {
+            case HANDLER_SEND_UPDATE_HEADGROUP:
+                mHeadGroup.removeAllViews();
+                for (User user : mCheckUser.values()) {
+                    ImageView img = new ImageView(UpdateTaskActivity.this);
+                    img.setOnClickListener(mHeadClickListener);
+                    img.setTag(user);
+                    LayoutParams layout = new LayoutParams(70, 70);
+                    int left = 5;
+                    int right = 5;
+                    if (i == 0) {
+                        left = 0;
+                    } else if (i == mCheckUser.size() - 1) {
+                        right = 0;
+                    }
+                    layout.setMargins(left, 0, right, 0);
+                    img.setLayoutParams(layout);
+                    if (user.getAvatar() != null
+                            && !"".equals(user.getAvatar())) {
+                    } else {
+                        img.setBackgroundResource(R.drawable.login_head);
+                    }
+                    mHeadGroup.addView(img);
+                    i++;
                 }
-                layout.setMargins(left, 0, right, 0);
-                img.setLayoutParams(layout);
-                if (user.getAvatar() != null && !"".equals(user.getAvatar())) {
+                if (mCheckUser.size() == 0) {
+                    mAssigned.setHint(R.string.new_assigned);
                 } else {
-                    img.setBackgroundResource(R.drawable.login_head);
+                    mAssigned.setHint("");
                 }
-                mHeadGroup.addView(img);
-                i++;
+                break;
+            case HANDLER_SEND_UPDATE_PIC_GROUP:
+                mPicGroup.removeAllViews();
+                for (Bitmap bit : mTaskPic.values()) {
+                    ImageView img = new ImageView(UpdateTaskActivity.this);
+                    img.setOnClickListener(mHeadClickListener);
+                    img.setTag(bit);
+                    LayoutParams layout = new LayoutParams(150, 150);
+                    int left = 5;
+                    int right = 5;
+                    if (i == 0) {
+                        left = 0;
+                    } else if (i == mCheckUser.size() - 1) {
+                        right = 0;
+                    }
+                    layout.setMargins(left, 0, right, 0);
+                    img.setLayoutParams(layout);
+                    img.setBackground(new BitmapDrawable(getResources(), bit));
+                    mPicGroup.addView(img);
+                    i++;
+                }
+                if (mTaskPic.size() == 0) {
+                    mPicGroupParent.setVisibility(View.GONE);
+                    mBottomPic.setVisibility(View.VISIBLE);
+                } else {
+                    mPicGroupParent.setVisibility(View.VISIBLE);
+                    mBottomPic.setVisibility(View.GONE);
+                }
+                break;
             }
-            if (mCheckUser.size() == 0) {
-                mAssigned.setHint(R.string.new_assigned);
-            } else {
-                mAssigned.setHint("");
-            }
+
         }
     };
 
@@ -111,7 +173,6 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_update_view);
-        mCurrentTask = (Task) getIntent().getExtras().getSerializable("task");
         init();
     }
 
@@ -134,6 +195,8 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         mLocation = (TextView) findViewById(R.id.task_location);
         mLocationView.setOnClickListener(this);
         mHeadGroup = (LinearLayout) findViewById(R.id.head_group);
+        mPicGroup = (LinearLayout) findViewById(R.id.task_img);
+        mPicGroupParent = findViewById(R.id.task_img_scroll);
 
         mBottomRemark = (ImageButton) findViewById(R.id.task_bottom_remark);
         mBottomPic = (ImageButton) findViewById(R.id.task_bottom_pic);
@@ -145,14 +208,6 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         mBottomVoice.setOnClickListener(this);
         mBottomRepeat.setOnClickListener(this);
         mBottomLocation.setOnClickListener(this);
-        User user = (User) getIntent().getExtras().getSerializable("user");
-        if (user != null) {
-            if (mCheckUser == null) {
-                mCheckUser = new HashMap<String, User>();
-            }
-            mCheckUser.put(user.getPhoneNumber(), user);
-            mHandler.sendEmptyMessage(1);
-        }
     }
 
     @Override
@@ -170,6 +225,16 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     }
 
     private void updateUI() {
+        mCurrentTask = (Task) getIntent().getExtras().getSerializable("task");
+        mIsUpdate = getIntent().getBooleanExtra("update", false);
+        User user = (User) getIntent().getExtras().getSerializable("user");
+        if (user != null) {
+            if (mCheckUser == null) {
+                mCheckUser = new HashMap<String, User>();
+            }
+            mCheckUser.put(user.getPhoneNumber(), user);
+            mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_HEADGROUP);
+        }
         mTaskName.setText(mCurrentTask.getName());
         mTaskName.setEnabled(false);
 
@@ -209,12 +274,12 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                 mCheckUser = new HashMap<String, User>();
             }
             for (TaskToUser ttu : ttus) {
-                User user = ttu.getToUser();
-                mCheckUser.put(user.getPhoneNumber(), user);
+                User u = ttu.getToUser();
+                mCheckUser.put(u.getPhoneNumber(), u);
             }
-            mHandler.sendEmptyMessage(1);
+            mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_HEADGROUP);
         }
-        mTitle.setText(R.string.task_info);
+        mTitle.setText(mIsUpdate ? R.string.task_info : R.string.new_task);
     }
 
     public void onComplete(View v) {
@@ -276,6 +341,8 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
             intent.putExtra("type", EditFieldActivity.EDIT_STYLE_LOCATION);
             intent.putExtra("location_old", mLocation.getText().toString());
             startAnimActivityForResult(intent, REQUEST_CODE_FOR_LOCATION);
+        } else if (v == mBottomPic) {
+            showSelectPicDialog();
         } else {
             Intent intent = new Intent(this, EditFieldActivity.class);
             int requestCode = 0;
@@ -316,6 +383,55 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
         }
     }
 
+    private void showSelectPicDialog() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this)
+                .setTitle(R.string.add_pic)
+                .setNegativeButton(android.R.string.cancel, null);
+
+        build.setItems(R.array.add_pic_array,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                        case 0:
+                            openCamera();
+                            break;
+                        case 1:
+                            Intent intent = new Intent(
+                                    Intent.ACTION_GET_CONTENT);
+                            intent.setDataAndType(
+                                    MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+                                    "image/*");
+                            startActivityForResult(intent,
+                                    REQUEST_CODE_FOR_PIC_STORAGE);
+                            break;
+                        }
+                    }
+                });
+        build.show();
+    }
+
+    private void openCamera() {
+        Date date = new Date(System.currentTimeMillis());
+        mClickDataTime = date.getTime() + "";
+        File f = new File(CacheUtils.getCacheDirectory(this, true, "pic")
+                + mClickDataTime);
+        if (f.exists()) {
+            f.delete();
+        }
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Uri uri = Uri.fromFile(f);
+        Log.e("uri", uri + "");
+
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        camera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(camera, REQUEST_CODE_FOR_PIC_CAMERA);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -342,7 +458,7 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                     }
                     i++;
                 }
-                mHandler.sendEmptyMessage(1);
+                mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_HEADGROUP);
                 break;
             case REQUEST_CODE_FOR_REMARK:
                 String remark = data.getStringExtra("remark");
@@ -378,7 +494,100 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                 }
                 mLocation.setText(location);
                 break;
+            case REQUEST_CODE_FOR_PIC_STORAGE:
+                Uri imageUri = data.getData();
+                int sdk_int = Build.VERSION.SDK_INT;
+                if (sdk_int < 19) {
+                    setPicForUri(imageUri);
+                } else {
+                    String picturePath = DocumentsUtil.getPath(this, imageUri);
+                    Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+                    updatePicUI(picturePath, bitmap);
+                }
+                break;
+            case REQUEST_CODE_FOR_PIC_CAMERA:
+                String files = CacheUtils.getCacheDirectory(this, true, "pic")
+                        + mClickDataTime;
+                File file = new File(files);
+                if (file.exists()) {
+                    Bitmap bitmap = compressImageFromFile(files);
+                    String picturePath = saveToSdCard(bitmap);
+                    updatePicUI(picturePath, bitmap);
+                }
+                break;
             }
         }
+    }
+
+    private void updatePicUI(String path, Bitmap bitmap) {
+        Bitmap bit = mTaskPic.get(path);
+        if (bit != null && !bit.isRecycled()) {
+            bit.recycle();
+            mTaskPic.remove(path);
+        }
+        mTaskPic.put(path, bitmap);
+        mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_PIC_GROUP);
+    }
+
+    private String saveToSdCard(Bitmap bitmap) {
+        String files = CacheUtils.getCacheDirectory(this, true, "pic")
+                + mClickDataTime + "_11";
+        File file = new File(files);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out)) {
+                out.flush();
+                out.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file.getAbsolutePath();
+    }
+
+    private Bitmap compressImageFromFile(String srcPath) {
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        newOpts.inJustDecodeBounds = true;// 只读边,不读内容
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+
+        newOpts.inJustDecodeBounds = false;
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
+        float hh = 800f;//
+        float ww = 480f;//
+        int be = 1;
+        if (w > h && w > ww) {
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;// 设置采样率
+
+        newOpts.inPreferredConfig = Config.ARGB_8888;// 该模式是默认的,可不设
+        newOpts.inPurgeable = true;// 同时设置才会有效
+        newOpts.inInputShareable = true;// 。当系统内存不够时候图片自动被回收
+
+        bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        // return compressBmpFromBmp(bitmap);//原来的方法调用了这个方法企图进行二次压缩
+        // 其实是无效的,大家尽管尝试
+        return bitmap;
+    }
+
+    private void setPicForUri(Uri imageUri) {
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+        Cursor cursor = getContentResolver().query(imageUri, filePathColumn,
+                null, null, null);
+        cursor.moveToFirst();
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+        Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+        updatePicUI(picturePath, bitmap);
     }
 }

@@ -50,19 +50,31 @@
                     android:paddingLeft="20dip"
                     android:paddingRight="20dip" >
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/find"
-                        android:drawablePadding="13dip"
                         android:gravity="center_vertical"
-                        android:paddingBottom="20dip"
-                        android:paddingTop="20dip"
-                        android:text="@string/task_find"
-                        android:textColor="@color/task_permissions_color"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dip"
+                            android:background="@drawable/find"
+                            android:contentDescription="@string/action_settings" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
+                            android:text="@string/task_find"
+                            android:textColor="@color/task_permissions_color"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -89,19 +101,31 @@
                     android:paddingLeft="20dip"
                     android:paddingRight="20dip" >
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/drift_bottles"
-                        android:drawablePadding="13dip"
                         android:gravity="center_vertical"
-                        android:paddingBottom="20dip"
-                        android:paddingTop="20dip"
-                        android:text="@string/drift_bottles"
-                        android:textColor="@color/task_permissions_color"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dip"
+                            android:background="@drawable/drift_bottles"
+                            android:contentDescription="@string/action_settings" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
+                            android:text="@string/drift_bottles"
+                            android:textColor="@color/task_permissions_color"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -128,19 +152,31 @@
                     android:paddingLeft="20dip"
                     android:paddingRight="20dip" >
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/intelligent_task"
-                        android:drawablePadding="13dip"
                         android:gravity="center_vertical"
-                        android:paddingBottom="20dip"
-                        android:paddingTop="20dip"
-                        android:text="@string/intelligent_task"
-                        android:textColor="@color/task_permissions_color"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dip"
+                            android:background="@drawable/intelligent_task"
+                            android:contentDescription="@string/action_settings" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="@dimen/list_item_padding"
+                            android:paddingTop="@dimen/list_item_padding"
+                            android:text="@string/intelligent_task"
+                            android:textColor="@color/task_permissions_color"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"

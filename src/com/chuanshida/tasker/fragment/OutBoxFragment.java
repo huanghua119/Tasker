@@ -99,6 +99,7 @@ public class OutBoxFragment extends FragmentBase implements OnClickListener,
         Task task = mList.get(arg2 - count);
         // Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
         Intent intent = new Intent(getActivity(), UpdateTaskActivity.class);
+        intent.putExtra("update", true);
         intent.putExtra("task", task);
         startAnimActivity(intent);
     }
