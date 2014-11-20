@@ -127,8 +127,8 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                             PhotoViewActivity.class);
                     intent.putExtra("photo_bit", pic);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_up_in,
-                            R.anim.push_up_out);
+                    // overridePendingTransition(R.anim.slide_up_in,
+                    // R.anim.push_up_out);
                 }
             }
         }
@@ -322,6 +322,7 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
             mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_HEADGROUP);
         }
         mTitle.setText(mIsUpdate ? R.string.task_info : R.string.new_task);
+        mHandler.sendEmptyMessage(HANDLER_SEND_UPDATE_PIC_GROUP);
     }
 
     public void onComplete(View v) {

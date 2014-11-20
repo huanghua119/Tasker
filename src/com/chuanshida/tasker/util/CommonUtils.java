@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -222,5 +224,23 @@ public class CommonUtils {
 
     public static int stringToInt(String number) {
         return Integer.parseInt(number);
+    }
+
+    public static Dialog showCompleteDialog(Context content, String title,
+            String message, OnClickListener onClickListener, boolean cancelable) {
+        Dialog dialog = new AlertDialog.Builder(content).setTitle(title)
+                .setMessage(message).setCancelable(cancelable)
+                .setPositiveButton(R.string.ok, onClickListener)
+                .setNegativeButton(R.string.cancle, null).create();
+        return dialog;
+    }
+
+    public static Dialog showCompleteDialog(Context content, int title,
+            int message, OnClickListener onClickListener, boolean cancelable) {
+        Dialog dialog = new AlertDialog.Builder(content).setTitle(title)
+                .setMessage(message).setCancelable(cancelable)
+                .setPositiveButton(R.string.ok, onClickListener)
+                .setNegativeButton(R.string.cancle, null).create();
+        return dialog;
     }
 }

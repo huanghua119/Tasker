@@ -26,7 +26,7 @@ public class EditFieldActivity extends BaseActivity implements OnClickListener {
     private int mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
 
     private View mLocatioinView;
-    private TextView mLocation;
+    private EditText mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,7 @@ public class EditFieldActivity extends BaseActivity implements OnClickListener {
         mRepeatView = findViewById(R.id.repeat_view);
         mRepeat = (TextView) findViewById(R.id.repeat);
         mLocatioinView = findViewById(R.id.location_view);
-        mLocation = (TextView) findViewById(R.id.location);
-        mLocatioinView.setOnClickListener(this);
+        mLocation = (EditText) findViewById(R.id.location);
     }
 
     @Override
@@ -168,7 +167,6 @@ public class EditFieldActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == mLocatioinView) {
-            mLocation.setText("暂时写北京");
         }
     }
 

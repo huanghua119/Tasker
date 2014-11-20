@@ -181,10 +181,10 @@
                     android:layout_marginRight="2dip"
                     android:layout_weight="0.5"
                     android:background="@drawable/repeat_diy"
-                    android:visibility="invisible"
                     android:onClick="onRepeatClick"
                     android:text="@string/diy"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:visibility="invisible" />
             </LinearLayout>
         </LinearLayout>
 
@@ -193,16 +193,16 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/task_bottom_height"
             android:background="@drawable/list_background_white_bg"
-            android:clickable="true"
             android:gravity="center_vertical"
             android:visibility="gone" >
 
-            <TextView
+            <EditText
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/task_location"
                 android:drawablePadding="13dip"
                 android:gravity="center_vertical"

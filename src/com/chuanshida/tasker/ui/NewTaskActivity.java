@@ -2,7 +2,6 @@ package com.chuanshida.tasker.ui;
 
 import java.util.Date;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.User;
+import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.TempData;
 
 public class NewTaskActivity extends BaseActivity {
@@ -54,10 +54,9 @@ public class NewTaskActivity extends BaseActivity {
     }
 
     private void showCompleteDialog(final String title) {
-        Dialog dialog = new AlertDialog.Builder(this).setTitle(title)
-                .setMessage(R.string.complete_create_task)
-                .setCancelable(false)
-                .setPositiveButton(R.string.ok, new OnClickListener() {
+        Dialog dialog = CommonUtils.showCompleteDialog(this, title,
+                getString(R.string.complete_create_task),
+                new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Task task = new Task();
@@ -81,7 +80,7 @@ public class NewTaskActivity extends BaseActivity {
                         mRunFinishAnim = false;
                         finish();
                     }
-                }).setNegativeButton(R.string.cancle, null).create();
+                }, false);
         dialog.show();
     }
 }
