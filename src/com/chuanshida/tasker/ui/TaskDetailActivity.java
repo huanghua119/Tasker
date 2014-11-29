@@ -1,6 +1,7 @@
 package com.chuanshida.tasker.ui;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,19 +28,23 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
     private Task mCurrentTask = null;
     private ImageView mUserPhoto;
     private TextView mTaskName;
-    private TextView mTaskContent;
-    private ImageView mTaskVoice;
-    private TextView mTaskTime;
+    private TextView mRepeat;
+    private TextView mTaskCreateTime;
+    private TextView mTaskFinalTime;
     private TextView mTaskRemind;
+    private TextView mTaskRemark;
     private TextView mTaskAddress;
-    private TextView mTaskPermissions;
-    private ImageView mTaskPermissionsImg;
     private Button mTaskAccept;
     private Button mTaskNoAccept;
     private TextView mTaskStatus;
-    private LinearLayout mTaskImg;
+    private LinearLayout mPicGroup;
+    private View mPicGroupParent;
     private TaskToUser mCurrentTaskToUser;
     private List<TaskToUser> mTaskAllToUsers;
+
+    private View mRepeatView;
+
+    private int mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
 
     private boolean mSelfCreate = false;
 
@@ -61,18 +66,42 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
     private void init() {
         mUserPhoto = (ImageView) findViewById(R.id.user_photo);
         mTaskName = (TextView) findViewById(R.id.task_name);
-        mTaskContent = (TextView) findViewById(R.id.task_content);
-        mTaskVoice = (ImageView) findViewById(R.id.task_voice);
-        mTaskTime = (TextView) findViewById(R.id.task_time);
+        mTaskCreateTime = (TextView) findViewById(R.id.task_crate_time);
+        mTaskFinalTime = (TextView) findViewById(R.id.final_date);
         mTaskRemind = (TextView) findViewById(R.id.task_remind);
-        mTaskAddress = (TextView) findViewById(R.id.task_address);
-        mTaskPermissions = (TextView) findViewById(R.id.task_permissions);
-        mTaskPermissionsImg = (ImageView) findViewById(R.id.task_permissions_img);
+        mTaskRemark = (TextView) findViewById(R.id.task_remark);
+        mTaskAddress = (TextView) findViewById(R.id.task_location);
         mTaskAccept = (Button) findViewById(R.id.task_accept);
         mTaskNoAccept = (Button) findViewById(R.id.task_no_accept);
         mTaskStatus = (TextView) findViewById(R.id.task_status);
-        mTaskImg = (LinearLayout) findViewById(R.id.task_img);
+        mPicGroup = (LinearLayout) findViewById(R.id.task_img);
+        mPicGroupParent = findViewById(R.id.task_img_scroll);
+        mRepeatView = findViewById(R.id.task_repeat_view);
+        mRepeat = (TextView) findViewById(R.id.task_repeat);
         mUserPhoto.setOnClickListener(this);
+    }
+
+    private void updateRepeatView() {
+        switch (mCurrentRepeat) {
+        case Task.TASK_REPEAT_TYLE_NO:
+            mRepeat.setText(R.string.task_no_repeat);
+            break;
+        case Task.TASK_REPEAT_TYLE_WEEK:
+            mRepeat.setText(R.string.task_week_repeat);
+            break;
+        case Task.TASK_REPEAT_TYLE_DAY:
+            mRepeat.setText(R.string.task_day_repeat);
+            break;
+        case Task.TASK_REPEAT_TYLE_MONTH:
+            mRepeat.setText(R.string.task_month_repeat);
+            break;
+        case Task.TASK_REPEAT_TYLE_YEAR:
+            mRepeat.setText(R.string.task_year_repeat);
+            break;
+        case Task.TASK_REPEAT_TYLE_DIY:
+            mRepeat.setText(R.string.diy);
+            break;
+        }
     }
 
     @Override
@@ -89,16 +118,15 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
     private void updateInfoUI() {
         if (mCurrentTask != null) {
             mTaskName.setText(mCurrentTask.getName());
-            mTaskContent.setText(mCurrentTask.getContent());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH时mm分");
             Date finalDate = mCurrentTask.getFinalAt();
             if (finalDate != null) {
                 String time = sdf.format(finalDate);
-                mTaskTime.setText(time);
+                mTaskFinalTime.setText(time);
             } else {
-                mTaskTime.setText(R.string.task_no_final_date);
+                mTaskFinalTime.setText(R.string.task_no_final_date);
             }
-           
+            mTaskRemark.setText(mCurrentTask.getContent());
             long remind = mCurrentTaskToUser.getRemindAt();
             if (remind == 0) {
                 mTaskRemind.setText(getString(R.string.advance_time));
@@ -113,15 +141,25 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
             mTaskAddress
                     .setText((address == null || address.equals("")) ? getString(R.string.user_no_address)
                             : address);
-            mTaskPermissions.setText(CommonUtils.getTaskPermission(
-                    getResources(), mCurrentTask.getPermissions()));
-            mTaskPermissionsImg.setBackgroundResource(CommonUtils
-                    .getTaskPermission(mCurrentTask.getPermissions()));
+
+            SimpleDateFormat sdf2 = null;
+            Date createDate = mCurrentTask.getCreateAt();
+            Calendar calendar = Calendar.getInstance();
+            if (createDate.getYear() == calendar.get(Calendar.YEAR)) {
+                if (createDate.getMonth() == calendar.get(Calendar.MARCH)) {
+                    sdf2 = new SimpleDateFormat("HH:mm");
+                } else {
+                    sdf2 = new SimpleDateFormat("MM月dd HH:mm");
+                }
+            } else {
+                sdf2 = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+            }
+            sdf2 = new SimpleDateFormat("HH:mm");
+            mTaskCreateTime.setText(sdf2.format(createDate));
             int[] imgRes = TempData.createTempTaskImg();
             for (int i = 0; i < imgRes.length; i++) {
                 ImageView img = new ImageView(this);
-                LayoutParams layout = new LayoutParams(
-                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                LayoutParams layout = new LayoutParams(150, 200);
                 int left = 5;
                 int right = 5;
                 if (i == 0) {
@@ -132,7 +170,20 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
                 layout.setMargins(left, 0, right, 0);
                 img.setLayoutParams(layout);
                 img.setBackgroundResource(imgRes[i]);
-                mTaskImg.addView(img);
+                mPicGroup.addView(img);
+            }
+            if (imgRes.length > 0) {
+                mPicGroupParent.setVisibility(View.VISIBLE);
+            } else {
+                mPicGroupParent.setVisibility(View.GONE);
+            }
+
+            mCurrentRepeat = mCurrentTask.getRepeat();
+            if (mCurrentRepeat == Task.TASK_REPEAT_TYLE_NO) {
+                mRepeatView.setVisibility(View.GONE);
+            } else {
+                mRepeatView.setVisibility(View.VISIBLE);
+                updateRepeatView();
             }
 
             int status = mCurrentTaskToUser.getStatus();
@@ -159,6 +210,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
                             .setFlags(
                                     Paint.STRIKE_THRU_TEXT_FLAG
                                             | Paint.ANTI_ALIAS_FLAG);
+                    mTaskStatus.setVisibility(View.GONE);
                 }
             }
         }
@@ -169,8 +221,10 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
         if (v == mUserPhoto) {
             Intent intent = new Intent(this, UserDetailActivity.class);
             Bundle b = new Bundle();
-            b.putSerializable("user", mSelfCreate ? mCurrentTaskToUser.getToUser()
-                    : mCurrentTask.getCreateUser());
+            b.putSerializable(
+                    "user",
+                    mSelfCreate ? mCurrentTaskToUser.getToUser() : mCurrentTask
+                            .getCreateUser());
             intent.putExtras(b);
             startAnimActivity(intent);
         }

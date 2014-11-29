@@ -47,6 +47,7 @@ public class TempData {
         toUser.setStatus(TaskToUser.TASK_STATUS_FINISH);
         toUser.setTask(task1);
         toUser.setToUser(UserManager.getInstance(context).getCurrentUser());
+        task1.setRepeat(Task.TASK_REPEAT_TYLE_MONTH);
         mTempTaskToUserList.add(toUser);
         task1.setCreateUser(user);
         result.add(task1);
@@ -93,6 +94,7 @@ public class TempData {
             task1.setPermissions(Task.TASK_PERMISSIONS_ONLY_SELF);
             task1.setName("天天加班，老子不干了");
             task1.setContent("11");
+            task1.setRepeat(Task.TASK_REPEAT_TYLE_MONTH);
             TaskToUser toUser = new TaskToUser();
             toUser.setStatus(TaskToUser.TASK_STATUS_FINISH);
             toUser.setTask(task1);

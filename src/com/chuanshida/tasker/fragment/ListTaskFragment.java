@@ -16,6 +16,7 @@ import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
 import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.ui.TaskDetailActivity;
+import com.chuanshida.tasker.ui.UpdateTaskActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;

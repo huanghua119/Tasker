@@ -13,7 +13,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -46,6 +45,7 @@ import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.bean.User;
 import com.chuanshida.tasker.util.CacheUtils;
+import com.chuanshida.tasker.util.CommonUtils;
 import com.chuanshida.tasker.util.DocumentsUtil;
 import com.chuanshida.tasker.util.TempData;
 
@@ -79,7 +79,7 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     public static Map<String, Bitmap> mTaskPic = new HashMap<String, Bitmap>();
     private Map<String, User> mCheckUser;
     private int mCurrentRepeat = Task.TASK_REPEAT_TYLE_NO;
-    private Calendar mFinalDateCalendar = Calendar.getInstance();
+    private Calendar mFinalDateCalendar = null;
 
     private static final int REQUEST_CODE_FOR_ASSIGNED = 1;
     private static final int REQUEST_CODE_FOR_REMARK = 2;
@@ -94,12 +94,6 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
     private static final int HANDLER_SEND_UPDATE_HEADGROUP = 1;
     private static final int HANDLER_SEND_UPDATE_PIC_GROUP = 2;
 
-    private DatePickerDialog.OnDateSetListener mDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                int dayOfMonth) {
-        }
-    };
     private OnClickListener mHeadClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -300,6 +294,15 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
             mBottomRemark.setVisibility(View.GONE);
         }
 
+        if (mFinalDateCalendar == null && mCurrentTask.getFinalAt() != null) {
+            mFinalDateCalendar = Calendar.getInstance();
+            mFinalDateCalendar.setTime(mCurrentTask.getFinalAt());
+            Date date = mFinalDateCalendar.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm");
+            String time = sdf.format(date);
+            mFinalDate.setText(time);
+        }
         mCurrentRepeat = mCurrentTask.getRepeat();
         if (mCurrentRepeat == Task.TASK_REPEAT_TYLE_NO) {
             mRepeatView.setVisibility(View.GONE);
@@ -338,6 +341,10 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
             mCurrentTask.setContent(remark);
         }
         mCurrentTask.setRepeat(mCurrentRepeat);
+        if (mFinalDateCalendar != null) {
+            Date date = mFinalDateCalendar.getTime();
+            mCurrentTask.setFinalAt(date);
+        }
         int count = mCheckUser.size();
         for (User user : mCheckUser.values()) {
             TaskToUser taskToUser = new TaskToUser();
@@ -386,6 +393,8 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
             startAnimActivityForResult(intent, REQUEST_CODE_FOR_LOCATION);
         } else if (v == mBottomPic) {
             showSelectPicDialog();
+        } else if (v == mBottomVoice) {
+            CommonUtils.createLoadingDialog(this, getString(R.string.start_voice)).show();
         } else if (v == mFinalDateView) {
             showSelectDateDialog();
         } else {
@@ -467,6 +476,9 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                             @Override
                             public void onClick(DialogInterface dialog,
                                     int which) {
+                                if (mFinalDateCalendar == null) {
+                                    mFinalDateCalendar = Calendar.getInstance();
+                                }
                                 mFinalDateCalendar.set(Calendar.YEAR,
                                         tempCalendar.get(Calendar.YEAR));
                                 mFinalDateCalendar.set(Calendar.MARCH,
