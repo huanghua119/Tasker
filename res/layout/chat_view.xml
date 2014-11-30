@@ -71,10 +71,10 @@
             android:id="@+id/chat_expression"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
+            android:layout_gravity="left|bottom"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:layout_marginTop="2dip"
+            android:layout_marginBottom="2dip"
             android:background="@drawable/expression_button_bg"
             android:contentDescription="@string/app_name" />
 
@@ -87,16 +87,18 @@
             android:background="@drawable/chat_edit"
             android:inputType="none"
             android:maxLines="5"
+            android:paddingBottom="5dip"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:paddingTop="5dip"
+            android:textColor="@color/task_name_color"
+            android:textSize="@dimen/task_name_text_size" />
 
         <TextView
             android:id="@+id/send_context"
             android:layout_width="wrap_content"
-            android:layout_height="34dip"
-            android:layout_gravity="top"
+            android:layout_height="35dip"
+            android:layout_gravity="bottom"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:background="@drawable/red_range_button_bg"
