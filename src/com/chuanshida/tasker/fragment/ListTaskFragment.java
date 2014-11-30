@@ -1,6 +1,8 @@
 package com.chuanshida.tasker.fragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.content.Intent;
@@ -14,9 +16,9 @@ import android.widget.ImageView;
 
 import com.chuanshida.tasker.R;
 import com.chuanshida.tasker.adapter.TaskListAdapter;
+import com.chuanshida.tasker.bean.Task;
 import com.chuanshida.tasker.bean.TaskToUser;
 import com.chuanshida.tasker.ui.TaskDetailActivity;
-import com.chuanshida.tasker.ui.UpdateTaskActivity;
 import com.chuanshida.tasker.util.TempData;
 import com.chuanshida.tasker.view.xlist.XListView;
 import com.chuanshida.tasker.view.xlist.XListView.IXListViewListener;
@@ -52,6 +54,7 @@ public class ListTaskFragment extends FragmentBase implements
     private void init() {
         TempData.createTempTaskData(getActivity());
         mList = TempData.mTempTaskToUserList;
+        Collections.sort(mList, new TimeComparator());
         mListTask = (XListView) findViewById(R.id.list_task);
         mListTask.setPullLoadEnable(false);
         mListTask.setPullRefreshEnable(false);
@@ -91,4 +94,19 @@ public class ListTaskFragment extends FragmentBase implements
 
     }
 
+    class TimeComparator implements Comparator<TaskToUser> {
+
+        public int compare(TaskToUser o1, TaskToUser o2) {
+            Task t1 = o1.getTask();
+            Task t2 = o2.getTask();
+            if (t1.getCreateAt().after(t2.getCreateAt())) {
+                return -1;
+            } else if (t1.getCreateAt().before(t2.getCreateAt())) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+    }
 }

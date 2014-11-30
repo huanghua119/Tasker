@@ -138,11 +138,11 @@ public class CommonUtils {
     public static String getTaskPermission(Resources res, int permission) {
         switch (permission) {
         case Task.TASK_PERMISSIONS_PUBLIC:
-            return res.getString(R.string.task_public);
+            return "(" + res.getString(R.string.task_public) + ")";
         case Task.TASK_PERMISSIONS_ONLY_FRIEND:
-            return res.getString(R.string.task_only_friend);
+            return "(" +  res.getString(R.string.task_only_friend) + ")";
         case Task.TASK_PERMISSIONS_ONLY_SELF:
-            return res.getString(R.string.task_only_self);
+            return "(" + res.getString(R.string.task_only_self) + ")";
         }
         return "";
     }

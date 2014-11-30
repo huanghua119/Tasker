@@ -1,6 +1,7 @@
 package com.chuanshida.tasker.adapter;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -43,18 +44,19 @@ public class TaskListAdapter extends BaseListAdapter<TaskToUser> {
         final Task task = ttu.getTask();
         ImageView userPhoto = ViewHolder.get(view, R.id.user_photo);
         TextView taskName = ViewHolder.get(view, R.id.task_name);
-        DateTextView taskCreateTime = ViewHolder.get(view, R.id.task_create_time);
-        ImageView taskPermissions = ViewHolder.get(view, R.id.task_permissions);
+        DateTextView taskCreateTime = ViewHolder.get(view,
+                R.id.task_create_time);
+        TextView taskPermissions = ViewHolder.get(view, R.id.task_permissions);
         CheckBox taskStatus = ViewHolder.get(view, R.id.task_status);
 
         taskName.setText(task.getName());
 
-        taskPermissions.setBackgroundResource(CommonUtils
-                .getTaskPermission(task.getPermissions()));
+        taskPermissions.setText(CommonUtils.getTaskPermission(
+                mContext.getResources(), task.getPermissions()));
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String time = sdf.format(task.getCreateAt());
         taskCreateTime.setText("(" + time + ")");
-        
+
         taskStatus.setChecked(ttu.getStatus() == TaskToUser.TASK_STATUS_FINISH);
         setOnInViewClickListener(R.id.user_photo,
                 new onInternalClickListener() {
@@ -66,10 +68,34 @@ public class TaskListAdapter extends BaseListAdapter<TaskToUser> {
                         Bundle b = new Bundle();
                         b.putSerializable("user", task.getCreateUser());
                         intent.putExtras(b);
-                        ((BaseActivity)mContext).startAnimActivity(intent);
+                        ((BaseActivity) mContext).startAnimActivity(intent);
                     }
                 });
+        View timeView = ViewHolder.get(view, R.id.title_time_view);
+        Date section = getSectionForPosition(position);
+        if (position == getPositionForSection(section)) {
+            timeView.setVisibility(View.VISIBLE);
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年MM月dd日");
+            TextView titleTime = ViewHolder.get(view, R.id.title_time);
+            titleTime.setText(sdf2.format(task.getCreateAt()));
+        } else {
+            timeView.setVisibility(View.GONE);
+        }
         return view;
+    }
+
+    public int getPositionForSection(Date section) {
+        for (int i = 0; i < getCount(); i++) {
+            Date sortStr = list.get(i).getTask().getCreateAt();
+            if (sortStr.compareTo(section) == 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Date getSectionForPosition(int position) {
+        return list.get(position).getTask().getCreateAt();
     }
 
 }

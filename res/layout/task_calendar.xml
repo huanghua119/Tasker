@@ -45,8 +45,8 @@
             android:id="@+id/calendar_head_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/calendar_header_bg"
             android:layout_below="@+id/calendar_title_view"
+            android:background="@drawable/calendar_header_bg"
             android:gravity="center_vertical" >
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -119,6 +119,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/activity_bg_color" >
+
+            <ImageView
+                android:layout_width="2.5dip"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="35dip"
+                android:background="@color/timeline_color" />
 
             <com.chuanshida.tasker.view.xlist.XListView
                 android:id="@+id/list_task"

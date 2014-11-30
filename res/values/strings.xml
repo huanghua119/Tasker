@@ -62,7 +62,7 @@
     <string name="loading">正在玩命加载....</string>
     <string name="status_finish">已完成</string>
     <string name="status_progress">进行中</string>
-    <string name="task_public">任务公开</string>
+    <string name="task_public">对所有人公开</string>
     <string name="task_only_friend">仅好友可见</string>
     <string name="task_only_self">仅自己可见</string>
     <string name="search">搜索</string>
