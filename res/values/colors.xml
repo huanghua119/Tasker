@@ -4,12 +4,12 @@
     <color name="send_verify_color">#faa084</color>
     <color name="login_bottom_text_color">#ec6941</color>
     <color name="logo_color">#fff5f1</color>
-    <color name="orange_color">#ED8E6D</color>
+    <color name="orange_color">#d26645</color>
     <color name="xlistview_footer_textcolor">#323131</color>
     <color name="activity_bg_color">#FFFFFF</color>
     <color name="fragment_bg_color">#eeeae9</color>
-    <color name="task_name_color">#777573</color>
-    <color name="task_permissions_color">#797472</color>
+    <color name="task_name_color">#454545</color>
+    <color name="task_permissions_color">#909090</color>
     <color name="user_info_color">#a39b99</color>
 
     <drawable name="list_pressed_bg">#ED8E6D</drawable>
@@ -24,6 +24,7 @@
 
     <color name="lv_score_color">#eb9155</color>
     <color name="timeline_color">#cfcfcf</color>
+    <color name="calendar_header_text_color">#ffe4d1</color>
     <!-- timessquare start -->
     <color name="calendar_active_month_bg">#fff5f7f9</color>
     <color name="calendar_bg">#ffffffff</color>

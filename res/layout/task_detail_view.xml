@@ -34,7 +34,7 @@
             android:layout_centerInParent="true"
             android:text="@string/task_info"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -122,8 +122,8 @@
                     android:drawableLeft="@drawable/task_remark"
                     android:drawablePadding="13dip"
                     android:gravity="center_vertical"
-                    android:textColor="@color/task_permissions_color"
-                    android:textSize="18sp" />
+                    android:textColor="@color/task_name_color"
+                    android:textSize="@dimen/task_permissions_text_size" />
             </RelativeLayout>
 
             <HorizontalScrollView
@@ -163,8 +163,8 @@
                     android:drawablePadding="13dip"
                     android:gravity="center_vertical"
                     android:hint="@string/input_location"
-                    android:textColor="@color/task_permissions_color"
-                    android:textSize="18sp" />
+                    android:textColor="@color/task_name_color"
+                    android:textSize="@dimen/task_permissions_text_size" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -196,8 +196,8 @@
                     android:drawablePadding="13dip"
                     android:gravity="center_vertical"
                     android:text="@string/new_final_date"
-                    android:textColor="@color/task_permissions_color"
-                    android:textSize="18sp" />
+                    android:textColor="@color/task_name_color"
+                    android:textSize="@dimen/task_permissions_text_size" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -228,8 +228,8 @@
                     android:drawableLeft="@drawable/task_repeat"
                     android:drawablePadding="13dip"
                     android:gravity="center_vertical"
-                    android:textColor="@color/task_permissions_color"
-                    android:textSize="18sp" />
+                    android:textColor="@color/task_name_color"
+                    android:textSize="@dimen/task_permissions_text_size" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -259,8 +259,8 @@
                     android:drawableLeft="@drawable/task_remind"
                     android:drawablePadding="13dip"
                     android:gravity="center_vertical"
-                    android:textColor="@color/task_permissions_color"
-                    android:textSize="18sp" />
+                    android:textColor="@color/task_name_color"
+                    android:textSize="@dimen/task_permissions_text_size" />
 
                 <ImageView
                     android:layout_width="wrap_content"

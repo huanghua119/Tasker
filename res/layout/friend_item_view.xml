@@ -20,17 +20,16 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
+        android:layout_height="@dimen/friend_item_height"
         android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="10dip" >
+        android:layout_marginRight="10dip" >
 
         <ImageView
             android:id="@+id/user_photo"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:layout_width="@dimen/item_user_head_size"
+            android:layout_height="@dimen/item_user_head_size"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:background="@drawable/login_head"
             android:contentDescription="@string/action_settings" />
@@ -88,7 +87,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dip"
+        android:layout_height="@dimen/deiver_height"
         android:background="@drawable/driver_color" />
 
 </LinearLayout>

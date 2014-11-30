@@ -26,7 +26,7 @@
                 android:padding="8dip"
                 android:text="@string/action_settings"
                 android:textColor="@android:color/white"
-                android:textSize="22sp" />
+                android:textSize="@dimen/title_text_size" />
 
             <TextView
                 android:id="@+id/calendar_today"
@@ -54,7 +54,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_sunday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -62,7 +62,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_monday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -70,7 +70,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_tuesday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -78,7 +78,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_wednsday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -86,7 +86,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_thursday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -94,7 +94,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_firday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
 
             <LinearLayout style="@style/style_calendar_header_container" >
@@ -102,7 +102,7 @@
                 <TextView
                     style="@style/style_calendar_header_text"
                     android:text="@string/calendar_saturday"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/calendar_header_text_color" />
             </LinearLayout>
         </LinearLayout>
 
@@ -123,7 +123,7 @@
             <ImageView
                 android:layout_width="2.5dip"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="35dip"
+                android:layout_marginLeft="31dip"
                 android:background="@color/timeline_color" />
 
             <com.chuanshida.tasker.view.xlist.XListView

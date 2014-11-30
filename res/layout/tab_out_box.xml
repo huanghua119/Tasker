@@ -32,7 +32,7 @@
             android:layout_centerInParent="true"
             android:text="@string/out_box"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
 
     <FrameLayout

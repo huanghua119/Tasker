@@ -34,7 +34,7 @@
             android:layout_centerInParent="true"
             android:text="@string/new_task"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/title_text_size" />
 
         <TextView
             android:id="@+id/complete"

@@ -20,7 +20,7 @@
             android:layout_centerInParent="true"
             android:text="@string/tab_me"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
 
     <ScrollView
@@ -112,7 +112,7 @@
                 <RelativeLayout
                     android:id="@+id/lv_score"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/task_bottom_height"
                     android:background="@drawable/list_background_bg"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -138,11 +138,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/list_item_padding"
-                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/lv_score"
-                            android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textColor="@color/task_name_color"
+                            android:textSize="@dimen/task_name_text_size" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -167,19 +165,19 @@
                             android:layout_height="wrap_content"
                             android:text="30000豆"
                             android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/task_permissions_text_size" />
                     </LinearLayout>
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dip"
+                    android:layout_height="@dimen/deiver_height"
                     android:background="@drawable/driver_color" />
 
                 <RelativeLayout
                     android:id="@+id/secrecy"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/task_bottom_height"
                     android:background="@drawable/list_background_bg"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -205,11 +203,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/list_item_padding"
-                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/secrecy"
-                            android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textColor="@color/task_name_color"
+                            android:textSize="@dimen/task_name_text_size" />
                     </LinearLayout>
 
                     <ImageView
@@ -224,13 +220,13 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dip"
+                    android:layout_height="@dimen/deiver_height"
                     android:background="@drawable/driver_color" />
 
                 <RelativeLayout
                     android:id="@+id/judgement"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/task_bottom_height"
                     android:background="@drawable/list_background_bg"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -256,11 +252,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/list_item_padding"
-                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/judgement"
-                            android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textColor="@color/task_name_color"
+                            android:textSize="@dimen/task_name_text_size" />
                     </LinearLayout>
 
                     <ImageView
@@ -275,13 +269,13 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dip"
+                    android:layout_height="@dimen/deiver_height"
                     android:background="@drawable/driver_color" />
 
                 <RelativeLayout
                     android:id="@+id/about"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/task_bottom_height"
                     android:background="@drawable/list_background_bg"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -307,11 +301,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/list_item_padding"
-                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/about"
-                            android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textColor="@color/task_name_color"
+                            android:textSize="@dimen/task_name_text_size" />
                     </LinearLayout>
 
                     <ImageView
@@ -335,7 +327,7 @@
                 <RelativeLayout
                     android:id="@+id/appraisal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/task_bottom_height"
                     android:background="@drawable/list_background_bg"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -361,11 +353,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/list_item_padding"
-                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/appraisal"
-                            android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textColor="@color/task_name_color"
+                            android:textSize="@dimen/task_name_text_size" />
                     </LinearLayout>
 
                     <ImageView
@@ -380,13 +370,13 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dip"
+                    android:layout_height="@dimen/deiver_height"
                     android:background="@drawable/driver_color" />
 
                 <RelativeLayout
                     android:id="@+id/upgrade"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/task_bottom_height"
                     android:background="@drawable/list_background_bg"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -412,11 +402,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/list_item_padding"
-                            android:paddingTop="@dimen/list_item_padding"
                             android:text="@string/upgrade"
-                            android:textColor="@color/task_permissions_color"
-                            android:textSize="18sp" />
+                            android:textColor="@color/task_name_color"
+                            android:textSize="@dimen/task_name_text_size" />
                     </LinearLayout>
 
                     <ImageView
