@@ -20,7 +20,7 @@
     <string name="passerror">你输入的密码不正确</string>
     <string name="usernotfind">你输入的手机号不存在</string>
     <string name="login_now">正在登陆....</string>
-    <string name="logout">登出</string>
+    <string name="logout">退出登录</string>
     <string name="namenotnull">请输入手机号!</string>
     <string name="passnotnull">请输入登陆密码!</string>
     <string name="twopassnotpass">确认密码和登陆密码不一置!</string>

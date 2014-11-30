@@ -192,7 +192,7 @@ public class UpdateTaskActivity extends BaseActivity implements OnClickListener 
                     LayoutParams layout = new LayoutParams(150, 200);
                     layout.setMargins(5, 0, 0, 0);
                     img.setLayoutParams(layout);
-                    img.setBackgroundResource(R.drawable.repeat_day);
+                    img.setBackgroundResource(R.drawable.add_photo);
                     mPicGroup.addView(img);
                     mPicGroupParent.setVisibility(View.VISIBLE);
                     mBottomPic.setVisibility(View.GONE);

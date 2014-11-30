@@ -20,7 +20,7 @@
     <string name="passerror">你输入的密码不正确</string>
     <string name="usernotfind">你输入的手机号不存在</string>
     <string name="login_now">正在登陆....</string>
-    <string name="logout">登出</string>
+    <string name="logout">退出登录</string>
     <string name="namenotnull">请输入手机号!</string>
     <string name="passnotnull">请输入登陆密码!</string>
     <string name="twopassnotpass">确认密码和登陆密码不一置!</string>
@@ -153,10 +153,12 @@
     <string name="task_name_same">已存在相同名称的任务</string>
     <string name="task_new_success">任务创建成功...</string>
     <string name="add_pic">添加图片</string>
+
     <string-array name="add_pic_array">
         <item>拍照</item>
         <item>从手机相册选择</item>
     </string-array>
+
     <string name="pic_added">已经添加过些图片</string>
     <string name="sure_delete">确定要删除这张照片吗？</string>
     <string name="alert">提示</string>

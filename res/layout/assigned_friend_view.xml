@@ -26,12 +26,11 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:clickable="true"
-                android:onClick="onBack"
                 android:drawableLeft="@drawable/back_left_bg"
                 android:drawablePadding="10dip"
                 android:gravity="center_vertical"
+                android:onClick="onBack"
                 android:paddingLeft="15dip"
-                android:text="@string/back"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
@@ -46,12 +45,13 @@
             <TextView
                 android:id="@+id/complete"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
+                android:layout_marginRight="15dip"
+                android:background="@drawable/complete_button_bg"
+                android:clickable="true"
                 android:gravity="center_vertical"
-                android:paddingRight="10dip"
-                android:text="@string/complete"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
         </RelativeLayout>
@@ -126,8 +126,8 @@
                     android:divider="@null"
                     android:dividerHeight="0dip"
                     android:fadingEdgeLength="0dp"
-                    android:scrollbars="none"
-                    android:fastScrollEnabled="false" />
+                    android:fastScrollEnabled="false"
+                    android:scrollbars="none" />
             </LinearLayout>
 
             <TextView

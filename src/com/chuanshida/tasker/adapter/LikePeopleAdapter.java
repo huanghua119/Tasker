@@ -41,7 +41,7 @@ public class LikePeopleAdapter extends BaseListAdapter<User> {
         userName.setText(user.getUsername());
         Button addFriend = ViewHolder.get(view, R.id.add_friend);
         addFriend.setText(R.string.add_friend);
-        addFriend.setBackgroundResource(R.drawable.verify_btn__bg);
+        addFriend.setBackgroundResource(R.drawable.orange_button_bg);
         addFriend.setTextColor(mContext.getResources().getColor(
                 R.color.send_verify_color));
         addFriend.setVisibility(View.VISIBLE);

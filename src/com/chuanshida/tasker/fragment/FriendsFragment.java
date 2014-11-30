@@ -103,14 +103,14 @@ public class FriendsFragment extends FragmentBase implements
             if (groupPosition == 1) {
                 if (childPosition == getChildrenCount(groupPosition) - 1) {
                     addFriend.setText(R.string.invite_ta);
-                    addFriend.setBackgroundResource(R.drawable.invite_btn_bg);
+                    addFriend.setBackgroundResource(R.drawable.gray_button_bg);
                     addFriend.setTextColor(getResources().getColor(
                             R.color.invite_friend_color));
                     userName.setTextColor(getResources().getColor(
                             R.color.invite_friend_color));
                 } else {
                     addFriend.setText(R.string.add_friend);
-                    addFriend.setBackgroundResource(R.drawable.verify_btn__bg);
+                    addFriend.setBackgroundResource(R.drawable.orange_button_bg);
                     addFriend.setTextColor(getResources().getColor(
                             R.color.send_verify_color));
                     userName.setTextColor(getResources().getColor(

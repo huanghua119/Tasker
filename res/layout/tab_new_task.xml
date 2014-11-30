@@ -23,7 +23,6 @@
             android:drawablePadding="10dip"
             android:gravity="center_vertical"
             android:paddingLeft="15dip"
-            android:text="@string/back"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -39,12 +38,14 @@
         <TextView
             android:id="@+id/complete"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
+            android:layout_marginRight="15dip"
+            android:background="@drawable/complete_button_bg"
+            android:clickable="true"
             android:gravity="center_vertical"
-            android:paddingRight="10dip"
-            android:text="@string/complete"
+            android:onClick="onComplete"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -84,8 +85,8 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="@string/new_assigned"
-                    android:textSize="19sp"
-                    android:padding="20dip" />
+                    android:padding="20dip"
+                    android:textSize="19sp" />
 
                 <View
                     android:layout_width="match_parent"

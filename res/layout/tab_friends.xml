@@ -55,7 +55,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/edit_view_bg"
+                android:background="@drawable/search_bg"
                 android:drawableLeft="@drawable/search"
                 android:drawablePadding="8dip"
                 android:hint="@string/search"

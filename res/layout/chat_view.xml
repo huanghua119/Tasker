@@ -24,7 +24,6 @@
             android:gravity="center_vertical"
             android:onClick="onBack"
             android:paddingLeft="15dip"
-            android:text="@string/back"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -42,9 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:background="@drawable/me_pressed"
-            android:gravity="center_vertical"
-            android:layout_marginRight="10dip" />
+            android:layout_marginRight="10dip"
+            android:background="@drawable/chat_contact_bg"
+            android:clickable="true"
+            android:gravity="center_vertical" />
     </RelativeLayout>
 
     <ListView
@@ -71,9 +71,10 @@
             android:id="@+id/chat_expression"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
+            android:layout_gravity="left|top"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
+            android:layout_marginTop="2dip"
             android:background="@drawable/expression_button_bg"
             android:contentDescription="@string/app_name" />
 
@@ -81,27 +82,29 @@
             android:id="@+id/chat_context"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/chat_edit"
             android:inputType="none"
-            android:maxLines="3"
+            android:maxLines="5"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/send_context"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center_vertical"
+            android:layout_height="34dip"
+            android:layout_gravity="top"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
+            android:background="@drawable/red_range_button_bg"
+            android:gravity="center_vertical"
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:text="@string/send"
-            android:textColor="@color/orange_color"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

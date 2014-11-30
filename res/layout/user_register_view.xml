@@ -23,7 +23,6 @@
             android:gravity="center_vertical"
             android:onClick="onBack"
             android:paddingLeft="15dip"
-            android:text="@string/back"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -109,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dip"
                 android:layout_marginTop="4dip"
-                android:background="@drawable/verify_btn__bg"
+                android:background="@drawable/orange_button_bg"
                 android:text="@string/send_verify"
                 android:textColor="@color/send_verify_color"
                 android:textSize="16sp" />
