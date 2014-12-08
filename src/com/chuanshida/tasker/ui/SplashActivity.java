@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import cn.bmob.v3.Bmob;
+
 import com.chuanshida.tasker.R;
+import com.chuanshida.tasker.config.Config;
 
 /**
  * 引导页
@@ -20,6 +23,9 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        // BmobIM SDK初始化--只需要这一段代码即可完成初始化
+        Bmob.initialize(this, Config.applicationId);
+        userManager.initCurrentUser();
 
         if (userManager.getCurrentUser() == null) {
             mHandler.sendEmptyMessageDelayed(GO_LOGIN, 2000);
